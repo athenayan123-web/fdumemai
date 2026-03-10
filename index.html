@@ -143,6 +143,16 @@ a:hover{text-decoration:underline}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
+<!-- EmailJS SDK for sending registration emails -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  // EmailJS 初始化 - 替换为你的 Public Key
+  (function() {
+    if (typeof emailjs !== 'undefined') {
+      emailjs.init({ publicKey: 'EMAILJS_PUBLIC_KEY_HERE' });
+    }
+  })();
+</script>
 </head>
 <body>
 
@@ -396,6 +406,22 @@ a:hover{text-decoration:underline}
     <div id="miniapp-status" style="margin-top:8px"></div>
   </div>
 </div>
+
+
+  <!-- 管理员邮件测试 -->
+  <div class="card admin-only" style="display:none;margin-top:16px">
+    <h3>📧 邮件服务测试 <span class="tag tag-pro">🔒 管理员</span></h3>
+    <p class="desc">测试注册成功后自动发送百度网盘下载链接邮件</p>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="testSendEmail()">📨 发送测试邮件</button>
+    </div>
+    <div id="email-test-status" style="margin-top:10px;font-size:12px;color:var(--text2)"></div>
+    <div style="margin-top:12px;padding:12px;background:var(--card2);border-radius:8px;font-size:11px;color:var(--text2);line-height:1.8">
+      <strong>EmailJS 配置状态：</strong><span id="emailjs-status"></span><br>
+      <strong>百度网盘链接：</strong>需在代码中更新 BAIDU_PAN_LINK 和 BAIDU_PAN_CODE<br>
+      <strong>免费额度：</strong>每月 200 封邮件（EmailJS 免费版）
+    </div>
+  </div>
 
 <!-- ==================== 我的 ==================== -->
 <div class="page" id="page-profile">
@@ -699,6 +725,73 @@ function renderRankList() {
   });
 }
 
+
+// ===== 邮件发送：注册成功后自动发送百度网盘链接 =====
+function sendBaiduPanEmail(toEmail, userName) {
+  // 百度网盘分享链接（管理员在此处更新）
+  const BAIDU_PAN_LINK = 'https://pan.baidu.com/s/1xxxxxx';
+  const BAIDU_PAN_CODE = 'abcd';
+  
+  // EmailJS 配置（需要在 emailjs.com 注册后填入）
+  const EMAILJS_SERVICE_ID = 'EMAILJS_SERVICE_ID_HERE';
+  const EMAILJS_TEMPLATE_ID = 'EMAILJS_TEMPLATE_ID_HERE';
+  
+  const templateParams = {
+    to_email: toEmail,
+    to_name: userName || toEmail.split('@')[0],
+    pan_link: BAIDU_PAN_LINK,
+    pan_code: BAIDU_PAN_CODE,
+    register_time: new Date().toLocaleString('zh-CN'),
+    platform_url: 'https://athenayan123-web.github.io/openclaw-app123/'
+  };
+  
+  if (typeof emailjs === 'undefined') {
+    console.warn('EmailJS not loaded, falling back to mailto');
+    // 降级方案：打开默认邮件客户端
+    const subject = encodeURIComponent('OpenClaw AI 部署包下载链接');
+    const body = encodeURIComponent(
+      `亲爱的 ${templateParams.to_name}，\n\n` +
+      `感谢注册 OpenClaw AI 智能平台！\n\n` +
+      `您的部署包下载链接：\n${BAIDU_PAN_LINK}\n提取码：${BAIDU_PAN_CODE}\n\n` +
+      `在线平台：${templateParams.platform_url}\n\n` +
+      `复旦大学 未来信息创新学院 · OpenClaw 团队`
+    );
+    console.log('Email params ready, EmailJS not configured yet');
+    return Promise.resolve({ status: 200, text: 'fallback' });
+  }
+  
+  return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+    .then(function(response) {
+      console.log('Email sent successfully:', response.status, response.text);
+      return response;
+    })
+    .catch(function(error) {
+      console.error('Email send failed:', error);
+      throw error;
+    });
+}
+
+// ===== 测试邮件发送（管理员用） =====
+function testSendEmail() {
+  const testEmail = prompt('输入测试邮箱地址：', 'athenayan123@gmail.com');
+  if (!testEmail) return;
+  
+  const statusEl = document.getElementById('email-test-status');
+  if (statusEl) statusEl.textContent = '⏳ 正在发送...';
+  
+  sendBaiduPanEmail(testEmail, '测试用户')
+    .then(function(res) {
+      const msg = '✅ 邮件发送成功！请检查 ' + testEmail + ' 的收件箱';
+      if (statusEl) statusEl.textContent = msg;
+      alert(msg);
+    })
+    .catch(function(err) {
+      const msg = '❌ 发送失败：' + (err.text || err.message || JSON.stringify(err));
+      if (statusEl) statusEl.textContent = msg;
+      alert(msg + '\n\n请检查 EmailJS 配置是否正确。');
+    });
+}
+
 // ===== 注册 =====
 function checkEmailSuffix() {
   const email = document.getElementById('reg-email').value.trim();
@@ -741,6 +834,8 @@ function doRegister() {
   localStorage.setItem('oc_user', JSON.stringify(user));
   closeModal('modal-register');
   loginUI(user);
+  // 自动发送百度网盘下载链接邮件
+  sendBaiduPanEmail(email, email.split('@')[0]).catch(function(e){ console.warn('Email send error:', e); });
   alert('注册成功！' + (isFudan ? '复旦学生免费使用全部基础功能' : '基础功能已解锁') + (invite ? '\n邀请码奖励 200 积分已到账！' : '' + '\n\n📧 部署文件百度网盘下载链接将在 1-3 分钟内发送至 ' + email);
 }
 

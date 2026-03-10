@@ -1,0 +1,514 @@
+// OpenClaw AI 全网比价 - 自动生成数据文件
+// 更新时间: 2026-03-10 22:50:40
+// 复旦大学2025未来信息创新学院工程管理宣委
+
+const PRICING_META = {"version": "2.2", "updated_at": "2026-03-10T22:50:40.119995", "source": "OpenClaw AI 全网比价智能平台", "author": "复旦大学2025未来信息创新学院工程管理宣委", "providers_count": 11, "models_count": 19, "gpu_count": 10, "coding_count": 10};
+
+const API_DATA = [
+  {
+    "provider": "OpenAI",
+    "model": "GPT-4o",
+    "input": "$2.50/1M",
+    "output": "$10.00/1M",
+    "context": "128K",
+    "region": "国际",
+    "url": "https://platform.openai.com/signup",
+    "logo": "🟢",
+    "tag": "hot"
+  },
+  {
+    "provider": "OpenAI",
+    "model": "GPT-4o-mini",
+    "input": "$0.15/1M",
+    "output": "$0.60/1M",
+    "context": "128K",
+    "region": "国际",
+    "url": "https://platform.openai.com/signup",
+    "logo": "🟢",
+    "tag": "low"
+  },
+  {
+    "provider": "OpenAI",
+    "model": "GPT-4.1",
+    "input": "$2.00/1M",
+    "output": "$8.00/1M",
+    "context": "1M",
+    "region": "国际",
+    "url": "https://platform.openai.com/signup",
+    "logo": "🟢",
+    "tag": "new"
+  },
+  {
+    "provider": "OpenAI",
+    "model": "o3-mini",
+    "input": "$1.10/1M",
+    "output": "$4.40/1M",
+    "context": "200K",
+    "region": "国际",
+    "url": "https://platform.openai.com/signup",
+    "logo": "🟢",
+    "tag": ""
+  },
+  {
+    "provider": "Anthropic",
+    "model": "Claude 3.5 Sonnet",
+    "input": "$3.00/1M",
+    "output": "$15.00/1M",
+    "context": "200K",
+    "region": "国际",
+    "url": "https://console.anthropic.com/",
+    "logo": "🟠",
+    "tag": "hot"
+  },
+  {
+    "provider": "Anthropic",
+    "model": "Claude 3.5 Haiku",
+    "input": "$0.80/1M",
+    "output": "$4.00/1M",
+    "context": "200K",
+    "region": "国际",
+    "url": "https://console.anthropic.com/",
+    "logo": "🟠",
+    "tag": ""
+  },
+  {
+    "provider": "Anthropic",
+    "model": "Claude 3 Opus",
+    "input": "$15.00/1M",
+    "output": "$75.00/1M",
+    "context": "200K",
+    "region": "国际",
+    "url": "https://console.anthropic.com/",
+    "logo": "🟠",
+    "tag": ""
+  },
+  {
+    "provider": "Google",
+    "model": "Gemini 1.5 Pro",
+    "input": "$1.25/1M",
+    "output": "$5.00/1M",
+    "context": "2M",
+    "region": "国际",
+    "url": "https://aistudio.google.com/",
+    "logo": "🔵",
+    "tag": "new"
+  },
+  {
+    "provider": "Google",
+    "model": "Gemini 2.0 Flash",
+    "input": "$0.10/1M",
+    "output": "$0.40/1M",
+    "context": "1M",
+    "region": "国际",
+    "url": "https://aistudio.google.com/",
+    "logo": "🔵",
+    "tag": "low"
+  },
+  {
+    "provider": "Google",
+    "model": "Gemini 1.5 Flash",
+    "input": "$0.075/1M",
+    "output": "$0.30/1M",
+    "context": "1M",
+    "region": "国际",
+    "url": "https://aistudio.google.com/",
+    "logo": "🔵",
+    "tag": "low"
+  },
+  {
+    "provider": "DeepSeek",
+    "model": "DeepSeek-V3",
+    "input": "¥1.00/1M",
+    "output": "¥2.00/1M",
+    "context": "128K",
+    "region": "国内",
+    "url": "https://platform.deepseek.com/",
+    "logo": "🐋",
+    "tag": "hot"
+  },
+  {
+    "provider": "DeepSeek",
+    "model": "DeepSeek-R1",
+    "input": "¥4.00/1M",
+    "output": "¥16.00/1M",
+    "context": "128K",
+    "region": "国内",
+    "url": "https://platform.deepseek.com/",
+    "logo": "🐋",
+    "tag": "new"
+  },
+  {
+    "provider": "Moonshot",
+    "model": "Kimi-128K",
+    "input": "¥12.00/1M",
+    "output": "¥12.00/1M",
+    "context": "128K",
+    "region": "国内",
+    "url": "https://platform.moonshot.cn/",
+    "logo": "🌙",
+    "tag": ""
+  },
+  {
+    "provider": "阶跃星辰",
+    "model": "Step-2-16K",
+    "input": "¥4.00/1M",
+    "output": "¥16.00/1M",
+    "context": "16K",
+    "region": "国内",
+    "url": "https://platform.stepfun.com/",
+    "logo": "⭐",
+    "tag": ""
+  },
+  {
+    "provider": "智谱AI",
+    "model": "GLM-4-Plus",
+    "input": "¥5.00/1M",
+    "output": "¥5.00/1M",
+    "context": "128K",
+    "region": "国内",
+    "url": "https://open.bigmodel.cn/",
+    "logo": "🔮",
+    "tag": ""
+  },
+  {
+    "provider": "百度",
+    "model": "ERNIE 4.0",
+    "input": "¥8.00/1M",
+    "output": "¥8.00/1M",
+    "context": "128K",
+    "region": "国内",
+    "url": "https://cloud.baidu.com/",
+    "logo": "🐻",
+    "tag": ""
+  },
+  {
+    "provider": "腾讯混元",
+    "model": "Hunyuan-Pro",
+    "input": "¥3.00/1M",
+    "output": "¥9.00/1M",
+    "context": "32K",
+    "region": "国内",
+    "url": "https://cloud.tencent.com/product/hunyuan",
+    "logo": "🐧",
+    "tag": ""
+  },
+  {
+    "provider": "字节火山",
+    "model": "Doubao-Pro-128K",
+    "input": "¥0.80/1M",
+    "output": "¥2.00/1M",
+    "context": "128K",
+    "region": "国内",
+    "url": "https://www.volcengine.com/product/doubao",
+    "logo": "🔥",
+    "tag": "low"
+  },
+  {
+    "provider": "小米",
+    "model": "MiLM",
+    "input": "¥2.00/1M",
+    "output": "¥6.00/1M",
+    "context": "32K",
+    "region": "国内",
+    "url": "https://xiaoai.mi.com/",
+    "logo": "🍊",
+    "tag": "new"
+  }
+];
+
+const GPU_DATA = [
+  {
+    "name": "NVIDIA A100 80G",
+    "brand": "nvidia",
+    "source": "turing",
+    "cards": "1卡 A100",
+    "spec": "80GB HBM2e · 16 vCPU · 120GB",
+    "price": 92.29,
+    "originalPrice": null,
+    "stock": "充足",
+    "promo": false,
+    "promoEnd": null,
+    "url": "https://www.turingapi.com/",
+    "unit": "图灵币/时"
+  },
+  {
+    "name": "NVIDIA A100 80G×4",
+    "brand": "nvidia",
+    "source": "turing",
+    "cards": "4卡 A100",
+    "spec": "320GB HBM2e · 64 vCPU · 480GB",
+    "price": 368.99,
+    "originalPrice": null,
+    "stock": "紧张",
+    "promo": false,
+    "promoEnd": null,
+    "url": "https://www.turingapi.com/",
+    "unit": "图灵币/时"
+  },
+  {
+    "name": "NVIDIA H800 80G",
+    "brand": "nvidia",
+    "source": "turing",
+    "cards": "1卡 H800",
+    "spec": "80GB HBM3 · 16 vCPU · 120GB",
+    "price": 145.5,
+    "originalPrice": null,
+    "stock": "充足",
+    "promo": false,
+    "promoEnd": null,
+    "url": "https://www.turingapi.com/",
+    "unit": "图灵币/时"
+  },
+  {
+    "name": "NVIDIA H800 80G×8",
+    "brand": "nvidia",
+    "source": "turing",
+    "cards": "8卡 H800",
+    "spec": "640GB HBM3 · 128 vCPU · 960GB",
+    "price": 1099.0,
+    "originalPrice": 1299.0,
+    "stock": "紧张",
+    "promo": true,
+    "promoEnd": "2026-04-30",
+    "url": "https://www.turingapi.com/",
+    "unit": "图灵币/时"
+  },
+  {
+    "name": "沐曦 MetaX C500",
+    "brand": "metax",
+    "source": "turing",
+    "cards": "1卡 C500",
+    "spec": "64GB HBM2e · 16 vCPU · 120GB",
+    "price": 52.0,
+    "originalPrice": 68.0,
+    "stock": "充足",
+    "promo": true,
+    "promoEnd": "2026-04-15",
+    "url": "https://www.turingapi.com/",
+    "unit": "图灵币/时"
+  },
+  {
+    "name": "沐曦 MetaX C500×4",
+    "brand": "metax",
+    "source": "turing",
+    "cards": "4卡 C500",
+    "spec": "256GB HBM2e · 64 vCPU · 480GB",
+    "price": 199.0,
+    "originalPrice": 260.0,
+    "stock": "充足",
+    "promo": true,
+    "promoEnd": "2026-04-15",
+    "url": "https://www.turingapi.com/",
+    "unit": "图灵币/时"
+  },
+  {
+    "name": "AWS p4d.24xlarge",
+    "brand": "nvidia",
+    "source": "intl",
+    "cards": "8卡 A100",
+    "spec": "320GB HBM2e · 96 vCPU · 1152GB",
+    "price": 32.77,
+    "originalPrice": null,
+    "stock": "充足",
+    "promo": false,
+    "promoEnd": null,
+    "url": "https://aws.amazon.com/ec2/instance-types/p4/",
+    "unit": "$/h"
+  },
+  {
+    "name": "Google Cloud a2-highgpu-1g",
+    "brand": "nvidia",
+    "source": "intl",
+    "cards": "1卡 A100",
+    "spec": "40GB HBM2e · 12 vCPU · 85GB",
+    "price": 3.67,
+    "originalPrice": null,
+    "stock": "充足",
+    "promo": false,
+    "promoEnd": null,
+    "url": "https://cloud.google.com/compute/gpus-pricing",
+    "unit": "$/h"
+  },
+  {
+    "name": "Azure ND96amsr A100 v4",
+    "brand": "nvidia",
+    "source": "intl",
+    "cards": "8卡 A100",
+    "spec": "640GB HBM2e · 96 vCPU · 1900GB",
+    "price": 27.2,
+    "originalPrice": null,
+    "stock": "充足",
+    "promo": false,
+    "promoEnd": null,
+    "url": "https://azure.microsoft.com/pricing/details/virtual-machines/",
+    "unit": "$/h"
+  },
+  {
+    "name": "Lambda Cloud A100",
+    "brand": "nvidia",
+    "source": "intl",
+    "cards": "1卡 A100",
+    "spec": "80GB HBM2e · 30 vCPU · 200GB",
+    "price": 1.1,
+    "originalPrice": null,
+    "stock": "充足",
+    "promo": false,
+    "promoEnd": null,
+    "url": "https://lambdalabs.com/service/gpu-cloud",
+    "unit": "$/h"
+  }
+];
+
+const CODING_DATA = [
+  {
+    "product": "GitHub Copilot",
+    "plan": "Individual",
+    "monthly": "$10",
+    "yearly": "$8.33",
+    "features": "代码补全、Chat、CLI",
+    "region": "国际",
+    "url": "https://github.com/features/copilot",
+    "logo": "🐙"
+  },
+  {
+    "product": "GitHub Copilot",
+    "plan": "Business",
+    "monthly": "$19",
+    "yearly": "$19",
+    "features": "团队管理、策略控制、IP保护",
+    "region": "国际",
+    "url": "https://github.com/features/copilot",
+    "logo": "🐙"
+  },
+  {
+    "product": "Cursor",
+    "plan": "Pro",
+    "monthly": "$20",
+    "yearly": "$16.67",
+    "features": "无限补全、500次快速请求",
+    "region": "国际",
+    "url": "https://cursor.com/",
+    "logo": "⚡"
+  },
+  {
+    "product": "Cursor",
+    "plan": "Business",
+    "monthly": "$40",
+    "yearly": "$33.33",
+    "features": "团队协作、集中计费、管理后台",
+    "region": "国际",
+    "url": "https://cursor.com/",
+    "logo": "⚡"
+  },
+  {
+    "product": "Windsurf",
+    "plan": "Pro",
+    "monthly": "$15",
+    "yearly": "$12.50",
+    "features": "AI Flow、多模型切换",
+    "region": "国际",
+    "url": "https://codeium.com/windsurf",
+    "logo": "🏄"
+  },
+  {
+    "product": "Augment Code",
+    "plan": "Pro",
+    "monthly": "$30",
+    "yearly": "$25",
+    "features": "全仓库上下文、多文件编辑",
+    "region": "国际",
+    "url": "https://www.augmentcode.com/",
+    "logo": "🧩"
+  },
+  {
+    "product": "通义灵码",
+    "plan": "个人版",
+    "monthly": "免费",
+    "yearly": "免费",
+    "features": "代码补全、单元测试生成",
+    "region": "国内",
+    "url": "https://tongyi.aliyun.com/lingma",
+    "logo": "🌐"
+  },
+  {
+    "product": "Tencent Cloud AI Code",
+    "plan": "基础版",
+    "monthly": "免费",
+    "yearly": "免费",
+    "features": "代码补全、代码解释",
+    "region": "国内",
+    "url": "https://cloud.tencent.com/product/acc",
+    "logo": "🐧"
+  },
+  {
+    "product": "Baidu Comate",
+    "plan": "个人版",
+    "monthly": "免费",
+    "yearly": "免费",
+    "features": "代码生成、智能补全",
+    "region": "国内",
+    "url": "https://comate.baidu.com/",
+    "logo": "🐻"
+  },
+  {
+    "product": "MarsCode",
+    "plan": "个人版",
+    "monthly": "免费",
+    "yearly": "免费",
+    "features": "AI补全、Chat、多语言",
+    "region": "国内",
+    "url": "https://www.marscode.com/",
+    "logo": "🚀"
+  }
+];
+
+const CLAW_DATA = [
+  {
+    "name": "OpenClaw",
+    "icon": "🦞",
+    "desc": "通用AI自动化平台，一键部署，浏览器自动化+文件生成",
+    "url": "https://oneclaw.cn/",
+    "doc": "https://oneclaw.cn/docs/",
+    "open": true
+  },
+  {
+    "name": "QClaw",
+    "icon": "🐧",
+    "desc": "腾讯云深度集成，企业级AI工作流与混元大模型协同",
+    "url": "https://cloud.tencent.com/",
+    "doc": "#",
+    "open": false
+  },
+  {
+    "name": "KimiClaw",
+    "icon": "🌙",
+    "desc": "Moonshot Kimi长文本AI助手，128K超长上下文处理",
+    "url": "https://kimi.moonshot.cn/",
+    "doc": "#",
+    "open": false
+  },
+  {
+    "name": "JVSClaw",
+    "icon": "🔧",
+    "desc": "企业级低代码+AI平台，快速构建业务应用",
+    "url": "https://www.jvs.cn/",
+    "doc": "#",
+    "open": false
+  },
+  {
+    "name": "WorkBuddy",
+    "icon": "🤝",
+    "desc": "AI办公助手，文档处理、会议纪要、任务管理一体化",
+    "url": "#",
+    "doc": "#",
+    "open": false
+  },
+  {
+    "name": "ArkClaw",
+    "icon": "🔥",
+    "desc": "字节火山引擎AI开发平台，Doubao模型+云原生部署",
+    "url": "https://www.volcengine.com/",
+    "doc": "#",
+    "open": false
+  }
+];
