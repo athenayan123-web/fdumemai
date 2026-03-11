@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -291,16 +291,18 @@ a:hover{text-decoration:underline}
 <!-- ==================== 一键部署 ==================== -->
 <div class="page" id="page-deploy">
   <div class="card">
-    <h2>🚀 一键部署</h2>
+    <h2>🚀 Qclaw内测</h2>
     <p class="desc">自动安装 OpenClaw · 配置模型 · 启动网关 · 创建多 Agent 工作流</p>
     <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px;font-family:Consolas,monospace;font-size:12px;max-height:360px;overflow-y:auto;line-height:1.8" id="deploy-terminal">
-      <div style="color:var(--green)">$ 等待部署指令...</div>
+      <div style="color:var(--green)">$ Qclaw 内测申请通道已开启...</div>
+      <div style="color:var(--text2);margin-top:8px">📋 请填写腾讯问卷申请内测资格</div>
+      <div style="color:var(--gold);margin-top:8px">⚡ 名额有限，先填先得！</div>
     </div>
     <div style="height:4px;background:var(--card);border-radius:2px;margin:16px 0;overflow:hidden">
-      <div id="deploy-progress" style="height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:2px;transition:width .5s"></div>
+      <div id="deploy-progress" style="height:100%;width:100%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:2px;transition:width .5s"></div>
     </div>
     <div class="btn-group">
-      <button class="btn btn-primary" id="btn-deploy" onclick="runDeploy()">▶️ 开始部署</button>
+      <a class="btn btn-primary" href="https://wj.qq.com/s2/25871229/abe7/" target="_blank">📝 填写内测申请</a>
       <a class="btn btn-green" href="http://localhost:18789" target="_blank">🌐 打开 Web UI</a>
       <button class="btn btn-outline" onclick="openModal('modal-agents')">🤖 查看 Agent</button>
     </div>
@@ -1022,3 +1024,5 @@ function checkGateway() {
 </script>
 </body>
 </html>
+
+
