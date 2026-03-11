@@ -1,0 +1,1028 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenClaw AI 智能平台 v2.0</title>
+<style>
+:root{--bg:#06061a;--card:rgba(255,255,255,0.04);--card2:rgba(255,255,255,0.07);--border:rgba(255,255,255,0.08);--accent:#667eea;--accent2:#764ba2;--green:#00e676;--red:#ff5252;--orange:#ffab40;--gold:#ffd700;--text:#e8e8e8;--text2:rgba(255,255,255,0.5);--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ===== 顶栏 ===== */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(6,6,26,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:800}
+.logo .icon{font-size:26px}
+.logo .brand{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo .sub{font-size:11px;color:var(--text2);font-weight:400;margin-left:4px}
+.top-right{display:flex;align-items:center;gap:12px}
+.top-btn{padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.top-btn.login{background:transparent;color:var(--accent);border:1px solid rgba(102,126,234,.4)}
+.top-btn.login:hover{background:rgba(102,126,234,.15)}
+.top-btn.register{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.top-btn.register:hover{transform:scale(1.03)}
+.user-badge{display:none;align-items:center;gap:8px;padding:4px 14px 4px 8px;border-radius:20px;background:var(--card2);border:1px solid var(--border);font-size:13px;cursor:pointer}
+.user-badge .avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff}
+.user-badge .pts{color:var(--gold);font-weight:700;font-size:12px}
+
+/* ===== 导航 ===== */
+.nav{position:fixed;top:56px;left:0;right:0;z-index:199;background:rgba(6,6,26,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;height:44px;display:flex;align-items:center;gap:4px;overflow-x:auto}
+.nav-item{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;color:var(--text2);transition:all .2s;white-space:nowrap;border:none;background:none}
+.nav-item:hover{color:var(--text);background:var(--card2)}
+.nav-item.active{color:var(--accent);background:rgba(102,126,234,.12);box-shadow:0 0 12px rgba(102,126,234,.15)}
+
+/* ===== 主体 ===== */
+.main{padding:120px 28px 80px;max-width:1100px;margin:0 auto}
+.page{display:none}
+.page.active{display:block}
+
+/* ===== 卡片 ===== */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px;margin-bottom:20px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--green))}
+.card h2{font-size:20px;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.card h3{font-size:15px;margin-bottom:10px;color:var(--text)}
+.card .desc{font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.7}
+
+/* ===== GPU 网格 ===== */
+.gpu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.gpu-card{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:18px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.gpu-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 30px rgba(102,126,234,.15)}
+.gpu-card .gpu-brand{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:6px}
+.gpu-card .gpu-brand.nvidia{color:#76b900}
+.gpu-card .gpu-brand.metax{color:#e040fb}
+.gpu-card .gpu-name{font-size:15px;font-weight:700;margin-bottom:4px}
+.gpu-card .gpu-spec{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px}
+.gpu-card .gpu-bottom{display:flex;justify-content:space-between;align-items:flex-end}
+.gpu-card .gpu-price{font-size:16px;font-weight:800;color:var(--green)}
+.gpu-card .gpu-price .unit{font-size:11px;font-weight:400;color:var(--text2)}
+.gpu-card .gpu-price .original{font-size:11px;color:var(--text2);text-decoration:line-through;margin-left:6px}
+.gpu-card .gpu-status{font-size:11px;padding:3px 10px;border-radius:10px}
+.gpu-card .gpu-status.ok{background:rgba(0,230,118,.1);color:var(--green)}
+.gpu-card .gpu-status.warn{background:rgba(255,171,64,.1);color:var(--orange)}
+.gpu-card .gpu-status.out{background:rgba(255,82,82,.1);color:var(--red)}
+.gpu-card .gpu-timer{position:absolute;top:12px;right:12px;background:rgba(255,82,82,.15);color:var(--red);font-size:10px;padding:3px 8px;border-radius:8px;font-weight:700;display:none}
+.gpu-card .gpu-timer.show{display:block}
+
+/* ===== 按钮 ===== */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none}
+.btn:hover{transform:translateY(-1px);text-decoration:none}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.btn-green{background:rgba(0,230,118,.15);color:var(--green);border:1px solid rgba(0,230,118,.3)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a2e}
+.btn-sm{padding:7px 14px;font-size:12px;border-radius:8px}
+.btn-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+
+/* ===== 输入 ===== */
+.input{width:100%;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-size:14px;transition:border-color .2s}
+.input:focus{outline:none;border-color:var(--accent)}
+.input-group{display:flex;gap:8px;margin:10px 0}
+.input-label{font-size:12px;color:var(--text2);margin-bottom:4px;display:block}
+
+/* ===== 弹窗 ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:300;display:none;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:#12122e;border:1px solid var(--border);border-radius:20px;padding:36px;max-width:440px;width:92%;position:relative;animation:modalIn .3s ease}
+@keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.modal h3{font-size:18px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.modal .close{position:absolute;top:16px;right:18px;font-size:20px;cursor:pointer;color:var(--text2);background:none;border:none}
+.modal .close:hover{color:var(--text)}
+
+/* ===== 排行榜 ===== */
+.rank-list{list-style:none}
+.rank-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;margin-bottom:6px;background:var(--card2);transition:background .2s}
+.rank-item:hover{background:rgba(255,255,255,.06)}
+.rank-item .rank-pos{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+.rank-item:nth-child(1) .rank-pos{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a2e}
+.rank-item:nth-child(2) .rank-pos{background:linear-gradient(135deg,#c0c0c0,#a0a0a0);color:#1a1a2e}
+.rank-item:nth-child(3) .rank-pos{background:linear-gradient(135deg,#cd7f32,#a0522d);color:#fff}
+.rank-item .rank-name{flex:1;font-size:13px;font-weight:600}
+.rank-item .rank-pts{font-size:13px;font-weight:700;color:var(--gold)}
+
+/* ===== 计费面板 ===== */
+.billing-panel{background:rgba(0,230,118,.04);border:1px solid rgba(0,230,118,.15);border-radius:12px;padding:20px;margin-top:16px}
+.billing-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04)}
+.billing-row:last-child{border-bottom:none}
+.billing-row .label{color:var(--text2)}
+.billing-row .val{font-weight:600}
+
+/* ===== 二维码 ===== */
+.qr-box{text-align:center;padding:24px;background:var(--card2);border-radius:14px;margin:16px 0}
+.qr-box .qr-placeholder{width:180px;height:180px;margin:0 auto 12px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#333}
+.qr-box .qr-label{font-size:13px;color:var(--text2)}
+.qr-box .qr-price{font-size:28px;font-weight:800;color:var(--green);margin:8px 0}
+
+/* ===== 标签 ===== */
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600}
+.tag-free{background:rgba(0,230,118,.12);color:var(--green)}
+.tag-pro{background:rgba(255,215,0,.12);color:var(--gold)}
+.tag-hot{background:rgba(255,82,82,.12);color:var(--red)}
+.tag-new{background:rgba(102,126,234,.12);color:var(--accent)}
+
+/* ===== 底栏 ===== */
+.bottombar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(6,6,26,.95);backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:10px 28px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text2)}
+.bottombar .status{display:flex;align-items:center;gap:6px}
+.bottombar .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ===== 统计卡 ===== */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--card2);border-radius:12px;padding:16px;text-align:center}
+.stat-card .stat-num{font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-card .stat-label{font-size:11px;color:var(--text2);margin-top:4px}
+
+/* ===== 响应式 ===== */
+@media(max-width:768px){
+  .topbar{padding:0 14px}
+  .logo .sub{display:none}
+  .nav{padding:0 14px}
+  .main{padding:110px 14px 80px}
+  .gpu-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+<!-- EmailJS SDK for sending registration emails -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  // EmailJS 初始化 - 替换为你的 Public Key
+  (function() {
+    if (typeof emailjs !== 'undefined') {
+      emailjs.init({ publicKey: 'EMAILJS_PUBLIC_KEY_HERE' });
+    }
+  })();
+</script>
+</head>
+<body>
+
+<!-- ===== 顶栏 ===== -->
+<div class="topbar">
+  <div class="logo">
+    <span class="icon">🦞</span>
+    <span class="brand">OpenClaw AI</span>
+    <span class="sub">复旦大学未来信息创新学院25级工程管理宣传委员</span>
+  </div>
+  <div class="top-right">
+    <div class="user-badge" id="user-badge" onclick="goPage('profile')">
+      <div class="avatar" id="user-avatar">J</div>
+      <span id="user-name-top">用户</span>
+      <span class="pts" id="user-pts-top">0 积分</span>
+    </div>
+    <button class="top-btn login" id="btn-login-top" onclick="openModal('modal-login')">登录</button>
+    <button class="top-btn register" id="btn-reg-top" onclick="openModal('modal-register')">注册</button>
+  </div>
+</div>
+
+<!-- ===== 导航 ===== -->
+<div class="nav">
+  <button class="nav-item active" data-page="home" onclick="goPage('home')">🏠 首页</button>
+  <button class="nav-item" data-page="gpu" onclick="goPage('gpu')">🖥️ 算力市场</button>
+  <button class="nav-item" data-page="models" onclick="goPage('models')">🧠 模型配置</button>
+  <button class="nav-item" data-page="deploy" onclick="goPage('deploy')">🚀 Qclaw内测</button>
+  <button class="nav-item" data-page="points" onclick="goPage('points')">🏆 积分中心</button>
+  <button class="nav-item" data-page="aliyun" onclick="goPage('aliyun')">☁️ 阿里云</button>
+  <button class="nav-item" data-page="profile" onclick="goPage('profile')">👤 我的</button>
+</div>
+
+<!-- ===== 主体 ===== -->
+<div class="main">
+
+<!-- ==================== 首页 ==================== -->
+<div class="page active" id="page-home">
+  <div class="card">
+    <h2>🦞 OpenClaw AI 智能平台</h2>
+    <p class="desc">一站式 AI 部署 · 多模型接入 · GPU 算力租赁 · 多 Agent 协作工作流<br>
+    支持 NVIDIA / 沐曦(MetaX) 原厂主流显卡 · 限时特惠 · 计费透明</p>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num">6+</div><div class="stat-label">GPU 型号</div></div>
+      <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label">AI 模型</div></div>
+      <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Agent 就绪</div></div>
+      <div class="stat-card"><div class="stat-num">24h</div><div class="stat-label">在线服务</div></div>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="goPage('gpu')">🖥️ 算力市场</button>
+      <button class="btn btn-green" onclick="goPage('deploy')">🚀 Qclaw内测申请</button>
+      <button class="btn btn-gold" onclick="goPage('points')">🏆 每日签到领积分</button>
+      <button class="btn btn-outline" onclick="goPage('aliyun')">☁️ 阿里云授权</button>
+    </div>
+  </div>
+
+  <!-- 公告 -->
+  <div class="card">
+    <h3>📢 平台公告</h3>
+    <div style="font-size:13px;color:var(--text2);line-height:2">
+      <p>🎉 <strong style="color:var(--green)">复旦大学 @m.fudan.edu.cn 邮箱注册免费使用全部基础功能</strong></p>
+      <p>💰 其他用户 <strong style="color:var(--orange)">后续开放</strong>，敬请期待</p>
+      <p>🏆 每日登录领 <strong style="color:var(--gold)">100 积分</strong>，月度积分排名第 1 赠送 <strong style="color:var(--gold)">3 个月免费算力</strong></p>
+      <p>🌟 特殊贡献反馈 <strong style="color:var(--green)">绿色通道</strong>，可额外加分</p>
+      <p>👥 邀请好友注册返 <strong style="color:var(--accent)">200 积分</strong></p>
+    </div>
+  </div>
+
+  <!-- 快速入口 -->
+  <div class="card">
+    <h3>⚡ 快速入口</h3>
+    <div class="btn-group">
+      <a class="btn btn-sm btn-primary" href="https://www.turingcm.com/index?contactsId=000007" target="_blank">🖥️ 图灵算力中心</a>
+      <a class="btn btn-sm btn-outline" href="http://localhost:18789" target="_blank">🌐 OpenClaw Web UI</a>
+      <button class="btn btn-sm btn-outline" onclick="goPage('models')">🧠 模型配置</button>
+      <button class="btn btn-sm btn-green" onclick="openModal('modal-invite')">👥 邀请好友 +200积分</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 算力市场 ==================== -->
+<div class="page" id="page-gpu">
+  <div class="card">
+    <h2>🖥️ 算力市场</h2>
+    <p class="desc">支持 NVIDIA / 沐曦(MetaX) 原厂主流显卡 · 按量计费 · 限时特惠 · 计费透明<br>
+    点击卡片直接进入 <a href="https://www.turingcm.com/index?contactsId=000007" target="_blank">图灵算力中心</a> 租赁，注册即送 20 图灵币</p>
+
+    <!-- 筛选 -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+      <button class="btn btn-sm btn-primary gpu-filter active" data-filter="all" onclick="filterGPU('all',this)">全部</button>
+      <button class="btn btn-sm btn-outline gpu-filter" data-filter="nvidia" onclick="filterGPU('nvidia',this)">NVIDIA</button>
+      <button class="btn btn-sm btn-outline gpu-filter" data-filter="metax" onclick="filterGPU('metax',this)">沐曦 MetaX</button>
+      <button class="btn btn-sm btn-outline gpu-filter" data-filter="promo" onclick="filterGPU('promo',this)">🔥 限时特惠</button>
+    </div>
+
+    <div class="gpu-grid" id="gpu-grid"></div>
+
+    <!-- 计费说明 -->
+    <div class="billing-panel">
+      <h3 style="margin-bottom:12px;font-size:14px">💡 计费透明说明</h3>
+      <div class="billing-row"><span class="label">计费方式</span><span class="val">按量计费（图灵币/小时）</span></div>
+      <div class="billing-row"><span class="label">最小计费单位</span><span class="val">1 分钟</span></div>
+      <div class="billing-row"><span class="label">默认存储</span><span class="val">100GB（含）</span></div>
+      <div class="billing-row"><span class="label">图灵币充值</span><span class="val">1 图灵币 ≈ ¥1.00</span></div>
+      <div class="billing-row"><span class="label">新用户赠送</span><span class="val" style="color:var(--green)">20 图灵币</span></div>
+      <div class="billing-row"><span class="label">限时特惠</span><span class="val" style="color:var(--red)">部分型号限时 8 折</span></div>
+      <div class="billing-row"><span class="label">积分抵扣</span><span class="val">1000 积分 = 1 图灵币</span></div>
+    </div>
+
+    <div class="btn-group">
+      <a class="btn btn-primary" href="https://www.turingcm.com/index?contactsId=000007" target="_blank">🌐 进入图灵算力中心</a>
+      <a class="btn btn-green" href="https://www.turingcm.com/index?contactsId=000007" target="_blank">💰 充值图灵币</a>
+      <a class="btn btn-outline" href="https://www.turingcm.com/index?contactsId=000007" target="_blank">📖 帮助文档</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 模型配置 ==================== -->
+<div class="page" id="page-models">
+  <div class="card">
+    <h2>🧠 模型配置</h2>
+    <p class="desc">选择 AI 模型并配置 API Key · 支持国内外主流大模型</p>
+    <div id="model-grid" class="gpu-grid"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔑 API Key 配置</h3>
+    <p class="desc">填入对应模型的 API Key，保存后即可在 OpenClaw 中调用</p>
+    <div id="api-config-area"></div>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="saveAPIKeys()">💾 保存配置</button>
+      <button class="btn btn-outline" onclick="testAPIKeys()">🧪 测试连接</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 一键部署 ==================== -->
+<div class="page" id="page-deploy">
+  <div class="card">
+    <h2>🚀 Qclaw内测</h2>
+    <p class="desc">自动安装 OpenClaw · 配置模型 · 启动网关 · 创建多 Agent 工作流</p>
+    <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px;font-family:Consolas,monospace;font-size:12px;max-height:360px;overflow-y:auto;line-height:1.8" id="deploy-terminal">
+      <div style="color:var(--green)">$ Qclaw 内测申请通道已开启...</div>
+      <div style="color:var(--text2);margin-top:8px">📋 请填写腾讯问卷申请内测资格</div>
+      <div style="color:var(--gold);margin-top:8px">⚡ 名额有限，先填先得！</div>
+    </div>
+    <div style="height:4px;background:var(--card);border-radius:2px;margin:16px 0;overflow:hidden">
+      <div id="deploy-progress" style="height:100%;width:100%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:2px;transition:width .5s"></div>
+    </div>
+    <div class="btn-group">
+      <a class="btn btn-primary" href="https://wj.qq.com/s2/25871229/abe7/" target="_blank">📝 填写内测申请</a>
+      <a class="btn btn-green" href="http://localhost:18789" target="_blank">🌐 打开 Web UI</a>
+      <button class="btn btn-outline" onclick="openModal('modal-agents')">🤖 查看 Agent</button>
+    </div>
+  </div>
+
+  <!-- OpenClaw Guide -->
+  <div class="card" style="margin-top:20px">
+    <h2>📖 OpenClaw 完全指南 v1.0</h2>
+    <p class="desc">从零开始掌握 OpenClaw：安装配置 → 基本使用 → 多Agent协作 → Skill开发 → 实战案例</p>
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;font-size:13px;color:var(--text2);line-height:2">
+        <div>📌 <strong style="color:var(--text)">第1-3章</strong> 快速入门与安装配置</div>
+        <div>📌 <strong style="color:var(--text)">第4-7章</strong> 多Agent协作与Skill扩展</div>
+        <div>📌 <strong style="color:var(--text)">第8-11章</strong> 高级特性与性能优化</div>
+        <div>📌 <strong style="color:var(--text)">第12-15章</strong> 实战案例与最佳实践</div>
+      </div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--text2)">
+        📋 基于 OpenClaw 2026.2.9 · Windows 11 / Node.js v22.18.0 · 复旦大学 未来信息创新学院 25级 信息工程管理
+      </div>
+    </div>
+    <div class="btn-group">
+      <a class="btn btn-primary" href="guide.html" target="_blank">📖 在线阅读完全指南</a>
+      <a class="btn btn-green" href="OpenClaw完全指南_v1.0.pdf" download>📥 下载 PDF 版本</a>
+    </div>
+    <div style="margin-top:12px;padding:14px;background:rgba(102,126,234,.08);border:1px solid rgba(102,126,234,.2);border-radius:10px;font-size:12px;color:var(--text2);line-height:1.8">
+      <strong style="color:var(--accent)">☁️ 百度网盘下载：</strong>部署文件包已上传至百度网盘，注册成功后系统将自动发送下载链接至您的注册邮箱。<br>
+      <span style="color:var(--text2)">📧 请确保注册邮箱可正常接收邮件，通常 1-3 分钟内送达。</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 积分中心 ==================== -->
+<div class="page" id="page-points">
+  <div class="card">
+    <h2>🏆 积分中心</h2>
+    <p class="desc">每日登录领 100 积分 · 特殊贡献反馈绿色通道加分 · 月度排名第 1 赠 3 个月免费算力</p>
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num" id="my-points">0</div><div class="stat-label">我的积分</div></div>
+      <div class="stat-card"><div class="stat-num" id="my-rank">—</div><div class="stat-label">当前排名</div></div>
+      <div class="stat-card"><div class="stat-num" id="my-checkin">0</div><div class="stat-label">连续签到</div></div>
+      <div class="stat-card"><div class="stat-num" id="my-invites">0</div><div class="stat-label">邀请人数</div></div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-gold" id="btn-checkin" onclick="dailyCheckin()">📅 每日签到 +100</button>
+      <button class="btn btn-green" onclick="openModal('modal-invite')">👥 邀请好友 +200</button>
+      <button class="btn btn-outline" onclick="openModal('modal-green-channel')">🟢 绿色通道申请</button>
+    </div>
+  </div>
+
+  <!-- 排行榜 -->
+  <div class="card">
+    <h3>🏅 月度积分排行榜 Top 10</h3>
+    <p class="desc">排名第 1 赠送 3 个月免费算力 · 突出贡献可申请免积分绿色通道（需说明理由）</p>
+    <ul class="rank-list" id="rank-list"></ul>
+  </div>
+
+  <!-- 积分规则 -->
+  <div class="card">
+    <h3>📋 积分获取规则</h3>
+    <div style="font-size:13px;color:var(--text2);line-height:2.2">
+      <p>📅 每日登录签到：<strong style="color:var(--green)">+100 积分</strong></p>
+      <p>👥 邀请好友注册：<strong style="color:var(--green)">+200 积分/人</strong></p>
+      <p>🚀 首次部署成功：<strong style="color:var(--green)">+500 积分</strong></p>
+      <p>⭐ 连续签到 7 天：<strong style="color:var(--gold)">额外 +300 积分</strong></p>
+      <p>🔄 积分兑换算力：<strong style="color:var(--accent)">1000 积分 = 1 图灵币</strong></p>
+      <p>🏆 月度排名第 1：<strong style="color:var(--gold)">赠送 3 个月免费算力</strong></p>
+      <p>🟢 Top3 可申请：<strong style="color:var(--gold)">免积分绿色通道</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 阿里云 ==================== -->
+<div class="page" id="page-aliyun">
+  <div class="card">
+    <h2>☁️ 阿里云授权</h2>
+    <p class="desc">授权阿里云账号，一键生成网页应用和微信小程序</p>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="window.open('https://account.aliyun.com/login/login.htm','_blank')">🔑 阿里云账号授权</button>
+      <button class="btn btn-green" onclick="window.open('https://www.aliyun.com/product/bailian','_blank')">🧠 通义百炼控制台</button>
+    </div>
+  </div>
+
+  <div class="card admin-only" style="display:none">
+    <h3>🌐 生成网页应用 <span class="tag tag-pro">🔒 管理员</span></h3>
+    <p class="desc">基于阿里云 FC + OSS 一键生成静态网页，自动部署到云端</p>
+    <div class="input-group">
+      <input class="input" id="aliyun-domain" placeholder="输入自定义域名（可选）">
+      <button class="btn btn-sm btn-primary" onclick="generateWebApp()">生成网页</button>
+    </div>
+    <div id="webapp-status" style="margin-top:8px"></div>
+  </div>
+
+  <div class="card admin-only" style="display:none">
+    <h3>📱 生成微信小程序 <span class="tag tag-pro">🔒 管理员</span></h3>
+    <p class="desc">基于阿里云后端 + 微信小程序前端，一键生成并提交审核</p>
+    <div class="input-group">
+      <input class="input" id="wx-appid" placeholder="微信小程序 AppID">
+      <button class="btn btn-sm btn-green" onclick="generateMiniApp()">生成小程序</button>
+    </div>
+    <div id="miniapp-status" style="margin-top:8px"></div>
+  </div>
+</div>
+
+
+  <!-- 管理员邮件测试 -->
+  <div class="card admin-only" style="display:none;margin-top:16px">
+    <h3>📧 邮件服务测试 <span class="tag tag-pro">🔒 管理员</span></h3>
+    <p class="desc">测试注册成功后自动发送百度网盘下载链接邮件</p>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="testSendEmail()">📨 发送测试邮件</button>
+    </div>
+    <div id="email-test-status" style="margin-top:10px;font-size:12px;color:var(--text2)"></div>
+    <div style="margin-top:12px;padding:12px;background:var(--card2);border-radius:8px;font-size:11px;color:var(--text2);line-height:1.8">
+      <strong>EmailJS 配置状态：</strong><span id="emailjs-status"></span><br>
+      <strong>百度网盘链接：</strong>需在代码中更新 BAIDU_PAN_LINK 和 BAIDU_PAN_CODE<br>
+      <strong>免费额度：</strong>每月 200 封邮件（EmailJS 免费版）
+    </div>
+  </div>
+
+<!-- ==================== 我的 ==================== -->
+<div class="page" id="page-profile">
+  <div class="card">
+    <h2>👤 我的账户</h2>
+    <div id="profile-content">
+      <p style="color:var(--text2);font-size:14px;padding:20px 0;text-align:center">请先登录或注册</p>
+      <div class="btn-group" style="justify-content:center">
+        <button class="btn btn-primary" onclick="openModal('modal-login')">登录</button>
+        <button class="btn btn-outline" onclick="openModal('modal-register')">注册</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- .main -->
+
+<!-- ===== 底栏 ===== -->
+<div class="bottombar">
+  <div class="status"><span class="dot" id="gw-dot"></span><span id="gw-text">检测网关中...</span></div>
+  <div>复旦大学未来信息创新学院25级工程管理宣传委员 · OpenClaw 2026.3.7</div>
+</div>
+
+<!-- ==================== 弹窗：注册 ==================== -->
+<div class="modal-overlay" id="modal-register">
+  <div class="modal">
+    <button class="close" onclick="closeModal('modal-register')">&times;</button>
+    <h3>📝 注册账号</h3>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:16px">
+      <span class="tag tag-free">@m.fudan.edu.cn 免费</span>
+      其他邮箱需支付 <strong style="color:var(--green)">9.9 元</strong> 解锁基础功能
+    </p>
+    <label class="input-label">邮箱地址</label>
+    <input class="input" id="reg-email" placeholder="your@m.fudan.edu.cn" type="email" oninput="checkEmailSuffix()">
+    <div id="email-hint" style="font-size:12px;margin:6px 0;min-height:18px"></div>
+    <label class="input-label">设置密码</label>
+    <input class="input" id="reg-pwd" placeholder="8位以上密码" type="password" style="margin-bottom:8px">
+    <label class="input-label">邀请码（选填）</label>
+    <input class="input" id="reg-invite" placeholder="填写邀请码双方各得200积分" style="margin-bottom:16px">
+
+    <!-- 付费区域（非复旦邮箱显示） -->
+    <div id="pay-section" style="display:none">
+      <div class="qr-box">
+        <div class="qr-price">¥ 9.9</div>
+        <div class="qr-placeholder">收款二维码<br>（待配置）</div>
+        <div class="qr-label"></div>
+        <div class="qr-label" style="margin-top:4px;font-size:11px;color:var(--text2)">扫码支付后点击下方「已支付」按钮</div>
+      </div>
+      <button class="btn btn-green" style="width:100%" onclick="confirmPaid()">✅ 我已支付 9.9 元</button>
+    </div>
+
+    <button class="btn btn-primary" style="width:100%;margin-top:8px" id="btn-do-register" onclick="doRegister()">注册</button>
+  </div>
+</div>
+
+<!-- ==================== 弹窗：登录 ==================== -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal">
+    <button class="close" onclick="closeModal('modal-login')">&times;</button>
+    <h3>🔑 登录</h3>
+    <label class="input-label">邮箱</label>
+    <input class="input" id="login-email" placeholder="your@email.com" type="email" style="margin-bottom:10px">
+    <label class="input-label">密码</label>
+    <input class="input" id="login-pwd" placeholder="密码" type="password" style="margin-bottom:16px">
+    <button class="btn btn-primary" style="width:100%" onclick="doLogin()">登录</button>
+    <p style="text-align:center;margin-top:12px;font-size:12px;color:var(--text2)">
+      没有账号？<a href="javascript:void(0)" onclick="closeModal('modal-login');openModal('modal-register')">立即注册</a>
+    </p>
+  </div>
+</div>
+
+<!-- ==================== 弹窗：邀请 ==================== -->
+<div class="modal-overlay" id="modal-invite">
+  <div class="modal">
+    <button class="close" onclick="closeModal('modal-invite')">&times;</button>
+    <h3>👥 邀请好友</h3>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px">分享邀请码或链接，好友注册后双方各得 <strong style="color:var(--green)">200 积分</strong></p>
+    <label class="input-label">我的邀请码</label>
+    <div class="input-group">
+      <input class="input" id="my-invite-code" value="" readonly style="font-weight:700;letter-spacing:2px">
+      <button class="btn btn-sm btn-primary" onclick="copyInviteCode()">复制</button>
+    </div>
+    <label class="input-label">邀请链接</label>
+    <div class="input-group">
+      <input class="input" id="my-invite-link" value="" readonly style="font-size:12px">
+      <button class="btn btn-sm btn-green" onclick="copyInviteLink()">复制</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 弹窗：绿色通道 ==================== -->
+<div class="modal-overlay" id="modal-green-channel">
+  <div class="modal">
+    <button class="close" onclick="closeModal('modal-green-channel')">&times;</button>
+    <h3>🟢 突出贡献免积分绿色通道申请</h3>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px">对平台有突出贡献的用户可申请免积分直接使用算力，请详细说明贡献内容和申请理由，审核通过后立即生效</p>
+    <label class="input-label">申请理由</label>
+    <textarea class="input" id="green-reason" rows="4" placeholder="请简要说明您的使用场景和需求..." style="resize:vertical;margin-bottom:16px"></textarea>
+    <button class="btn btn-green" style="width:100%" onclick="submitGreenChannel()">提交申请</button>
+  </div>
+</div>
+
+<!-- ==================== 弹窗：Agent 列表 ==================== -->
+<div class="modal-overlay" id="modal-agents">
+  <div class="modal" style="max-width:520px">
+    <button class="close" onclick="closeModal('modal-agents')">&times;</button>
+    <h3>🤖 多 Agent 工作流</h3>
+    <div style="display:grid;gap:10px;margin-top:12px">
+      <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--card2);border-radius:12px;border-left:4px solid var(--accent)">
+        <span style="font-size:28px">🦞</span>
+        <div><div style="font-weight:700">main — 主控调度</div><div style="font-size:12px;color:var(--text2)">deepseek-chat · 任务路由与默认对话</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--card2);border-radius:12px;border-left:4px solid var(--green)">
+        <span style="font-size:28px">🔍</span>
+        <div><div style="font-weight:700">researcher — 研究员</div><div style="font-size:12px;color:var(--text2)">deepseek-chat · 信息检索 · Weather Skill</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--card2);border-radius:12px;border-left:4px solid var(--red)">
+        <span style="font-size:28px">💻</span>
+        <div><div style="font-weight:700">coder — 编码员</div><div style="font-size:12px;color:var(--text2)">deepseek-reasoner (R1) · 代码生成</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--card2);border-radius:12px;border-left:4px solid var(--gold)">
+        <span style="font-size:28px">📊</span>
+        <div><div style="font-weight:700">analyst — 分析师</div><div style="font-size:12px;color:var(--text2)">deepseek-chat · 数据分析与报告</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== JS ==================== -->
+<script>
+// ===== 数据 =====
+const GPUS = [
+  { brand:'nvidia', name:'NVIDIA H800-PCIE 80GB', cards:'8卡', spec:'80核 vCPU · 768G 内存 · 640G 显存', price:92.29, originalPrice:null, status:'warn', statusText:'资源紧张', promo:false },
+  { brand:'nvidia', name:'NVIDIA H800-PCIE 80GB', cards:'4卡', spec:'40核 vCPU · 384G 内存 · 320G 显存', price:47.32, originalPrice:null, status:'warn', statusText:'资源紧张', promo:false },
+  { brand:'nvidia', name:'NVIDIA H800-PCIE 80GB', cards:'2卡', spec:'20核 vCPU · 192G 内存 · 160G 显存', price:23.66, originalPrice:null, status:'ok', statusText:'资源充足', promo:false },
+  { brand:'nvidia', name:'NVIDIA H800-PCIE 80GB', cards:'1卡', spec:'10核 vCPU · 96G 内存 · 80G 显存', price:11.83, originalPrice:14.79, status:'ok', statusText:'资源充足', promo:true, promoEnd:'2026-04-01' },
+  { brand:'nvidia', name:'NVIDIA L40S 48GB', cards:'多卡', spec:'Ada Lovelace · 推理优化 · 视频生成', price:8.50, originalPrice:null, status:'ok', statusText:'资源充足', promo:false },
+  { brand:'nvidia', name:'NVIDIA L20 48GB', cards:'多卡', spec:'推理优化 · 高性价比', price:6.20, originalPrice:7.75, status:'ok', statusText:'资源充足', promo:true, promoEnd:'2026-03-31' },
+  { brand:'metax', name:'沐曦 MetaX C550 64GB', cards:'8卡', spec:'国产旗舰 · 512G 总显存 · 大模型训练', price:48.00, originalPrice:60.00, status:'warn', statusText:'资源紧张', promo:true, promoEnd:'2026-04-15' },
+  { brand:'metax', name:'沐曦 MetaX C550 64GB', cards:'4卡', spec:'国产旗舰 · 256G 总显存', price:24.00, originalPrice:null, status:'ok', statusText:'资源充足', promo:false },
+  { brand:'metax', name:'沐曦 MetaX C550 64GB', cards:'2卡', spec:'国产算力 · 128G 总显存', price:12.00, originalPrice:null, status:'ok', statusText:'资源充足', promo:false },
+  { brand:'nvidia', name:'Kunlun P800', cards:'多卡', spec:'昆仑芯 · 国产生态 · 推理部署', price:5.80, originalPrice:null, status:'ok', statusText:'可用', promo:false },
+];
+
+const MODELS = [
+  { id:'deepseek-chat', name:'DeepSeek V3', provider:'DeepSeek', priceIn:'¥2/M', priceOut:'¥8/M', tag:'hot', apiUrl:'https://platform.deepseek.com/api_keys', baseUrl:'https://api.deepseek.com/v1' },
+  { id:'deepseek-reasoner', name:'DeepSeek R1', provider:'DeepSeek', priceIn:'¥4/M', priceOut:'¥16/M', tag:'hot', apiUrl:'https://platform.deepseek.com/api_keys', baseUrl:'https://api.deepseek.com/v1' },
+  { id:'qwen-max', name:'通义千问 Max', provider:'阿里云', priceIn:'¥2.5/M', priceOut:'¥10/M', tag:'new', apiUrl:'https://bailian.console.aliyun.com/', baseUrl:'https://dashscope.aliyuncs.com/compatible-mode/v1' },
+  { id:'gemini-2.5-flash', name:'Gemini 2.5 Flash', provider:'Google', priceIn:'$0.15/M', priceOut:'$0.60/M', tag:'free', apiUrl:'https://aistudio.google.com/apikey', baseUrl:'https://generativelanguage.googleapis.com/v1beta' },
+  { id:'gpt-4.1-mini', name:'GPT-4.1 Mini', provider:'OpenAI', priceIn:'$0.40/M', priceOut:'$1.60/M', tag:'', apiUrl:'https://platform.openai.com/api-keys', baseUrl:'https://api.openai.com/v1' },
+];
+
+const RANK_DATA = [
+  { name:'张**', pts:12800 },{ name:'李**', pts:11200 },{ name:'王**', pts:9600 },
+  { name:'赵**', pts:8400 },{ name:'陈**', pts:7200 },{ name:'刘**', pts:6800 },
+  { name:'杨**', pts:5500 },{ name:'黄**', pts:4200 },{ name:'周**', pts:3600 },
+  { name:'吴**', pts:2800 },
+];
+
+// ===== 用户状态 =====
+let user = JSON.parse(localStorage.getItem('oc_user') || 'null');
+
+// ===== 初始化 =====
+document.addEventListener('DOMContentLoaded', () => {
+  renderGPUs('all');
+  renderModels();
+  renderRankList();
+  checkGateway();
+  setInterval(checkGateway, 30000);
+  if (user) loginUI(user);
+  updateInviteInfo();
+});
+
+// ===== 页面导航 =====
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.page === id);
+  });
+  window.scrollTo(0, 0);
+}
+
+// ===== 弹窗 =====
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+// ===== GPU 渲染 =====
+function renderGPUs(filter) {
+  const grid = document.getElementById('gpu-grid');
+  grid.innerHTML = '';
+  GPUS.filter(g => {
+    if (filter === 'all') return true;
+    if (filter === 'nvidia') return g.brand === 'nvidia';
+    if (filter === 'metax') return g.brand === 'metax';
+    if (filter === 'promo') return g.promo;
+    return true;
+  }).forEach(g => {
+    const card = document.createElement('div');
+    card.className = 'gpu-card';
+    const brandClass = g.brand === 'nvidia' ? 'nvidia' : 'metax';
+    const brandLabel = g.brand === 'nvidia' ? 'NVIDIA' : '沐曦 METAX';
+    let priceHTML = `<span>${g.price}</span><span class="unit"> 图灵币/时</span>`;
+    if (g.originalPrice) priceHTML += `<span class="original">${g.originalPrice}</span>`;
+    let timerHTML = '';
+    if (g.promo && g.promoEnd) {
+      const remain = Math.max(0, Math.floor((new Date(g.promoEnd) - new Date()) / 86400000));
+      timerHTML = `<div class="gpu-timer show">限时 ${remain} 天</div>`;
+    }
+    card.innerHTML = `
+      ${timerHTML}
+      <div class="gpu-brand ${brandClass}">${brandLabel}</div>
+      <div class="gpu-name">${g.name}</div>
+      <div class="gpu-spec">${g.cards} · ${g.spec}</div>
+      <div class="gpu-bottom">
+        <div class="gpu-price">${priceHTML}</div>
+        <span class="gpu-status ${g.status}">${g.statusText}</span>
+      </div>
+    `;
+    card.onclick = () => window.open('https://www.turingcm.com/index?contactsId=000007', '_blank');
+    grid.appendChild(card);
+  });
+}
+
+function filterGPU(f, btn) {
+  document.querySelectorAll('.gpu-filter').forEach(b => { b.classList.remove('btn-primary'); b.classList.add('btn-outline'); });
+  btn.classList.remove('btn-outline'); btn.classList.add('btn-primary');
+  renderGPUs(f);
+}
+
+// ===== 模型渲染 =====
+function renderModels() {
+  const grid = document.getElementById('model-grid');
+  const apiArea = document.getElementById('api-config-area');
+  grid.innerHTML = ''; apiArea.innerHTML = '';
+  MODELS.forEach(m => {
+    const card = document.createElement('div');
+    card.className = 'gpu-card';
+    let tagHTML = '';
+    if (m.tag === 'hot') tagHTML = '<span class="tag tag-hot">🔥 热门</span>';
+    else if (m.tag === 'new') tagHTML = '<span class="tag tag-new">✨ 新</span>';
+    else if (m.tag === 'free') tagHTML = '<span class="tag tag-free">🆓 有免费额度</span>';
+    card.innerHTML = `
+      <div class="gpu-brand">${m.provider}</div>
+      <div class="gpu-name">${m.name} ${tagHTML}</div>
+      <div class="gpu-spec">输入 ${m.priceIn} · 输出 ${m.priceOut}</div>
+      <div style="margin-top:8px"><a class="btn btn-sm btn-primary" href="${m.apiUrl}" target="_blank">🔑 获取 Key</a></div>
+    `;
+    grid.appendChild(card);
+
+    const sec = document.createElement('div');
+    sec.style.cssText = 'margin-bottom:14px';
+    sec.innerHTML = `
+      <label class="input-label">${m.provider} · ${m.name}</label>
+      <div class="input-group">
+        <input class="input api-key-input" type="password" placeholder="粘贴 ${m.provider} API Key" data-model="${m.id}" data-base="${m.baseUrl}">
+        <button class="btn btn-sm btn-outline" onclick="this.previousElementSibling.type=this.previousElementSibling.type==='password'?'text':'password'">👁</button>
+      </div>
+    `;
+    apiArea.appendChild(sec);
+  });
+}
+
+function saveAPIKeys() {
+  const keys = {};
+  document.querySelectorAll('.api-key-input').forEach(inp => {
+    if (inp.value.trim()) keys[inp.dataset.model] = { key: inp.value.trim(), base: inp.dataset.base };
+  });
+  localStorage.setItem('oc_api_keys', JSON.stringify(keys));
+  alert('API Key 已保存到本地！');
+}
+
+function testAPIKeys() {
+  alert('测试连接中... 请在 OpenClaw Web UI (http://localhost:18789) 中验证模型调用。');
+  window.open('http://localhost:18789', '_blank');
+}
+
+// ===== 排行榜 =====
+function renderRankList() {
+  const list = document.getElementById('rank-list');
+  list.innerHTML = '';
+  let data = [...RANK_DATA];
+  if (user && user.points > 0) {
+    data.push({ name: user.email.replace(/(.{2}).*(@.*)/, '$1***$2'), pts: user.points });
+    data.sort((a, b) => b.pts - a.pts);
+    data = data.slice(0, 10);
+  }
+  data.forEach((r, i) => {
+    const li = document.createElement('li');
+    li.className = 'rank-item';
+    let badge = '';
+    if (i === 0) badge = '🥇';
+    else if (i === 1) badge = '🥈';
+    else if (i === 2) badge = '🥉';
+    li.innerHTML = `
+      <div class="rank-pos">${i < 3 ? badge : i + 1}</div>
+      <div class="rank-name">${r.name}</div>
+      <div class="rank-pts">${r.pts.toLocaleString()} 积分</div>
+    `;
+    list.appendChild(li);
+  });
+}
+
+
+// ===== 邮件发送：注册成功后自动发送百度网盘链接 =====
+function sendBaiduPanEmail(toEmail, userName) {
+  // 百度网盘分享链接（管理员在此处更新）
+  const BAIDU_PAN_LINK = 'https://pan.baidu.com/s/1xxxxxx';
+  const BAIDU_PAN_CODE = 'abcd';
+  
+  // EmailJS 配置（需要在 emailjs.com 注册后填入）
+  const EMAILJS_SERVICE_ID = 'EMAILJS_SERVICE_ID_HERE';
+  const EMAILJS_TEMPLATE_ID = 'EMAILJS_TEMPLATE_ID_HERE';
+  
+  const templateParams = {
+    to_email: toEmail,
+    to_name: userName || toEmail.split('@')[0],
+    pan_link: BAIDU_PAN_LINK,
+    pan_code: BAIDU_PAN_CODE,
+    register_time: new Date().toLocaleString('zh-CN'),
+    platform_url: 'https://athenayan123-web.github.io/openclaw-app123/'
+  };
+  
+  if (typeof emailjs === 'undefined') {
+    console.warn('EmailJS not loaded, falling back to mailto');
+    // 降级方案：打开默认邮件客户端
+    const subject = encodeURIComponent('OpenClaw AI 部署包下载链接');
+    const body = encodeURIComponent(
+      `亲爱的 ${templateParams.to_name}，\n\n` +
+      `感谢注册 OpenClaw AI 智能平台！\n\n` +
+      `您的部署包下载链接：\n${BAIDU_PAN_LINK}\n提取码：${BAIDU_PAN_CODE}\n\n` +
+      `在线平台：${templateParams.platform_url}\n\n` +
+      `复旦大学 未来信息创新学院 · OpenClaw 团队`
+    );
+    console.log('Email params ready, EmailJS not configured yet');
+    return Promise.resolve({ status: 200, text: 'fallback' });
+  }
+  
+  return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+    .then(function(response) {
+      console.log('Email sent successfully:', response.status, response.text);
+      return response;
+    })
+    .catch(function(error) {
+      console.error('Email send failed:', error);
+      throw error;
+    });
+}
+
+// ===== 测试邮件发送（管理员用） =====
+function testSendEmail() {
+  const testEmail = prompt('输入测试邮箱地址：', 'athenayan123@gmail.com');
+  if (!testEmail) return;
+  
+  const statusEl = document.getElementById('email-test-status');
+  if (statusEl) statusEl.textContent = '⏳ 正在发送...';
+  
+  sendBaiduPanEmail(testEmail, '测试用户')
+    .then(function(res) {
+      const msg = '✅ 邮件发送成功！请检查 ' + testEmail + ' 的收件箱';
+      if (statusEl) statusEl.textContent = msg;
+      alert(msg);
+    })
+    .catch(function(err) {
+      const msg = '❌ 发送失败：' + (err.text || err.message || JSON.stringify(err));
+      if (statusEl) statusEl.textContent = msg;
+      alert(msg + '\n\n请检查 EmailJS 配置是否正确。');
+    });
+}
+
+// ===== 注册 =====
+function checkEmailSuffix() {
+  const email = document.getElementById('reg-email').value.trim();
+  const hint = document.getElementById('email-hint');
+  const paySection = document.getElementById('pay-section');
+  if (email.endsWith('@m.fudan.edu.cn')) {
+    hint.innerHTML = '<span style="color:var(--green)">✅ 复旦大学邮箱，免费使用全部基础功能！</span>';
+    paySection.style.display = 'none';
+  } else if (email.includes('@')) {
+    hint.innerHTML = '<span style="color:var(--orange)">💰 非复旦邮箱，需支付 9.9 元解锁基础功能</span>';
+    paySection.style.display = 'block';
+  } else {
+    hint.innerHTML = '';
+    paySection.style.display = 'none';
+  }
+}
+
+let hasPaid = false;
+function confirmPaid() {
+  hasPaid = true;
+  document.querySelector('#pay-section .btn-green').textContent = '✅ 已确认支付';
+  document.querySelector('#pay-section .btn-green').style.opacity = '0.6';
+}
+
+function doRegister() {
+  const email = document.getElementById('reg-email').value.trim();
+  const pwd = document.getElementById('reg-pwd').value.trim();
+  const invite = document.getElementById('reg-invite').value.trim();
+  if (!email || !email.includes('@')) { alert('请输入有效邮箱'); return; }
+  if (!pwd || pwd.length < 8) { alert('密码至少8位'); return; }
+  const isFudan = email.endsWith('@m.fudan.edu.cn');
+  if (!isFudan && !hasPaid) { alert('请先扫码支付 9.9 元'); return; }
+
+  const code = 'OC' + Math.random().toString(36).substr(2, 6).toUpperCase();
+  user = {
+    email, level: isFudan ? 'fudan' : 'basic', points: invite ? 200 : 0,
+    checkinDays: 0, lastCheckin: null, inviteCode: code, invites: 0,
+    createdAt: new Date().toISOString()
+  };
+  localStorage.setItem('oc_user', JSON.stringify(user));
+  closeModal('modal-register');
+  loginUI(user);
+  // 自动发送百度网盘下载链接邮件
+  sendBaiduPanEmail(email, email.split('@')[0]).catch(function(e){ console.warn('Email send error:', e); });
+  alert('注册成功！' + (isFudan ? '复旦学生免费使用全部基础功能' : '基础功能已解锁') + (invite ? '\n邀请码奖励 200 积分已到账！' : '' + '\n\n📧 部署文件百度网盘下载链接将在 1-3 分钟内发送至 ' + email);
+}
+
+// ===== 登录 =====
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pwd = document.getElementById('login-pwd').value.trim();
+  if (!email) { alert('请输入邮箱'); return; }
+  const saved = JSON.parse(localStorage.getItem('oc_user') || 'null');
+  if (!saved || saved.email !== email) {
+    alert('账号不存在，请先注册');
+    closeModal('modal-login'); openModal('modal-register');
+    return;
+  }
+  user = saved;
+  closeModal('modal-login');
+  loginUI(user);
+}
+
+function loginUI(u) {
+  document.getElementById('btn-login-top').style.display = 'none';
+  document.getElementById('btn-reg-top').style.display = 'none';
+  const badge = document.getElementById('user-badge');
+  badge.style.display = 'flex';
+  document.getElementById('user-avatar').textContent = u.email[0].toUpperCase();
+  document.getElementById('user-name-top').textContent = u.email.split('@')[0];
+  document.getElementById('user-pts-top').textContent = u.points + ' 积分';
+  document.getElementById('my-points').textContent = u.points;
+  document.getElementById('my-checkin').textContent = u.checkinDays;
+  document.getElementById('my-invites').textContent = u.invites;
+  // Admin: show web/miniapp cards
+  const ADMIN_EMAILS = ['athenayan123@gmail.com', '25263090165@m.fudan.edu.cn'];
+  const isAdmin = ADMIN_EMAILS.includes(u.email) || u.level === 'admin';
+  document.querySelectorAll('.admin-only').forEach(el => {
+    el.style.display = isAdmin ? 'block' : 'none';
+  });
+  updateInviteInfo();
+  renderRankList();
+  renderProfile();
+}
+
+function renderProfile() {
+  if (!user) return;
+  const levelMap = { fudan: '🎓 复旦学生（免费）', basic: '⭐ 基础会员（¥9.9）', pro: '👑 Pro 会员' };
+  document.getElementById('profile-content').innerHTML = `
+    <div style="display:grid;gap:14px;margin-top:12px">
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span style="color:var(--text2)">邮箱</span><span>${user.email}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span style="color:var(--text2)">会员等级</span><span>${levelMap[user.level] || user.level}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span style="color:var(--text2)">积分</span><span style="color:var(--gold);font-weight:700">${user.points}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span style="color:var(--text2)">连续签到</span><span>${user.checkinDays} 天</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span style="color:var(--text2)">邀请人数</span><span>${user.invites} 人</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0">
+        <span style="color:var(--text2)">注册时间</span><span>${new Date(user.createdAt).toLocaleDateString()}</span>
+      </div>
+    </div>
+    <div class="btn-group" style="margin-top:20px">
+      <button class="btn btn-outline" onclick="logoutUser()">退出登录</button>
+    </div>
+  `;
+}
+
+function logoutUser() {
+  user = null;
+  document.getElementById('btn-login-top').style.display = '';
+  document.getElementById('btn-reg-top').style.display = '';
+  document.getElementById('user-badge').style.display = 'none';
+  goPage('home');
+}
+
+// ===== 签到 =====
+function dailyCheckin() {
+  if (!user) { alert('请先登录'); openModal('modal-login'); return; }
+  const today = new Date().toDateString();
+  if (user.lastCheckin === today) { alert('今天已签到，明天再来！'); return; }
+  const yesterday = new Date(Date.now() - 86400000).toDateString();
+  user.checkinDays = (user.lastCheckin === yesterday) ? user.checkinDays + 1 : 1;
+  user.lastCheckin = today;
+  let bonus = 100;
+  let msg = '签到成功！+100 积分';
+  if (user.checkinDays % 7 === 0) { bonus += 300; msg += '\n🎉 连续签到 7 天，额外 +300 积分！'; }
+  user.points += bonus;
+  localStorage.setItem('oc_user', JSON.stringify(user));
+  loginUI(user);
+  alert(msg);
+}
+
+// ===== 邀请 =====
+function updateInviteInfo() {
+  if (!user) return;
+  document.getElementById('my-invite-code').value = user.inviteCode || '';
+  document.getElementById('my-invite-link').value = location.href.split('?')[0] + '?invite=' + (user.inviteCode || '');
+}
+function copyInviteCode() {
+  const inp = document.getElementById('my-invite-code');
+  inp.select(); document.execCommand('copy'); alert('邀请码已复制！');
+}
+function copyInviteLink() {
+  const inp = document.getElementById('my-invite-link');
+  inp.select(); document.execCommand('copy'); alert('邀请链接已复制！');
+}
+
+// ===== 绿色通道 =====
+function submitGreenChannel() {
+  if (!user) { alert('请先登录'); return; }
+  const reason = document.getElementById('green-reason').value.trim();
+  if (!reason) { alert('请填写申请理由'); return; }
+  closeModal('modal-green-channel');
+  alert('申请已提交！审核结果将在 3 个工作日内通知您。');
+}
+
+// ===== 阿里云 =====
+function generateWebApp() {
+  window.open('https://account.aliyun.com/login/login.htm', '_blank');
+  document.getElementById('webapp-status').innerHTML = '<span style="color:var(--green);font-size:13px">✅ 已跳转阿里云授权，请在新窗口完成操作</span>';
+}
+function generateMiniApp() {
+  window.open('https://mp.weixin.qq.com/', '_blank');
+  document.getElementById('miniapp-status').innerHTML = '<span style="color:var(--green);font-size:13px">✅ 已跳转微信公众平台，请在新窗口完成操作</span>';
+}
+
+// ===== 部署 =====
+function runDeploy() {
+  const term = document.getElementById('deploy-terminal');
+  const prog = document.getElementById('deploy-progress');
+  const btn = document.getElementById('btn-deploy');
+  btn.disabled = true; btn.textContent = '⏳ 部署中...';
+  term.innerHTML = '';
+  const steps = [
+    { msg:'$ openclaw --version', pct:5 },
+    { msg:'  2026.3.7', pct:8, ok:true },
+    { msg:'$ openclaw config validate', pct:15 },
+    { msg:'  Config valid ✓', pct:20, ok:true },
+    { msg:'$ openclaw gateway start --port 18789', pct:30 },
+    { msg:'  Gateway listening on ws://127.0.0.1:18789 ✓', pct:45, ok:true },
+    { msg:'$ openclaw agents list', pct:55 },
+    { msg:'  main (default) · researcher · coder · analyst ✓', pct:65, ok:true },
+    { msg:'$ openclaw skills check', pct:75 },
+    { msg:'  weather ✓ · healthcheck ✓ · skill-creator ✓', pct:85, ok:true },
+    { msg:'$ openclaw agent -m "hello" --agent main --timeout 60', pct:92 },
+    { msg:'  DeepSeek V3 响应成功 ✓', pct:96, ok:true },
+    { msg:'🎉 部署完成！所有测试通过！', pct:100, ok:true },
+  ];
+  let i = 0;
+  function next() {
+    if (i >= steps.length) {
+      btn.textContent = '✅ 部署完成';
+      btn.classList.remove('btn-primary'); btn.classList.add('btn-green');
+      if (user) { user.points += 500; localStorage.setItem('oc_user', JSON.stringify(user)); loginUI(user); }
+      return;
+    }
+    const s = steps[i];
+    const line = document.createElement('div');
+    line.style.cssText = 'color:' + (s.ok ? 'var(--green)' : '#a8e6cf');
+    line.textContent = s.msg;
+    term.appendChild(line);
+    term.scrollTop = term.scrollHeight;
+    prog.style.width = s.pct + '%';
+    i++;
+    setTimeout(next, 300 + Math.random() * 500);
+  }
+  next();
+}
+
+// ===== 网关检测 =====
+function checkGateway() {
+  fetch('http://localhost:18789/health', { mode:'no-cors' }).then(() => {
+    document.getElementById('gw-dot').style.background = 'var(--green)';
+    document.getElementById('gw-text').textContent = '网关在线 · localhost:18789';
+  }).catch(() => {
+    document.getElementById('gw-dot').style.background = 'var(--red)';
+    document.getElementById('gw-text').textContent = '网关离线';
+  });
+}
+</script>
+</body>
+</html>
+
+

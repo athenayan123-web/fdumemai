@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OpenClaw AI 智能平台 v2.0</title>
+<title>OpenClaw AI 全网比价智能平台</title>
 <style>
-:root{--bg:#06061a;--card:rgba(255,255,255,0.04);--card2:rgba(255,255,255,0.07);--border:rgba(255,255,255,0.08);--accent:#667eea;--accent2:#764ba2;--green:#00e676;--red:#ff5252;--orange:#ffab40;--gold:#ffd700;--text:#e8e8e8;--text2:rgba(255,255,255,0.5);--r:14px}
+:root{--bg:#06061a;--card:rgba(255,255,255,0.04);--card2:rgba(255,255,255,0.07);--border:rgba(255,255,255,0.08);--accent:#667eea;--accent2:#764ba2;--green:#00e676;--red:#ff5252;--orange:#ffab40;--gold:#ffd700;--text:#e8e8e8;--text2:rgba(255,255,255,0.5);--r:14px;--cyan:#00e5ff}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 a{color:var(--accent);text-decoration:none}
@@ -17,142 +17,143 @@ a:hover{text-decoration:underline}
 .logo .icon{font-size:26px}
 .logo .brand{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .logo .sub{font-size:11px;color:var(--text2);font-weight:400;margin-left:4px}
+.top-nav{display:flex;align-items:center;gap:6px}
+.top-nav a{padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;color:var(--text2);transition:all .2s;cursor:pointer}
+.top-nav a:hover,.top-nav a.active{color:var(--text);background:var(--card2);text-decoration:none}
 .top-right{display:flex;align-items:center;gap:12px}
 .top-btn{padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
 .top-btn.login{background:transparent;color:var(--accent);border:1px solid rgba(102,126,234,.4)}
 .top-btn.login:hover{background:rgba(102,126,234,.15)}
 .top-btn.register{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
 .top-btn.register:hover{transform:scale(1.03)}
-.user-badge{display:none;align-items:center;gap:8px;padding:4px 14px 4px 8px;border-radius:20px;background:var(--card2);border:1px solid var(--border);font-size:13px;cursor:pointer}
-.user-badge .avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff}
-.user-badge .pts{color:var(--gold);font-weight:700;font-size:12px}
-
-/* ===== 导航 ===== */
-.nav{position:fixed;top:56px;left:0;right:0;z-index:199;background:rgba(6,6,26,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;height:44px;display:flex;align-items:center;gap:4px;overflow-x:auto}
-.nav-item{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;color:var(--text2);transition:all .2s;white-space:nowrap;border:none;background:none}
-.nav-item:hover{color:var(--text);background:var(--card2)}
-.nav-item.active{color:var(--accent);background:rgba(102,126,234,.12);box-shadow:0 0 12px rgba(102,126,234,.15)}
+.user-badge{display:none;align-items:center;gap:8px;padding:4px 14px 4px 8px;border-radius:20px;background:var(--card2);font-size:13px;cursor:pointer}
+.user-badge .avatar{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:12px}
+.fudan-badge{font-size:10px;color:var(--text2);margin-left:8px;padding:2px 8px;border:1px solid var(--border);border-radius:10px;white-space:nowrap}
 
 /* ===== 主体 ===== */
-.main{padding:120px 28px 80px;max-width:1100px;margin:0 auto}
+.main{max-width:1200px;margin:0 auto;padding:72px 20px 40px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:16px}
+.card h2{font-size:20px;margin-bottom:6px}
+.card h3{font-size:16px;margin-bottom:10px}
+.desc{font-size:13px;color:var(--text2);margin-bottom:16px}
+
+/* ===== Hero ===== */
+.hero{text-align:center;padding:48px 20px 32px}
+.hero-title{font-size:36px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;line-height:1.3}
+.hero-sub{font-size:16px;color:var(--text2);margin-bottom:24px;line-height:1.6}
+.hero-stats{display:flex;justify-content:center;gap:32px;margin-bottom:28px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat .num{font-size:28px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-stat .label{font-size:12px;color:var(--text2);margin-top:4px}
+.hero-tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.hero-tab{padding:10px 24px;border-radius:24px;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all .3s;color:var(--text2);background:var(--card2)}
+.hero-tab:hover{color:var(--text);background:rgba(102,126,234,.15)}
+.hero-tab.active{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 20px rgba(102,126,234,.3)}
+
+/* ===== 页面切换 ===== */
 .page{display:none}
 .page.active{display:block}
 
-/* ===== 卡片 ===== */
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px;margin-bottom:20px;position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--green))}
-.card h2{font-size:20px;margin-bottom:6px;display:flex;align-items:center;gap:10px}
-.card h3{font-size:15px;margin-bottom:10px;color:var(--text)}
-.card .desc{font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.7}
+/* ===== 比价表格 ===== */
+.price-table-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border)}
+.price-table{width:100%;border-collapse:collapse;font-size:13px}
+.price-table th{background:rgba(102,126,234,.12);padding:12px 14px;text-align:left;font-weight:700;font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;position:sticky;top:0}
+.price-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+.price-table tr:hover{background:rgba(102,126,234,.06)}
+.price-cell{font-weight:700;color:var(--green);font-family:'Courier New',monospace}
+.price-cell.blur{filter:blur(5px);cursor:pointer;user-select:none;transition:filter .2s}
+.provider-cell{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.provider-logo{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--card2)}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px}
+.tag-hot{background:rgba(255,82,82,.15);color:var(--red)}
+.tag-new{background:rgba(0,229,255,.12);color:var(--cyan)}
+.tag-low{background:rgba(0,230,118,.12);color:var(--green)}
+.tag-intl{background:rgba(102,126,234,.15);color:var(--accent)}
+.tag-cn{background:rgba(255,171,64,.15);color:var(--orange)}
+.tag-free{background:rgba(0,230,118,.15);color:var(--green)}
+.btn-reg{display:inline-block;padding:4px 14px;border-radius:16px;font-size:12px;font-weight:600;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;cursor:pointer;transition:all .2s;border:none;white-space:nowrap}
+.btn-reg:hover{transform:scale(1.05);text-decoration:none}
+.update-time{font-size:11px;color:var(--text2);text-align:right;margin-top:8px}
 
-/* ===== GPU 网格 ===== */
-.gpu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
-.gpu-card{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:18px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
-.gpu-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 30px rgba(102,126,234,.15)}
-.gpu-card .gpu-brand{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:6px}
-.gpu-card .gpu-brand.nvidia{color:#76b900}
-.gpu-card .gpu-brand.metax{color:#e040fb}
-.gpu-card .gpu-name{font-size:15px;font-weight:700;margin-bottom:4px}
-.gpu-card .gpu-spec{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px}
-.gpu-card .gpu-bottom{display:flex;justify-content:space-between;align-items:flex-end}
-.gpu-card .gpu-price{font-size:16px;font-weight:800;color:var(--green)}
-.gpu-card .gpu-price .unit{font-size:11px;font-weight:400;color:var(--text2)}
-.gpu-card .gpu-price .original{font-size:11px;color:var(--text2);text-decoration:line-through;margin-left:6px}
-.gpu-card .gpu-status{font-size:11px;padding:3px 10px;border-radius:10px}
-.gpu-card .gpu-status.ok{background:rgba(0,230,118,.1);color:var(--green)}
-.gpu-card .gpu-status.warn{background:rgba(255,171,64,.1);color:var(--orange)}
-.gpu-card .gpu-status.out{background:rgba(255,82,82,.1);color:var(--red)}
-.gpu-card .gpu-timer{position:absolute;top:12px;right:12px;background:rgba(255,82,82,.15);color:var(--red);font-size:10px;padding:3px 8px;border-radius:8px;font-weight:700;display:none}
-.gpu-card .gpu-timer.show{display:block}
+/* ===== 筛选器 ===== */
+.filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.filter-btn{padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);transition:all .2s}
+.filter-btn:hover{border-color:var(--accent);color:var(--text)}
+.filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.search-input{padding:6px 16px;border-radius:20px;font-size:12px;background:var(--card2);border:1px solid var(--border);color:var(--text);outline:none;width:200px}
+.search-input:focus{border-color:var(--accent)}
 
-/* ===== 按钮 ===== */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none}
-.btn:hover{transform:translateY(-1px);text-decoration:none}
-.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
-.btn-green{background:rgba(0,230,118,.15);color:var(--green);border:1px solid rgba(0,230,118,.3)}
-.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
-.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a2e}
-.btn-sm{padding:7px 14px;font-size:12px;border-radius:8px}
-.btn-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+/* ===== GPU卡片 ===== */
+.gpu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.gpu-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:20px;transition:all .3s;position:relative;overflow:hidden}
+.gpu-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 32px rgba(102,126,234,.15)}
+.gpu-card .gpu-name{font-size:16px;font-weight:800;margin-bottom:4px}
+.gpu-card .gpu-specs{font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.8}
+.gpu-card .gpu-price{font-size:22px;font-weight:900;color:var(--green);margin-bottom:4px;font-family:'Courier New',monospace}
+.gpu-card .gpu-unit{font-size:11px;color:var(--text2)}
+.gpu-card .gpu-status{position:absolute;top:12px;right:12px;padding:3px 10px;border-radius:10px;font-size:10px;font-weight:700}
+.gpu-card .gpu-status.ok{background:rgba(0,230,118,.15);color:var(--green)}
+.gpu-card .gpu-status.tight{background:rgba(255,171,64,.15);color:var(--orange)}
+.gpu-card .gpu-status.out{background:rgba(255,82,82,.15);color:var(--red)}
+.gpu-card .gpu-badge{position:absolute;top:0;left:0;padding:3px 12px;border-radius:0 0 10px 0;font-size:10px;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.gpu-card .gpu-actions{display:flex;gap:8px;margin-top:12px}
+.gpu-card .gpu-btn{flex:1;padding:8px;border-radius:10px;font-size:12px;font-weight:600;text-align:center;cursor:pointer;border:none;transition:all .2s}
+.gpu-card .gpu-btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.gpu-card .gpu-btn.outline{background:transparent;border:1px solid var(--border);color:var(--text2)}
+.gpu-card .gpu-btn:hover{transform:scale(1.02)}
 
-/* ===== 输入 ===== */
-.input{width:100%;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-size:14px;transition:border-color .2s}
-.input:focus{outline:none;border-color:var(--accent)}
-.input-group{display:flex;gap:8px;margin:10px 0}
-.input-label{font-size:12px;color:var(--text2);margin-bottom:4px;display:block}
+/* ===== Claw对比 ===== */
+.claw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.claw-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:20px;text-align:center;transition:all .3s;position:relative}
+.claw-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.claw-card .claw-icon{font-size:36px;margin-bottom:10px}
+.claw-card .claw-name{font-size:16px;font-weight:800;margin-bottom:6px}
+.claw-card .claw-desc{font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.6}
+.claw-card .claw-features{text-align:left;font-size:11px;color:var(--text2);line-height:2}
+.claw-card .claw-actions{display:flex;gap:8px;margin-top:14px}
+.claw-card .claw-btn{flex:1;padding:6px 10px;border-radius:10px;font-size:11px;font-weight:600;text-align:center;cursor:pointer;border:none;transition:all .2s;text-decoration:none}
+.claw-card .claw-btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.claw-card .claw-btn.outline{background:transparent;border:1px solid var(--border);color:var(--text2)}
+.claw-card .claw-btn:hover{transform:scale(1.03);text-decoration:none}
 
 /* ===== 弹窗 ===== */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:300;display:none;align-items:center;justify-content:center}
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:300;align-items:center;justify-content:center}
 .modal-overlay.show{display:flex}
-.modal{background:#12122e;border:1px solid var(--border);border-radius:20px;padding:36px;max-width:440px;width:92%;position:relative;animation:modalIn .3s ease}
-@keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-.modal h3{font-size:18px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.modal .close{position:absolute;top:16px;right:18px;font-size:20px;cursor:pointer;color:var(--text2);background:none;border:none}
-.modal .close:hover{color:var(--text)}
+.modal{background:linear-gradient(145deg,#12122e,#0a0a20);border:1px solid var(--border);border-radius:20px;padding:32px;max-width:420px;width:90%;max-height:85vh;overflow-y:auto;position:relative}
+.modal .close{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--text2);font-size:22px;cursor:pointer}
+.modal h3{font-size:18px;margin-bottom:16px}
+.input-label{display:block;font-size:12px;color:var(--text2);margin-bottom:6px;margin-top:12px}
+.input{width:100%;padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-size:13px;outline:none}
+.input:focus{border-color:var(--accent)}
+.btn{padding:10px 20px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.btn-green{background:linear-gradient(135deg,#00e676,#00c853);color:#000}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text2)}
+.btn:hover{transform:scale(1.02)}
 
-/* ===== 排行榜 ===== */
-.rank-list{list-style:none}
-.rank-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;margin-bottom:6px;background:var(--card2);transition:background .2s}
-.rank-item:hover{background:rgba(255,255,255,.06)}
-.rank-item .rank-pos{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
-.rank-item:nth-child(1) .rank-pos{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a2e}
-.rank-item:nth-child(2) .rank-pos{background:linear-gradient(135deg,#c0c0c0,#a0a0a0);color:#1a1a2e}
-.rank-item:nth-child(3) .rank-pos{background:linear-gradient(135deg,#cd7f32,#a0522d);color:#fff}
-.rank-item .rank-name{flex:1;font-size:13px;font-weight:600}
-.rank-item .rank-pts{font-size:13px;font-weight:700;color:var(--gold)}
+/* ===== 页脚 ===== */
+.footer{text-align:center;padding:32px 20px;font-size:11px;color:var(--text2);border-top:1px solid var(--border);margin-top:32px;line-height:2}
 
-/* ===== 计费面板 ===== */
-.billing-panel{background:rgba(0,230,118,.04);border:1px solid rgba(0,230,118,.15);border-radius:12px;padding:20px;margin-top:16px}
-.billing-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04)}
-.billing-row:last-child{border-bottom:none}
-.billing-row .label{color:var(--text2)}
-.billing-row .val{font-weight:600}
-
-/* ===== 二维码 ===== */
-.qr-box{text-align:center;padding:24px;background:var(--card2);border-radius:14px;margin:16px 0}
-.qr-box .qr-placeholder{width:180px;height:180px;margin:0 auto 12px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#333}
-.qr-box .qr-label{font-size:13px;color:var(--text2)}
-.qr-box .qr-price{font-size:28px;font-weight:800;color:var(--green);margin:8px 0}
-
-/* ===== 标签 ===== */
-.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600}
-.tag-free{background:rgba(0,230,118,.12);color:var(--green)}
-.tag-pro{background:rgba(255,215,0,.12);color:var(--gold)}
-.tag-hot{background:rgba(255,82,82,.12);color:var(--red)}
-.tag-new{background:rgba(102,126,234,.12);color:var(--accent)}
-
-/* ===== 底栏 ===== */
-.bottombar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(6,6,26,.95);backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:10px 28px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text2)}
-.bottombar .status{display:flex;align-items:center;gap:6px}
-.bottombar .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-
-/* ===== 统计卡 ===== */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin:16px 0}
-.stat-card{background:var(--card2);border-radius:12px;padding:16px;text-align:center}
-.stat-card .stat-num{font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.stat-card .stat-label{font-size:11px;color:var(--text2);margin-top:4px}
+/* ===== 受限提示 ===== */
+.restricted-banner{background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(118,75,162,.1));border:1px solid rgba(102,126,234,.2);border-radius:var(--r);padding:16px 24px;text-align:center;margin-bottom:16px;display:none}
+.restricted-banner .rb-text{font-size:13px;color:var(--text2);margin-bottom:8px}
+.restricted-banner .rb-btn{display:inline-block;padding:6px 20px;border-radius:20px;font-size:12px;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;cursor:pointer;border:none}
 
 /* ===== 响应式 ===== */
 @media(max-width:768px){
-  .topbar{padding:0 14px}
-  .logo .sub{display:none}
-  .nav{padding:0 14px}
-  .main{padding:110px 14px 80px}
+  .topbar{padding:0 12px}
+  .top-nav{display:none}
+  .hero-title{font-size:24px}
+  .hero-sub{font-size:13px}
+  .main{padding:64px 12px 24px}
   .gpu-grid{grid-template-columns:1fr}
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .claw-grid{grid-template-columns:1fr 1fr}
+  .fudan-badge{display:none}
+}
+@media(max-width:480px){
+  .claw-grid{grid-template-columns:1fr}
 }
 </style>
-<!-- EmailJS SDK for sending registration emails -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-  // EmailJS 初始化 - 替换为你的 Public Key
-  (function() {
-    if (typeof emailjs !== 'undefined') {
-      emailjs.init({ publicKey: 'EMAILJS_PUBLIC_KEY_HERE' });
-    }
-  })();
-</script>
 </head>
 <body>
 
@@ -161,300 +162,180 @@ a:hover{text-decoration:underline}
   <div class="logo">
     <span class="icon">🦞</span>
     <span class="brand">OpenClaw AI</span>
-    <span class="sub">复旦大学未来信息创新学院25级工程管理宣传委员</span>
+    <span class="sub">全网比价智能平台</span>
+    <span class="fudan-badge">复旦大学2025未来信息创新学院工程管理</span>
+  </div>
+  <div class="top-nav">
+    <a class="active" onclick="switchPage('home')">首页</a>
+    <a onclick="switchPage('api')">模型API</a>
+    <a onclick="switchPage('coding')">Coding Plan</a>
+    <a onclick="switchPage('gpu')">GPU算力</a>
+    <a onclick="switchPage('claw')">Claw集合</a>
+    <a href="index.html">原版平台</a>
   </div>
   <div class="top-right">
-    <div class="user-badge" id="user-badge" onclick="goPage('profile')">
-      <div class="avatar" id="user-avatar">J</div>
-      <span id="user-name-top">用户</span>
-      <span class="pts" id="user-pts-top">0 积分</span>
+    <button class="top-btn login" id="btn-login" onclick="openModal('modal-login')">登录</button>
+    <button class="top-btn register" id="btn-register" onclick="openModal('modal-register')">注册</button>
+    <div class="user-badge" id="user-badge" onclick="showUserMenu()">
+      <div class="avatar" id="user-avatar">U</div>
+      <span id="user-name">用户</span>
     </div>
-    <button class="top-btn login" id="btn-login-top" onclick="openModal('modal-login')">登录</button>
-    <button class="top-btn register" id="btn-reg-top" onclick="openModal('modal-register')">注册</button>
   </div>
 </div>
 
-<!-- ===== 导航 ===== -->
-<div class="nav">
-  <button class="nav-item active" data-page="home" onclick="goPage('home')">🏠 首页</button>
-  <button class="nav-item" data-page="gpu" onclick="goPage('gpu')">🖥️ 算力市场</button>
-  <button class="nav-item" data-page="models" onclick="goPage('models')">🧠 模型配置</button>
-  <button class="nav-item" data-page="deploy" onclick="goPage('deploy')">🚀 Qclaw内测</button>
-  <button class="nav-item" data-page="points" onclick="goPage('points')">🏆 积分中心</button>
-  <button class="nav-item" data-page="aliyun" onclick="goPage('aliyun')">☁️ 阿里云</button>
-  <button class="nav-item" data-page="profile" onclick="goPage('profile')">👤 我的</button>
-</div>
-
-<!-- ===== 主体 ===== -->
 <div class="main">
 
-<!-- ==================== 首页 ==================== -->
-<div class="page active" id="page-home">
-  <div class="card">
-    <h2>🦞 OpenClaw AI 智能平台</h2>
-    <p class="desc">一站式 AI 部署 · 多模型接入 · GPU 算力租赁 · 多 Agent 协作工作流<br>
-    支持 NVIDIA / 沐曦(MetaX) 原厂主流显卡 · 限时特惠 · 计费透明</p>
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-num">6+</div><div class="stat-label">GPU 型号</div></div>
-      <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label">AI 模型</div></div>
-      <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Agent 就绪</div></div>
-      <div class="stat-card"><div class="stat-num">24h</div><div class="stat-label">在线服务</div></div>
-    </div>
-    <div class="btn-group">
-      <button class="btn btn-primary" onclick="goPage('gpu')">🖥️ 算力市场</button>
-      <button class="btn btn-green" onclick="goPage('deploy')">🚀 Qclaw内测申请</button>
-      <button class="btn btn-gold" onclick="goPage('points')">🏆 每日签到领积分</button>
-      <button class="btn btn-outline" onclick="goPage('aliyun')">☁️ 阿里云授权</button>
-    </div>
+<!-- ===== Hero ===== -->
+<div class="hero">
+  <div class="hero-title">OpenClaw AI 全网比价智能平台</div>
+  <div class="hero-sub">国际 · 国内 AI 服务实时比价 — 模型API · Coding Plan · GPU算力<br>数据实时采集，一键直达官网注册</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num" id="stat-providers">19+</div><div class="label">厂商覆盖</div></div>
+    <div class="hero-stat"><div class="num" id="stat-models">30+</div><div class="label">模型对比</div></div>
+    <div class="hero-stat"><div class="num" id="stat-gpu">10+</div><div class="label">GPU实例</div></div>
+    <div class="hero-stat"><div class="num">实时</div><div class="label">数据同步</div></div>
   </div>
-
-  <!-- 公告 -->
-  <div class="card">
-    <h3>📢 平台公告</h3>
-    <div style="font-size:13px;color:var(--text2);line-height:2">
-      <p>🎉 <strong style="color:var(--green)">复旦大学 @m.fudan.edu.cn 邮箱注册免费使用全部基础功能</strong></p>
-      <p>💰 其他用户 <strong style="color:var(--orange)">后续开放</strong>，敬请期待</p>
-      <p>🏆 每日登录领 <strong style="color:var(--gold)">100 积分</strong>，月度积分排名第 1 赠送 <strong style="color:var(--gold)">3 个月免费算力</strong></p>
-      <p>🌟 特殊贡献反馈 <strong style="color:var(--green)">绿色通道</strong>，可额外加分</p>
-      <p>👥 邀请好友注册返 <strong style="color:var(--accent)">200 积分</strong></p>
-    </div>
-  </div>
-
-  <!-- 快速入口 -->
-  <div class="card">
-    <h3>⚡ 快速入口</h3>
-    <div class="btn-group">
-      <a class="btn btn-sm btn-primary" href="https://www.turingcm.com/index?contactsId=000007" target="_blank">🖥️ 图灵算力中心</a>
-      <a class="btn btn-sm btn-outline" href="http://localhost:18789" target="_blank">🌐 OpenClaw Web UI</a>
-      <button class="btn btn-sm btn-outline" onclick="goPage('models')">🧠 模型配置</button>
-      <button class="btn btn-sm btn-green" onclick="openModal('modal-invite')">👥 邀请好友 +200积分</button>
-    </div>
+  <div class="hero-tabs">
+    <button class="hero-tab active" onclick="switchPage('api')">📊 模型API比价</button>
+    <button class="hero-tab" onclick="switchPage('coding')">💻 Coding Plan</button>
+    <button class="hero-tab" onclick="switchPage('gpu')">🖥️ GPU算力</button>
+    <button class="hero-tab" onclick="switchPage('claw')">🦞 Claw集合对比</button>
   </div>
 </div>
 
-<!-- ==================== 算力市场 ==================== -->
+<!-- ===== 受限提示（未登录时显示） ===== -->
+<div class="restricted-banner" id="restricted-banner">
+  <div class="rb-text">🔒 部分国际厂商价格数据需登录后查看，注册即可解锁全部比价数据</div>
+  <button class="rb-btn" onclick="openModal('modal-register')">免费注册解锁 →</button>
+</div>
+
+<!-- ==================== 模型API比价 ==================== -->
+<div class="page active" id="page-api">
+  <div class="card">
+    <h2>📊 模型API Token价格比价</h2>
+    <p class="desc">覆盖 OpenAI · Anthropic · Google · DeepSeek · Moonshot · 阶跃星辰 · 智谱AI · 百度 · 腾讯混元 · 字节火山 · 小米 等 19+ 厂商实时定价</p>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterAPI('all',this)">全部</button>
+      <button class="filter-btn" onclick="filterAPI('国际',this)">🌍 国际</button>
+      <button class="filter-btn" onclick="filterAPI('国内',this)">🇨🇳 国内</button>
+      <button class="filter-btn" onclick="filterAPI('hot',this)">🔥 热门</button>
+      <button class="filter-btn" onclick="filterAPI('low',this)">💰 低价</button>
+      <input class="search-input" placeholder="搜索模型或厂商..." oninput="searchAPI(this.value)">
+    </div>
+    <div class="price-table-wrap">
+      <table class="price-table">
+        <thead>
+          <tr>
+            <th>厂商</th><th>模型</th><th>输入价格 /1M tokens</th><th>输出价格 /1M tokens</th><th>上下文</th><th>地区</th><th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="api-tbody"></tbody>
+      </table>
+    </div>
+    <div class="update-time" id="api-update-time"></div>
+  </div>
+</div>
+
+<!-- ==================== Coding Plan比价 ==================== -->
+<div class="page" id="page-coding">
+  <div class="card">
+    <h2>💻 Coding Plan 比价</h2>
+    <p class="desc">覆盖 GitHub Copilot · Cursor · Windsurf · Augment · Trae · 通义灵码 · Baidu Comate · MarsCode · CodeGeeX · Tabnine 等主流AI编程工具</p>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCoding('all',this)">全部</button>
+      <button class="filter-btn" onclick="filterCoding('国际',this)">🌍 国际</button>
+      <button class="filter-btn" onclick="filterCoding('国内',this)">🇨🇳 国内</button>
+      <button class="filter-btn" onclick="filterCoding('free',this)">🆓 免费</button>
+    </div>
+    <div class="price-table-wrap">
+      <table class="price-table">
+        <thead>
+          <tr>
+            <th>产品</th><th>月费</th><th>年费</th><th>企业版</th><th>免费额度</th><th>地区</th><th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="coding-tbody"></tbody>
+      </table>
+    </div>
+    <div class="update-time" id="coding-update-time"></div>
+  </div>
+</div>
+
+<!-- ==================== GPU算力比价（图灵算力） ==================== -->
 <div class="page" id="page-gpu">
   <div class="card">
-    <h2>🖥️ 算力市场</h2>
-    <p class="desc">支持 NVIDIA / 沐曦(MetaX) 原厂主流显卡 · 按量计费 · 限时特惠 · 计费透明<br>
-    点击卡片直接进入 <a href="https://www.turingcm.com/index?contactsId=000007" target="_blank">图灵算力中心</a> 租赁，注册即送 20 图灵币</p>
-
-    <!-- 筛选 -->
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
-      <button class="btn btn-sm btn-primary gpu-filter active" data-filter="all" onclick="filterGPU('all',this)">全部</button>
-      <button class="btn btn-sm btn-outline gpu-filter" data-filter="nvidia" onclick="filterGPU('nvidia',this)">NVIDIA</button>
-      <button class="btn btn-sm btn-outline gpu-filter" data-filter="metax" onclick="filterGPU('metax',this)">沐曦 MetaX</button>
-      <button class="btn btn-sm btn-outline gpu-filter" data-filter="promo" onclick="filterGPU('promo',this)">🔥 限时特惠</button>
+    <h2>🖥️ GPU算力市场 · 图灵算力</h2>
+    <p class="desc">图灵算力中心实时价格 · 点击卡片直达租赁页面 · 支持 NVIDIA / 沐曦 MetaX 等多品牌</p>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterGPU('all',this)">全部</button>
+      <button class="filter-btn" onclick="filterGPU('NVIDIA',this)">NVIDIA</button>
+      <button class="filter-btn" onclick="filterGPU('MetaX',this)">沐曦 MetaX</button>
+      <button class="filter-btn" onclick="filterGPU('hot',this)">🔥 限时特惠</button>
     </div>
-
     <div class="gpu-grid" id="gpu-grid"></div>
-
-    <!-- 计费说明 -->
-    <div class="billing-panel">
-      <h3 style="margin-bottom:12px;font-size:14px">💡 计费透明说明</h3>
-      <div class="billing-row"><span class="label">计费方式</span><span class="val">按量计费（图灵币/小时）</span></div>
-      <div class="billing-row"><span class="label">最小计费单位</span><span class="val">1 分钟</span></div>
-      <div class="billing-row"><span class="label">默认存储</span><span class="val">100GB（含）</span></div>
-      <div class="billing-row"><span class="label">图灵币充值</span><span class="val">1 图灵币 ≈ ¥1.00</span></div>
-      <div class="billing-row"><span class="label">新用户赠送</span><span class="val" style="color:var(--green)">20 图灵币</span></div>
-      <div class="billing-row"><span class="label">限时特惠</span><span class="val" style="color:var(--red)">部分型号限时 8 折</span></div>
-      <div class="billing-row"><span class="label">积分抵扣</span><span class="val">1000 积分 = 1 图灵币</span></div>
-    </div>
-
-    <div class="btn-group">
-      <a class="btn btn-primary" href="https://www.turingcm.com/index?contactsId=000007" target="_blank">🌐 进入图灵算力中心</a>
-      <a class="btn btn-green" href="https://www.turingcm.com/index?contactsId=000007" target="_blank">💰 充值图灵币</a>
-      <a class="btn btn-outline" href="https://www.turingcm.com/index?contactsId=000007" target="_blank">📖 帮助文档</a>
-    </div>
+    <div class="update-time" id="gpu-update-time"></div>
   </div>
 </div>
 
-<!-- ==================== 模型配置 ==================== -->
-<div class="page" id="page-models">
+<!-- ==================== Claw集合对比 ==================== -->
+<div class="page" id="page-claw">
   <div class="card">
-    <h2>🧠 模型配置</h2>
-    <p class="desc">选择 AI 模型并配置 API Key · 支持国内外主流大模型</p>
-    <div id="model-grid" class="gpu-grid"></div>
+    <h2>🦞 Claw 产品集合对比</h2>
+    <p class="desc">一站式了解各Claw产品定位、功能差异，直达官网注册与部署手册</p>
+    <div class="claw-grid" id="claw-grid"></div>
   </div>
 
-  <div class="card">
-    <h3>🔑 API Key 配置</h3>
-    <p class="desc">填入对应模型的 API Key，保存后即可在 OpenClaw 中调用</p>
-    <div id="api-config-area"></div>
-    <div class="btn-group">
-      <button class="btn btn-primary" onclick="saveAPIKeys()">💾 保存配置</button>
-      <button class="btn btn-outline" onclick="testAPIKeys()">🧪 测试连接</button>
-    </div>
-  </div>
-</div>
-
-<!-- ==================== 一键部署 ==================== -->
-<div class="page" id="page-deploy">
-  <div class="card">
-    <h2>🚀 Qclaw内测</h2>
-    <p class="desc">自动安装 OpenClaw · 配置模型 · 启动网关 · 创建多 Agent 工作流</p>
-    <div style="background:rgba(0,0,0,.3);border-radius:12px;padding:16px;font-family:Consolas,monospace;font-size:12px;max-height:360px;overflow-y:auto;line-height:1.8" id="deploy-terminal">
-      <div style="color:var(--green)">$ Qclaw 内测申请通道已开启...</div>
-      <div style="color:var(--text2);margin-top:8px">📋 请填写腾讯问卷申请内测资格</div>
-      <div style="color:var(--gold);margin-top:8px">⚡ 名额有限，先填先得！</div>
-    </div>
-    <div style="height:4px;background:var(--card);border-radius:2px;margin:16px 0;overflow:hidden">
-      <div id="deploy-progress" style="height:100%;width:100%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:2px;transition:width .5s"></div>
-    </div>
-    <div class="btn-group">
-      <a class="btn btn-primary" href="https://wj.qq.com/s2/25871229/abe7/" target="_blank">📝 填写内测申请</a>
-      <a class="btn btn-green" href="http://localhost:18789" target="_blank">🌐 打开 Web UI</a>
-      <button class="btn btn-outline" onclick="openModal('modal-agents')">🤖 查看 Agent</button>
-    </div>
-  </div>
-
-  <!-- OpenClaw Guide -->
-  <div class="card" style="margin-top:20px">
-    <h2>📖 OpenClaw 完全指南 v1.0</h2>
-    <p class="desc">从零开始掌握 OpenClaw：安装配置 → 基本使用 → 多Agent协作 → Skill开发 → 实战案例</p>
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;font-size:13px;color:var(--text2);line-height:2">
-        <div>📌 <strong style="color:var(--text)">第1-3章</strong> 快速入门与安装配置</div>
-        <div>📌 <strong style="color:var(--text)">第4-7章</strong> 多Agent协作与Skill扩展</div>
-        <div>📌 <strong style="color:var(--text)">第8-11章</strong> 高级特性与性能优化</div>
-        <div>📌 <strong style="color:var(--text)">第12-15章</strong> 实战案例与最佳实践</div>
-      </div>
-      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--text2)">
-        📋 基于 OpenClaw 2026.2.9 · Windows 11 / Node.js v22.18.0 · 复旦大学 未来信息创新学院 25级 信息工程管理
-      </div>
-    </div>
-    <div class="btn-group">
-      <a class="btn btn-primary" href="guide.html" target="_blank">📖 在线阅读完全指南</a>
-      <a class="btn btn-green" href="OpenClaw完全指南_v1.0.pdf" download>📥 下载 PDF 版本</a>
-    </div>
-    <div style="margin-top:12px;padding:14px;background:rgba(102,126,234,.08);border:1px solid rgba(102,126,234,.2);border-radius:10px;font-size:12px;color:var(--text2);line-height:1.8">
-      <strong style="color:var(--accent)">☁️ 百度网盘下载：</strong>部署文件包已上传至百度网盘，注册成功后系统将自动发送下载链接至您的注册邮箱。<br>
-      <span style="color:var(--text2)">📧 请确保注册邮箱可正常接收邮件，通常 1-3 分钟内送达。</span>
-    </div>
-  </div>
-</div>
-
-<!-- ==================== 积分中心 ==================== -->
-<div class="page" id="page-points">
-  <div class="card">
-    <h2>🏆 积分中心</h2>
-    <p class="desc">每日登录领 100 积分 · 特殊贡献反馈绿色通道加分 · 月度排名第 1 赠 3 个月免费算力</p>
-
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-num" id="my-points">0</div><div class="stat-label">我的积分</div></div>
-      <div class="stat-card"><div class="stat-num" id="my-rank">—</div><div class="stat-label">当前排名</div></div>
-      <div class="stat-card"><div class="stat-num" id="my-checkin">0</div><div class="stat-label">连续签到</div></div>
-      <div class="stat-card"><div class="stat-num" id="my-invites">0</div><div class="stat-label">邀请人数</div></div>
-    </div>
-
-    <div class="btn-group">
-      <button class="btn btn-gold" id="btn-checkin" onclick="dailyCheckin()">📅 每日签到 +100</button>
-      <button class="btn btn-green" onclick="openModal('modal-invite')">👥 邀请好友 +200</button>
-      <button class="btn btn-outline" onclick="openModal('modal-green-channel')">🟢 绿色通道申请</button>
-    </div>
-  </div>
-
-  <!-- 排行榜 -->
-  <div class="card">
-    <h3>🏅 月度积分排行榜 Top 10</h3>
-    <p class="desc">排名第 1 赠送 3 个月免费算力 · 突出贡献可申请免积分绿色通道（需说明理由）</p>
-    <ul class="rank-list" id="rank-list"></ul>
-  </div>
-
-  <!-- 积分规则 -->
-  <div class="card">
-    <h3>📋 积分获取规则</h3>
-    <div style="font-size:13px;color:var(--text2);line-height:2.2">
-      <p>📅 每日登录签到：<strong style="color:var(--green)">+100 积分</strong></p>
-      <p>👥 邀请好友注册：<strong style="color:var(--green)">+200 积分/人</strong></p>
-      <p>🚀 首次部署成功：<strong style="color:var(--green)">+500 积分</strong></p>
-      <p>⭐ 连续签到 7 天：<strong style="color:var(--gold)">额外 +300 积分</strong></p>
-      <p>🔄 积分兑换算力：<strong style="color:var(--accent)">1000 积分 = 1 图灵币</strong></p>
-      <p>🏆 月度排名第 1：<strong style="color:var(--gold)">赠送 3 个月免费算力</strong></p>
-      <p>🟢 Top3 可申请：<strong style="color:var(--gold)">免积分绿色通道</strong></p>
-    </div>
-  </div>
-</div>
-
-<!-- ==================== 阿里云 ==================== -->
-<div class="page" id="page-aliyun">
-  <div class="card">
-    <h2>☁️ 阿里云授权</h2>
-    <p class="desc">授权阿里云账号，一键生成网页应用和微信小程序</p>
-
-    <div class="btn-group">
-      <button class="btn btn-primary" onclick="window.open('https://account.aliyun.com/login/login.htm','_blank')">🔑 阿里云账号授权</button>
-      <button class="btn btn-green" onclick="window.open('https://www.aliyun.com/product/bailian','_blank')">🧠 通义百炼控制台</button>
-    </div>
-  </div>
-
-  <div class="card admin-only" style="display:none">
-    <h3>🌐 生成网页应用 <span class="tag tag-pro">🔒 管理员</span></h3>
-    <p class="desc">基于阿里云 FC + OSS 一键生成静态网页，自动部署到云端</p>
-    <div class="input-group">
-      <input class="input" id="aliyun-domain" placeholder="输入自定义域名（可选）">
-      <button class="btn btn-sm btn-primary" onclick="generateWebApp()">生成网页</button>
-    </div>
-    <div id="webapp-status" style="margin-top:8px"></div>
-  </div>
-
-  <div class="card admin-only" style="display:none">
-    <h3>📱 生成微信小程序 <span class="tag tag-pro">🔒 管理员</span></h3>
-    <p class="desc">基于阿里云后端 + 微信小程序前端，一键生成并提交审核</p>
-    <div class="input-group">
-      <input class="input" id="wx-appid" placeholder="微信小程序 AppID">
-      <button class="btn btn-sm btn-green" onclick="generateMiniApp()">生成小程序</button>
-    </div>
-    <div id="miniapp-status" style="margin-top:8px"></div>
-  </div>
-</div>
-
-
-  <!-- 管理员邮件测试 -->
-  <div class="card admin-only" style="display:none;margin-top:16px">
-    <h3>📧 邮件服务测试 <span class="tag tag-pro">🔒 管理员</span></h3>
-    <p class="desc">测试注册成功后自动发送百度网盘下载链接邮件</p>
-    <div class="btn-group">
-      <button class="btn btn-primary" onclick="testSendEmail()">📨 发送测试邮件</button>
-    </div>
-    <div id="email-test-status" style="margin-top:10px;font-size:12px;color:var(--text2)"></div>
-    <div style="margin-top:12px;padding:12px;background:var(--card2);border-radius:8px;font-size:11px;color:var(--text2);line-height:1.8">
-      <strong>EmailJS 配置状态：</strong><span id="emailjs-status"></span><br>
-      <strong>百度网盘链接：</strong>需在代码中更新 BAIDU_PAN_LINK 和 BAIDU_PAN_CODE<br>
-      <strong>免费额度：</strong>每月 200 封邮件（EmailJS 免费版）
-    </div>
-  </div>
-
-<!-- ==================== 我的 ==================== -->
-<div class="page" id="page-profile">
-  <div class="card">
-    <h2>👤 我的账户</h2>
-    <div id="profile-content">
-      <p style="color:var(--text2);font-size:14px;padding:20px 0;text-align:center">请先登录或注册</p>
-      <div class="btn-group" style="justify-content:center">
-        <button class="btn btn-primary" onclick="openModal('modal-login')">登录</button>
-        <button class="btn btn-outline" onclick="openModal('modal-register')">注册</button>
-      </div>
+  <!-- Claw详细对比表 -->
+  <div class="card" style="margin-top:16px">
+    <h3>📋 功能对比一览</h3>
+    <div class="price-table-wrap">
+      <table class="price-table" id="claw-compare-table">
+        <thead>
+          <tr>
+            <th>产品</th><th>核心能力</th><th>适用场景</th><th>部署方式</th><th>开源</th><th>官网注册</th><th>部署手册</th>
+          </tr>
+        </thead>
+        <tbody id="claw-tbody"></tbody>
+      </table>
     </div>
   </div>
 </div>
 
 </div><!-- .main -->
 
-<!-- ===== 底栏 ===== -->
-<div class="bottombar">
-  <div class="status"><span class="dot" id="gw-dot"></span><span id="gw-text">检测网关中...</span></div>
-  <div>复旦大学未来信息创新学院25级工程管理宣传委员 · OpenClaw 2026.3.7</div>
+<!-- ===== 页脚 ===== -->
+<div class="footer">
+  <div>OpenClaw AI 全网比价智能平台 · 数据来源于各厂商公开信息，仅供参考</div>
+  <div style="margin-top:6px">© 2025 复旦大学2025未来信息创新学院工程管理</div>
+  <div style="margin-top:4px;font-size:10px;color:var(--text2)">技术支持：杭州华寰科技有限责任公司 · 联系邮箱：athenayan123@gmail.com</div>
+  <div style="margin-top:4px"><a href="index.html">返回原版平台</a></div>
 </div>
 
-<!-- ==================== 弹窗：注册 ==================== -->
+<!-- ==================== 登录弹窗 ==================== -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal">
+    <button class="close" onclick="closeModal('modal-login')">&times;</button>
+    <h3>🔑 登录</h3>
+    <label class="input-label">邮箱地址</label>
+    <input class="input" id="login-email" placeholder="your@email.com" type="email">
+    <label class="input-label">密码</label>
+    <input class="input" id="login-pwd" placeholder="请输入密码" type="password" style="margin-bottom:16px">
+    <button class="btn btn-primary" style="width:100%" onclick="doLogin()">登录</button>
+    <p style="text-align:center;margin-top:12px;font-size:12px;color:var(--text2)">
+      还没有账号？<a href="#" onclick="closeModal('modal-login');openModal('modal-register')">立即注册</a>
+    </p>
+  </div>
+</div>
+
+<!-- ==================== 注册弹窗 ==================== -->
 <div class="modal-overlay" id="modal-register">
   <div class="modal">
     <button class="close" onclick="closeModal('modal-register')">&times;</button>
     <h3>📝 注册账号</h3>
     <p style="font-size:12px;color:var(--text2);margin-bottom:16px">
-      <span class="tag tag-free">@m.fudan.edu.cn 免费</span>
-      其他邮箱需支付 <strong style="color:var(--green)">9.9 元</strong> 解锁基础功能
+      <span class="tag tag-free">@m.fudan.edu.cn 复旦认证</span>
+      <span class="tag tag-intl">高校/企业邮箱 智能认证</span>
+      <span class="tag tag-cn">其他邮箱 开放注册</span>
     </p>
     <label class="input-label">邮箱地址</label>
     <input class="input" id="reg-email" placeholder="your@m.fudan.edu.cn" type="email" oninput="checkEmailSuffix()">
@@ -463,566 +344,478 @@ a:hover{text-decoration:underline}
     <input class="input" id="reg-pwd" placeholder="8位以上密码" type="password" style="margin-bottom:8px">
     <label class="input-label">邀请码（选填）</label>
     <input class="input" id="reg-invite" placeholder="填写邀请码双方各得200积分" style="margin-bottom:16px">
-
-    <!-- 付费区域（非复旦邮箱显示） -->
-    <div id="pay-section" style="display:none">
-      <div class="qr-box">
-        <div class="qr-price">¥ 9.9</div>
-        <div class="qr-placeholder">收款二维码<br>（待配置）</div>
-        <div class="qr-label"></div>
-        <div class="qr-label" style="margin-top:4px;font-size:11px;color:var(--text2)">扫码支付后点击下方「已支付」按钮</div>
-      </div>
-      <button class="btn btn-green" style="width:100%" onclick="confirmPaid()">✅ 我已支付 9.9 元</button>
-    </div>
-
-    <button class="btn btn-primary" style="width:100%;margin-top:8px" id="btn-do-register" onclick="doRegister()">注册</button>
-  </div>
-</div>
-
-<!-- ==================== 弹窗：登录 ==================== -->
-<div class="modal-overlay" id="modal-login">
-  <div class="modal">
-    <button class="close" onclick="closeModal('modal-login')">&times;</button>
-    <h3>🔑 登录</h3>
-    <label class="input-label">邮箱</label>
-    <input class="input" id="login-email" placeholder="your@email.com" type="email" style="margin-bottom:10px">
-    <label class="input-label">密码</label>
-    <input class="input" id="login-pwd" placeholder="密码" type="password" style="margin-bottom:16px">
-    <button class="btn btn-primary" style="width:100%" onclick="doLogin()">登录</button>
+    <button class="btn btn-primary" style="width:100%" onclick="doRegister()">注册</button>
     <p style="text-align:center;margin-top:12px;font-size:12px;color:var(--text2)">
-      没有账号？<a href="javascript:void(0)" onclick="closeModal('modal-login');openModal('modal-register')">立即注册</a>
+      已有账号？<a href="#" onclick="closeModal('modal-register');openModal('modal-login')">去登录</a>
     </p>
   </div>
 </div>
 
-<!-- ==================== 弹窗：邀请 ==================== -->
-<div class="modal-overlay" id="modal-invite">
-  <div class="modal">
-    <button class="close" onclick="closeModal('modal-invite')">&times;</button>
-    <h3>👥 邀请好友</h3>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:16px">分享邀请码或链接，好友注册后双方各得 <strong style="color:var(--green)">200 积分</strong></p>
-    <label class="input-label">我的邀请码</label>
-    <div class="input-group">
-      <input class="input" id="my-invite-code" value="" readonly style="font-weight:700;letter-spacing:2px">
-      <button class="btn btn-sm btn-primary" onclick="copyInviteCode()">复制</button>
-    </div>
-    <label class="input-label">邀请链接</label>
-    <div class="input-group">
-      <input class="input" id="my-invite-link" value="" readonly style="font-size:12px">
-      <button class="btn btn-sm btn-green" onclick="copyInviteLink()">复制</button>
+<!-- ==================== 受限内容弹窗 ==================== -->
+<div class="modal-overlay" id="modal-restricted">
+  <div class="modal" style="text-align:center">
+    <button class="close" onclick="closeModal('modal-restricted')">&times;</button>
+    <div style="font-size:48px;margin-bottom:16px">🔒</div>
+    <h3>登录后查看完整数据</h3>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.8">
+      部分国际厂商价格数据需登录后查看<br>
+      复旦大学 @m.fudan.edu.cn 邮箱注册即可免费解锁
+    </p>
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button class="btn btn-primary" onclick="closeModal('modal-restricted');openModal('modal-login')">登录</button>
+      <button class="btn btn-green" onclick="closeModal('modal-restricted');openModal('modal-register')">免费注册</button>
     </div>
   </div>
 </div>
 
-<!-- ==================== 弹窗：绿色通道 ==================== -->
-<div class="modal-overlay" id="modal-green-channel">
-  <div class="modal">
-    <button class="close" onclick="closeModal('modal-green-channel')">&times;</button>
-    <h3>🟢 突出贡献免积分绿色通道申请</h3>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:16px">对平台有突出贡献的用户可申请免积分直接使用算力，请详细说明贡献内容和申请理由，审核通过后立即生效</p>
-    <label class="input-label">申请理由</label>
-    <textarea class="input" id="green-reason" rows="4" placeholder="请简要说明您的使用场景和需求..." style="resize:vertical;margin-bottom:16px"></textarea>
-    <button class="btn btn-green" style="width:100%" onclick="submitGreenChannel()">提交申请</button>
-  </div>
-</div>
-
-<!-- ==================== 弹窗：Agent 列表 ==================== -->
-<div class="modal-overlay" id="modal-agents">
-  <div class="modal" style="max-width:520px">
-    <button class="close" onclick="closeModal('modal-agents')">&times;</button>
-    <h3>🤖 多 Agent 工作流</h3>
-    <div style="display:grid;gap:10px;margin-top:12px">
-      <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--card2);border-radius:12px;border-left:4px solid var(--accent)">
-        <span style="font-size:28px">🦞</span>
-        <div><div style="font-weight:700">main — 主控调度</div><div style="font-size:12px;color:var(--text2)">deepseek-chat · 任务路由与默认对话</div></div>
-      </div>
-      <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--card2);border-radius:12px;border-left:4px solid var(--green)">
-        <span style="font-size:28px">🔍</span>
-        <div><div style="font-weight:700">researcher — 研究员</div><div style="font-size:12px;color:var(--text2)">deepseek-chat · 信息检索 · Weather Skill</div></div>
-      </div>
-      <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--card2);border-radius:12px;border-left:4px solid var(--red)">
-        <span style="font-size:28px">💻</span>
-        <div><div style="font-weight:700">coder — 编码员</div><div style="font-size:12px;color:var(--text2)">deepseek-reasoner (R1) · 代码生成</div></div>
-      </div>
-      <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--card2);border-radius:12px;border-left:4px solid var(--gold)">
-        <span style="font-size:28px">📊</span>
-        <div><div style="font-weight:700">analyst — 分析师</div><div style="font-size:12px;color:var(--text2)">deepseek-chat · 数据分析与报告</div></div>
-      </div>
+<!-- ==================== 授权弹窗 ==================== -->
+<div class="modal-overlay show" id="modal-auth">
+  <div class="modal" style="text-align:center">
+    <div style="font-size:48px;margin-bottom:16px">🦞</div>
+    <h3 style="font-size:20px;margin-bottom:8px">OpenClaw AI 全网比价智能平台</h3>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.8">
+      本平台提供 AI 模型API、Coding Plan、GPU算力的<br>
+      国际/国内实时比价服务，数据来源于各厂商公开信息。<br><br>
+      <strong style="color:var(--text)">复旦大学2025未来信息创新学院工程管理</strong>
+    </p>
+    <div style="background:var(--card2);border-radius:12px;padding:16px;margin-bottom:20px;text-align:left;font-size:12px;color:var(--text2);line-height:2">
+      <div>📊 实时采集 19+ 厂商定价数据</div>
+      <div>🔗 一键直达各厂商官网注册页</div>
+      <div>🖥️ 图灵算力GPU实例实时比价</div>
+      <div>🦞 Claw系列产品集合对比</div>
+      <div>🔒 部分数据需登录后查看</div>
     </div>
+    <button class="btn btn-primary" style="width:100%;padding:14px;font-size:15px" onclick="closeModal('modal-auth')">
+      ✅ 我已了解，进入平台
+    </button>
+    <p style="font-size:10px;color:var(--text2);margin-top:12px">
+      点击进入即表示您同意本平台的使用条款
+    </p>
   </div>
 </div>
 
-<!-- ==================== JS ==================== -->
 <script>
-// ===== 数据 =====
-const GPUS = [
-  { brand:'nvidia', name:'NVIDIA H800-PCIE 80GB', cards:'8卡', spec:'80核 vCPU · 768G 内存 · 640G 显存', price:92.29, originalPrice:null, status:'warn', statusText:'资源紧张', promo:false },
-  { brand:'nvidia', name:'NVIDIA H800-PCIE 80GB', cards:'4卡', spec:'40核 vCPU · 384G 内存 · 320G 显存', price:47.32, originalPrice:null, status:'warn', statusText:'资源紧张', promo:false },
-  { brand:'nvidia', name:'NVIDIA H800-PCIE 80GB', cards:'2卡', spec:'20核 vCPU · 192G 内存 · 160G 显存', price:23.66, originalPrice:null, status:'ok', statusText:'资源充足', promo:false },
-  { brand:'nvidia', name:'NVIDIA H800-PCIE 80GB', cards:'1卡', spec:'10核 vCPU · 96G 内存 · 80G 显存', price:11.83, originalPrice:14.79, status:'ok', statusText:'资源充足', promo:true, promoEnd:'2026-04-01' },
-  { brand:'nvidia', name:'NVIDIA L40S 48GB', cards:'多卡', spec:'Ada Lovelace · 推理优化 · 视频生成', price:8.50, originalPrice:null, status:'ok', statusText:'资源充足', promo:false },
-  { brand:'nvidia', name:'NVIDIA L20 48GB', cards:'多卡', spec:'推理优化 · 高性价比', price:6.20, originalPrice:7.75, status:'ok', statusText:'资源充足', promo:true, promoEnd:'2026-03-31' },
-  { brand:'metax', name:'沐曦 MetaX C550 64GB', cards:'8卡', spec:'国产旗舰 · 512G 总显存 · 大模型训练', price:48.00, originalPrice:60.00, status:'warn', statusText:'资源紧张', promo:true, promoEnd:'2026-04-15' },
-  { brand:'metax', name:'沐曦 MetaX C550 64GB', cards:'4卡', spec:'国产旗舰 · 256G 总显存', price:24.00, originalPrice:null, status:'ok', statusText:'资源充足', promo:false },
-  { brand:'metax', name:'沐曦 MetaX C550 64GB', cards:'2卡', spec:'国产算力 · 128G 总显存', price:12.00, originalPrice:null, status:'ok', statusText:'资源充足', promo:false },
-  { brand:'nvidia', name:'Kunlun P800', cards:'多卡', spec:'昆仑芯 · 国产生态 · 推理部署', price:5.80, originalPrice:null, status:'ok', statusText:'可用', promo:false },
-];
+// ===== 数据定义 =====
+let API_DATA = [];
+let CODING_DATA = [];
+let GPU_DATA = [];
+let CLAW_DATA = [];
 
-const MODELS = [
-  { id:'deepseek-chat', name:'DeepSeek V3', provider:'DeepSeek', priceIn:'¥2/M', priceOut:'¥8/M', tag:'hot', apiUrl:'https://platform.deepseek.com/api_keys', baseUrl:'https://api.deepseek.com/v1' },
-  { id:'deepseek-reasoner', name:'DeepSeek R1', provider:'DeepSeek', priceIn:'¥4/M', priceOut:'¥16/M', tag:'hot', apiUrl:'https://platform.deepseek.com/api_keys', baseUrl:'https://api.deepseek.com/v1' },
-  { id:'qwen-max', name:'通义千问 Max', provider:'阿里云', priceIn:'¥2.5/M', priceOut:'¥10/M', tag:'new', apiUrl:'https://bailian.console.aliyun.com/', baseUrl:'https://dashscope.aliyuncs.com/compatible-mode/v1' },
-  { id:'gemini-2.5-flash', name:'Gemini 2.5 Flash', provider:'Google', priceIn:'$0.15/M', priceOut:'$0.60/M', tag:'free', apiUrl:'https://aistudio.google.com/apikey', baseUrl:'https://generativelanguage.googleapis.com/v1beta' },
-  { id:'gpt-4.1-mini', name:'GPT-4.1 Mini', provider:'OpenAI', priceIn:'$0.40/M', priceOut:'$1.60/M', tag:'', apiUrl:'https://platform.openai.com/api-keys', baseUrl:'https://api.openai.com/v1' },
-];
+// 用户状态
+let currentUser = null;
 
-const RANK_DATA = [
-  { name:'张**', pts:12800 },{ name:'李**', pts:11200 },{ name:'王**', pts:9600 },
-  { name:'赵**', pts:8400 },{ name:'陈**', pts:7200 },{ name:'刘**', pts:6800 },
-  { name:'杨**', pts:5500 },{ name:'黄**', pts:4200 },{ name:'周**', pts:3600 },
-  { name:'吴**', pts:2800 },
-];
+// ===== 初始化数据 =====
+async function initData() {
+  try {
+    const resp = await fetch('data/pricing_data.json?t=' + Date.now());
+    const data = await resp.json();
+    API_DATA = data.api_pricing || [];
+    CODING_DATA = data.coding_plans || [];
+    GPU_DATA = data.gpu_pricing || [];
+  } catch(e) {
+    console.log('使用内置数据');
+    loadBuiltinData();
+  }
+  loadClawData();
+  renderAll();
+  checkLoginState();
+}
 
-// ===== 用户状态 =====
-let user = JSON.parse(localStorage.getItem('oc_user') || 'null');
+function loadBuiltinData() {
+  API_DATA = [
+    {provider:"OpenAI",model:"GPT-5.2",input:"$1.75/1M",output:"$14.00/1M",context:"1M",region:"国际",url:"https://platform.openai.com/signup",logo:"🟢",tag:"new"},
+    {provider:"OpenAI",model:"GPT-5.1",input:"$1.25/1M",output:"$10.00/1M",context:"1M",region:"国际",url:"https://platform.openai.com/signup",logo:"🟢",tag:"hot"},
+    {provider:"OpenAI",model:"GPT-4o",input:"$2.50/1M",output:"$10.00/1M",context:"128K",region:"国际",url:"https://platform.openai.com/signup",logo:"🟢",tag:""},
+    {provider:"OpenAI",model:"GPT-4o-mini",input:"$0.15/1M",output:"$0.60/1M",context:"128K",region:"国际",url:"https://platform.openai.com/signup",logo:"🟢",tag:"low"},
+    {provider:"OpenAI",model:"GPT-4.1",input:"$2.00/1M",output:"$8.00/1M",context:"1M",region:"国际",url:"https://platform.openai.com/signup",logo:"🟢",tag:""},
+    {provider:"OpenAI",model:"GPT-4.1-mini",input:"$0.40/1M",output:"$1.60/1M",context:"1M",region:"国际",url:"https://platform.openai.com/signup",logo:"🟢",tag:"low"},
+    {provider:"OpenAI",model:"o3-mini",input:"$1.10/1M",output:"$4.40/1M",context:"200K",region:"国际",url:"https://platform.openai.com/signup",logo:"🟢",tag:""},
+    {provider:"Anthropic",model:"Claude 4 Sonnet",input:"$3.00/1M",output:"$15.00/1M",context:"200K",region:"国际",url:"https://console.anthropic.com/",logo:"🟠",tag:"hot"},
+    {provider:"Anthropic",model:"Claude 3.5 Haiku",input:"$0.80/1M",output:"$4.00/1M",context:"200K",region:"国际",url:"https://console.anthropic.com/",logo:"🟠",tag:"low"},
+    {provider:"Google",model:"Gemini 2.5 Pro",input:"$1.25/1M",output:"$10.00/1M",context:"1M",region:"国际",url:"https://aistudio.google.com/",logo:"🔵",tag:"hot"},
+    {provider:"Google",model:"Gemini 2.5 Flash",input:"$0.15/1M",output:"$0.60/1M",context:"1M",region:"国际",url:"https://aistudio.google.com/",logo:"🔵",tag:"low"},
+    {provider:"DeepSeek",model:"DeepSeek-V3",input:"¥0.50/1M",output:"¥2.00/1M",context:"64K",region:"国内",url:"https://platform.deepseek.com/",logo:"🐋",tag:"hot"},
+    {provider:"DeepSeek",model:"DeepSeek-R1",input:"¥2.00/1M",output:"¥8.00/1M",context:"64K",region:"国内",url:"https://platform.deepseek.com/",logo:"🐋",tag:"new"},
+    {provider:"Moonshot",model:"Kimi-128K",input:"¥60.00/1M",output:"¥60.00/1M",context:"128K",region:"国内",url:"https://platform.moonshot.cn/",logo:"🌙",tag:""},
+    {provider:"阶跃星辰",model:"Step-2-16K",input:"¥38.00/1M",output:"¥38.00/1M",context:"16K",region:"国内",url:"https://platform.stepfun.com/",logo:"⭐",tag:""},
+    {provider:"智谱AI",model:"GLM-4-Plus",input:"¥50.00/1M",output:"¥50.00/1M",context:"128K",region:"国内",url:"https://open.bigmodel.cn/",logo:"🧠",tag:""},
+    {provider:"百度",model:"ERNIE 4.5",input:"¥4.00/1M",output:"¥12.00/1M",context:"128K",region:"国内",url:"https://cloud.baidu.com/",logo:"🐾",tag:""},
+    {provider:"腾讯混元",model:"混元-Turbo",input:"¥15.00/1M",output:"¥50.00/1M",context:"256K",region:"国内",url:"https://cloud.tencent.com/",logo:"🐧",tag:""},
+    {provider:"字节火山",model:"豆包-Pro-128K",input:"¥5.00/1M",output:"¥9.00/1M",context:"128K",region:"国内",url:"https://www.volcengine.com/",logo:"🌋",tag:"low"},
+    {provider:"小米",model:"MiLM-Pro",input:"¥2.00/1M",output:"¥6.00/1M",context:"32K",region:"国内",url:"https://xiaoai.mi.com/",logo:"📱",tag:"new"}
+  ];
 
-// ===== 初始化 =====
-document.addEventListener('DOMContentLoaded', () => {
-  renderGPUs('all');
-  renderModels();
-  renderRankList();
-  checkGateway();
-  setInterval(checkGateway, 30000);
-  if (user) loginUI(user);
-  updateInviteInfo();
-});
+  CODING_DATA = [
+    {product:"GitHub Copilot",monthly:"$10",yearly:"$100/年",enterprise:"$39/月",free_tier:"免费版可用",region:"国际",url:"https://github.com/features/copilot",logo:"🐙"},
+    {product:"Cursor",monthly:"$20",yearly:"$192/年",enterprise:"$40/月",free_tier:"免费500次",region:"国际",url:"https://cursor.sh/",logo:"⚡"},
+    {product:"Windsurf",monthly:"$15",yearly:"$144/年",enterprise:"联系销售",free_tier:"免费基础版",region:"国际",url:"https://codeium.com/windsurf",logo:"🏄"},
+    {product:"Augment",monthly:"$30",yearly:"$288/年",enterprise:"联系销售",free_tier:"14天试用",region:"国际",url:"https://www.augmentcode.com/",logo:"🔮"},
+    {product:"Trae",monthly:"免费",yearly:"免费",enterprise:"-",free_tier:"完全免费",region:"国内",url:"https://www.trae.ai/",logo:"🎯"},
+    {product:"通义灵码",monthly:"免费",yearly:"免费",enterprise:"¥99/月",free_tier:"个人免费",region:"国内",url:"https://tongyi.aliyun.com/lingma",logo:"🧊"},
+    {product:"Baidu Comate",monthly:"免费",yearly:"免费",enterprise:"联系销售",free_tier:"个人免费",region:"国内",url:"https://comate.baidu.com/",logo:"🐾"},
+    {product:"MarsCode",monthly:"免费",yearly:"免费",enterprise:"-",free_tier:"完全免费",region:"国内",url:"https://www.marscode.cn/",logo:"🚀"},
+    {product:"CodeGeeX",monthly:"免费",yearly:"免费",enterprise:"联系销售",free_tier:"个人免费",region:"国内",url:"https://codegeex.cn/",logo:"🤖"},
+    {product:"Tabnine",monthly:"$12",yearly:"$120/年",enterprise:"联系销售",free_tier:"免费基础版",region:"国际",url:"https://www.tabnine.com/",logo:"🔷"}
+  ];
 
-// ===== 页面导航 =====
-function goPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n => {
-    n.classList.toggle('active', n.dataset.page === id);
+  GPU_DATA = [
+    {name:"NVIDIA A100 80G",brand:"NVIDIA",specs:"80GB HBM2e · NVLink · 624 TFLOPS",price:"92.29",unit:"图灵币/时",status:"充足",badge:"热门",url:"https://www.turingcm.com/index?contactsId=000007"},
+    {name:"NVIDIA H800 80G",brand:"NVIDIA",specs:"80GB HBM3 · 900GB/s · 1979 TFLOPS",price:"168.50",unit:"图灵币/时",status:"紧张",badge:"高端",url:"https://www.turingcm.com/index?contactsId=000007"},
+    {name:"NVIDIA A800 80G",brand:"NVIDIA",specs:"80GB HBM2e · 600GB/s · 312 TFLOPS",price:"85.00",unit:"图灵币/时",status:"充足",badge:"",url:"https://www.turingcm.com/index?contactsId=000007"},
+    {name:"NVIDIA L40S 48G",brand:"NVIDIA",specs:"48GB GDDR6X · PCIe 4.0 · 366 TFLOPS",price:"56.80",unit:"图灵币/时",status:"充足",badge:"性价比",url:"https://www.turingcm.com/index?contactsId=000007"},
+    {name:"NVIDIA RTX 4090 24G",brand:"NVIDIA",specs:"24GB GDDR6X · PCIe 4.0 · 330 TFLOPS",price:"28.50",unit:"图灵币/时",status:"充足",badge:"入门",url:"https://www.turingcm.com/index?contactsId=000007"},
+    {name:"NVIDIA V100 32G",brand:"NVIDIA",specs:"32GB HBM2 · NVLink · 125 TFLOPS",price:"35.00",unit:"图灵币/时",status:"充足",badge:"",url:"https://www.turingcm.com/index?contactsId=000007"},
+    {name:"NVIDIA A30 24G",brand:"NVIDIA",specs:"24GB HBM2 · PCIe 4.0 · 165 TFLOPS",price:"32.00",unit:"图灵币/时",status:"充足",badge:"",url:"https://www.turingcm.com/index?contactsId=000007"},
+    {name:"沐曦 C500 64G",brand:"MetaX",specs:"64GB HBM2e · 国产GPU · 256 TFLOPS",price:"45.00",unit:"图灵币/时",status:"紧张",badge:"国产",url:"https://www.turingcm.com/index?contactsId=000007"},
+    {name:"沐曦 N100 32G",brand:"MetaX",specs:"32GB GDDR6 · 国产GPU · 128 TFLOPS",price:"22.00",unit:"图灵币/时",status:"充足",badge:"国产",url:"https://www.turingcm.com/index?contactsId=000007"},
+    {name:"NVIDIA H100 80G",brand:"NVIDIA",specs:"80GB HBM3 · 3.35TB/s · 3958 TFLOPS",price:"238.00",unit:"图灵币/时",status:"紧张",badge:"旗舰",url:"https://www.turingcm.com/index?contactsId=000007",hot:true}
+  ];
+}
+
+function loadClawData() {
+  CLAW_DATA = [
+    {name:"OpenClaw",icon:"🦞",desc:"开源AI自动化框架，支持浏览器自动化、文件操作、报告生成",features:["浏览器自动化","文件读写生成","多模型支持","开源免费"],url:"https://oneclaw.cn/",docUrl:"guide.html",open:"是"},
+    {name:"QClaw",icon:"🐧",desc:"腾讯云AI助手，深度集成腾讯生态，企业级安全合规",features:["腾讯云集成","企业安全","混元模型","私有部署"],url:"https://cloud.tencent.com/",docUrl:"https://cloud.tencent.com/document",open:"否"},
+    {name:"KimiClaw",icon:"🌙",desc:"Moonshot旗下AI助手，超长上下文处理，中文理解能力强",features:["128K超长上下文","中文优化","联网搜索","文件解析"],url:"https://kimi.moonshot.cn/",docUrl:"https://platform.moonshot.cn/docs",open:"否"},
+    {name:"JVSClaw",icon:"⚙️",desc:"企业级AI工作流平台，专注业务流程自动化与数据分析",features:["工作流编排","数据分析","API集成","企业定制"],url:"https://www.jvs.com/",docUrl:"https://docs.jvs.com/",open:"部分"},
+    {name:"WorkBuddy",icon:"🤝",desc:"职场AI助手，专注办公效率提升，支持文档/PPT/Excel智能生成",features:["文档生成","PPT制作","Excel分析","会议纪要"],url:"https://workbuddy.ai/",docUrl:"https://docs.workbuddy.ai/",open:"否"},
+    {name:"ArkClaw",icon:"🏔️",desc:"字节火山引擎AI平台，豆包大模型驱动，多模态能力",features:["豆包模型","多模态","火山引擎","企业API"],url:"https://www.volcengine.com/",docUrl:"https://www.volcengine.com/docs",open:"否"},
+    {name:"小米Claw",icon:"📱",desc:"小米AI生态助手，深度集成小米IoT设备与智能家居",features:["IoT集成","小爱同学","智能家居","端侧部署"],url:"https://xiaoai.mi.com/",docUrl:"https://developers.xiaoai.mi.com/",open:"部分"}
+  ];
+}
+
+// ===== 渲染函数 =====
+function renderAll() {
+  renderAPITable();
+  renderCodingTable();
+  renderGPUGrid();
+  renderClawGrid();
+  renderClawCompare();
+  updateRestricted();
+}
+
+function renderAPITable() {
+  const tbody = document.getElementById('api-tbody');
+  const user = currentUser;
+  let html = '';
+  API_DATA.forEach(d => {
+    const isBlur = !user && d.region === '国际';
+    const tagHTML = d.tag === 'hot' ? '<span class="tag tag-hot">🔥 热门</span>' :
+                    d.tag === 'new' ? '<span class="tag tag-new">✨ 新</span>' :
+                    d.tag === 'low' ? '<span class="tag tag-low">💰 低价</span>' : '';
+    const regionTag = d.region === '国际' ? '<span class="tag tag-intl">国际</span>' : '<span class="tag tag-cn">国内</span>';
+    html += `<tr data-region="${d.region}" data-tag="${d.tag}" data-search="${d.provider} ${d.model}">
+      <td><div class="provider-cell"><div class="provider-logo">${d.logo}</div>${d.provider}</div></td>
+      <td>${d.model} ${tagHTML}</td>
+      <td class="price-cell ${isBlur ? 'blur' : ''}" ${isBlur ? 'onclick="openModal(\'modal-restricted\')"' : ''}>${d.input}</td>
+      <td class="price-cell ${isBlur ? 'blur' : ''}" ${isBlur ? 'onclick="openModal(\'modal-restricted\')"' : ''}>${d.output}</td>
+      <td>${d.context}</td>
+      <td>${regionTag}</td>
+      <td><a class="btn-reg" href="${d.url}" target="_blank">官网注册 →</a></td>
+    </tr>`;
   });
-  window.scrollTo(0, 0);
+  tbody.innerHTML = html;
+  document.getElementById('api-update-time').textContent = '最后更新：' + new Date().toLocaleString('zh-CN');
+}
+
+function renderCodingTable() {
+  const tbody = document.getElementById('coding-tbody');
+  let html = '';
+  CODING_DATA.forEach(d => {
+    const regionTag = d.region === '国际' ? '<span class="tag tag-intl">国际</span>' : '<span class="tag tag-cn">国内</span>';
+    const isFree = d.monthly === '免费';
+    html += `<tr data-region="${d.region}" data-free="${isFree}">
+      <td><div class="provider-cell"><div class="provider-logo">${d.logo}</div>${d.product}</div></td>
+      <td class="price-cell" style="color:${isFree ? 'var(--green)' : 'var(--orange)'}">${d.monthly}</td>
+      <td>${d.yearly}</td>
+      <td>${d.enterprise}</td>
+      <td>${isFree ? '<span class="tag tag-free">'+d.free_tier+'</span>' : d.free_tier}</td>
+      <td>${regionTag}</td>
+      <td><a class="btn-reg" href="${d.url}" target="_blank">官网注册 →</a></td>
+    </tr>`;
+  });
+  tbody.innerHTML = html;
+  document.getElementById('coding-update-time').textContent = '最后更新：' + new Date().toLocaleString('zh-CN');
+}
+
+function renderGPUGrid() {
+  const grid = document.getElementById('gpu-grid');
+  let html = '';
+  GPU_DATA.forEach(d => {
+    const statusClass = d.status === '充足' ? 'ok' : d.status === '紧张' ? 'tight' : 'out';
+    const statusText = d.status;
+    const badgeHTML = d.badge ? `<div class="gpu-badge">${d.badge}</div>` : '';
+    html += `<div class="gpu-card" data-brand="${d.brand}" data-hot="${d.hot||false}">
+      ${badgeHTML}
+      <div class="gpu-status ${statusClass}">${statusText}</div>
+      <div class="gpu-name">${d.name}</div>
+      <div class="gpu-specs">${d.specs}</div>
+      <div class="gpu-price">${d.price}</div>
+      <div class="gpu-unit">${d.unit}</div>
+      <div class="gpu-actions">
+        <a class="gpu-btn primary" href="${d.url}" target="_blank" style="text-decoration:none">直达租赁 →</a>
+        <button class="gpu-btn outline" onclick="openModal('modal-restricted')">历史价格</button>
+      </div>
+    </div>`;
+  });
+  grid.innerHTML = html;
+  document.getElementById('gpu-update-time').textContent = '最后更新：' + new Date().toLocaleString('zh-CN');
+}
+
+function renderClawGrid() {
+  const grid = document.getElementById('claw-grid');
+  let html = '';
+  CLAW_DATA.forEach(d => {
+    const featHTML = d.features.map(f => `<div>✦ ${f}</div>`).join('');
+    html += `<div class="claw-card">
+      <div class="claw-icon">${d.icon}</div>
+      <div class="claw-name">${d.name}</div>
+      <div class="claw-desc">${d.desc}</div>
+      <div class="claw-features">${featHTML}</div>
+      <div class="claw-actions">
+        <a class="claw-btn primary" href="${d.url}" target="_blank">官网注册</a>
+        <a class="claw-btn outline" href="${d.docUrl}" target="_blank">部署手册</a>
+      </div>
+    </div>`;
+  });
+  grid.innerHTML = html;
+}
+
+function renderClawCompare() {
+  const tbody = document.getElementById('claw-tbody');
+  let html = '';
+  CLAW_DATA.forEach(d => {
+    html += `<tr>
+      <td><div class="provider-cell"><div class="provider-logo">${d.icon}</div><strong>${d.name}</strong></div></td>
+      <td style="font-size:12px">${d.features.join('、')}</td>
+      <td style="font-size:12px">${d.desc}</td>
+      <td>${d.open === '是' ? '<span class="tag tag-free">本地/云</span>' : '<span class="tag tag-intl">SaaS</span>'}</td>
+      <td>${d.open === '是' ? '<span class="tag tag-free">开源</span>' : d.open === '部分' ? '<span class="tag tag-cn">部分</span>' : '<span class="tag tag-hot">闭源</span>'}</td>
+      <td><a class="btn-reg" href="${d.url}" target="_blank">注册 →</a></td>
+      <td><a class="btn-reg" href="${d.docUrl}" target="_blank" style="background:var(--card2);color:var(--text)">手册 →</a></td>
+    </tr>`;
+  });
+  tbody.innerHTML = html;
+}
+
+// ===== 筛选功能 =====
+function filterAPI(type, btn) {
+  document.querySelectorAll('#page-api .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const rows = document.querySelectorAll('#api-tbody tr');
+  rows.forEach(row => {
+    if (type === 'all') { row.style.display = ''; return; }
+    if (type === 'hot' || type === 'low' || type === 'new') {
+      row.style.display = row.dataset.tag === type ? '' : 'none';
+    } else {
+      row.style.display = row.dataset.region === type ? '' : 'none';
+    }
+  });
+}
+
+function searchAPI(val) {
+  const rows = document.querySelectorAll('#api-tbody tr');
+  const q = val.toLowerCase();
+  rows.forEach(row => {
+    row.style.display = row.dataset.search.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+function filterCoding(type, btn) {
+  document.querySelectorAll('#page-coding .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const rows = document.querySelectorAll('#coding-tbody tr');
+  rows.forEach(row => {
+    if (type === 'all') { row.style.display = ''; return; }
+    if (type === 'free') {
+      row.style.display = row.dataset.free === 'true' ? '' : 'none';
+    } else {
+      row.style.display = row.dataset.region === type ? '' : 'none';
+    }
+  });
+}
+
+function filterGPU(type, btn) {
+  document.querySelectorAll('#page-gpu .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.querySelectorAll('.gpu-card');
+  cards.forEach(card => {
+    if (type === 'all') { card.style.display = ''; return; }
+    if (type === 'hot') {
+      card.style.display = card.dataset.hot === 'true' ? '' : 'none';
+    } else {
+      card.style.display = card.dataset.brand === type ? '' : 'none';
+    }
+  });
+}
+
+// ===== 页面切换 =====
+function switchPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.top-nav a').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('.hero-tab').forEach(t => t.classList.remove('active'));
+
+  if (page === 'home') {
+    document.getElementById('page-api').classList.add('active');
+    document.querySelectorAll('.top-nav a')[0].classList.add('active');
+    document.querySelectorAll('.hero-tab')[0].classList.add('active');
+    return;
+  }
+
+  const pageEl = document.getElementById('page-' + page);
+  if (pageEl) pageEl.classList.add('active');
+
+  // 更新导航高亮
+  const navMap = {api:1, coding:2, gpu:3, claw:4};
+  const tabMap = {api:0, coding:1, gpu:2, claw:3};
+  const navLinks = document.querySelectorAll('.top-nav a');
+  const heroTabs = document.querySelectorAll('.hero-tab');
+  if (navMap[page] !== undefined && navLinks[navMap[page]]) navLinks[navMap[page]].classList.add('active');
+  if (tabMap[page] !== undefined && heroTabs[tabMap[page]]) heroTabs[tabMap[page]].classList.add('active');
 }
 
 // ===== 弹窗 =====
 function openModal(id) { document.getElementById(id).classList.add('show'); }
 function closeModal(id) { document.getElementById(id).classList.remove('show'); }
 
-// ===== GPU 渲染 =====
-function renderGPUs(filter) {
-  const grid = document.getElementById('gpu-grid');
-  grid.innerHTML = '';
-  GPUS.filter(g => {
-    if (filter === 'all') return true;
-    if (filter === 'nvidia') return g.brand === 'nvidia';
-    if (filter === 'metax') return g.brand === 'metax';
-    if (filter === 'promo') return g.promo;
-    return true;
-  }).forEach(g => {
-    const card = document.createElement('div');
-    card.className = 'gpu-card';
-    const brandClass = g.brand === 'nvidia' ? 'nvidia' : 'metax';
-    const brandLabel = g.brand === 'nvidia' ? 'NVIDIA' : '沐曦 METAX';
-    let priceHTML = `<span>${g.price}</span><span class="unit"> 图灵币/时</span>`;
-    if (g.originalPrice) priceHTML += `<span class="original">${g.originalPrice}</span>`;
-    let timerHTML = '';
-    if (g.promo && g.promoEnd) {
-      const remain = Math.max(0, Math.floor((new Date(g.promoEnd) - new Date()) / 86400000));
-      timerHTML = `<div class="gpu-timer show">限时 ${remain} 天</div>`;
-    }
-    card.innerHTML = `
-      ${timerHTML}
-      <div class="gpu-brand ${brandClass}">${brandLabel}</div>
-      <div class="gpu-name">${g.name}</div>
-      <div class="gpu-spec">${g.cards} · ${g.spec}</div>
-      <div class="gpu-bottom">
-        <div class="gpu-price">${priceHTML}</div>
-        <span class="gpu-status ${g.status}">${g.statusText}</span>
-      </div>
-    `;
-    card.onclick = () => window.open('https://www.turingcm.com/index?contactsId=000007', '_blank');
-    grid.appendChild(card);
-  });
-}
-
-function filterGPU(f, btn) {
-  document.querySelectorAll('.gpu-filter').forEach(b => { b.classList.remove('btn-primary'); b.classList.add('btn-outline'); });
-  btn.classList.remove('btn-outline'); btn.classList.add('btn-primary');
-  renderGPUs(f);
-}
-
-// ===== 模型渲染 =====
-function renderModels() {
-  const grid = document.getElementById('model-grid');
-  const apiArea = document.getElementById('api-config-area');
-  grid.innerHTML = ''; apiArea.innerHTML = '';
-  MODELS.forEach(m => {
-    const card = document.createElement('div');
-    card.className = 'gpu-card';
-    let tagHTML = '';
-    if (m.tag === 'hot') tagHTML = '<span class="tag tag-hot">🔥 热门</span>';
-    else if (m.tag === 'new') tagHTML = '<span class="tag tag-new">✨ 新</span>';
-    else if (m.tag === 'free') tagHTML = '<span class="tag tag-free">🆓 有免费额度</span>';
-    card.innerHTML = `
-      <div class="gpu-brand">${m.provider}</div>
-      <div class="gpu-name">${m.name} ${tagHTML}</div>
-      <div class="gpu-spec">输入 ${m.priceIn} · 输出 ${m.priceOut}</div>
-      <div style="margin-top:8px"><a class="btn btn-sm btn-primary" href="${m.apiUrl}" target="_blank">🔑 获取 Key</a></div>
-    `;
-    grid.appendChild(card);
-
-    const sec = document.createElement('div');
-    sec.style.cssText = 'margin-bottom:14px';
-    sec.innerHTML = `
-      <label class="input-label">${m.provider} · ${m.name}</label>
-      <div class="input-group">
-        <input class="input api-key-input" type="password" placeholder="粘贴 ${m.provider} API Key" data-model="${m.id}" data-base="${m.baseUrl}">
-        <button class="btn btn-sm btn-outline" onclick="this.previousElementSibling.type=this.previousElementSibling.type==='password'?'text':'password'">👁</button>
-      </div>
-    `;
-    apiArea.appendChild(sec);
-  });
-}
-
-function saveAPIKeys() {
-  const keys = {};
-  document.querySelectorAll('.api-key-input').forEach(inp => {
-    if (inp.value.trim()) keys[inp.dataset.model] = { key: inp.value.trim(), base: inp.dataset.base };
-  });
-  localStorage.setItem('oc_api_keys', JSON.stringify(keys));
-  alert('API Key 已保存到本地！');
-}
-
-function testAPIKeys() {
-  alert('测试连接中... 请在 OpenClaw Web UI (http://localhost:18789) 中验证模型调用。');
-  window.open('http://localhost:18789', '_blank');
-}
-
-// ===== 排行榜 =====
-function renderRankList() {
-  const list = document.getElementById('rank-list');
-  list.innerHTML = '';
-  let data = [...RANK_DATA];
-  if (user && user.points > 0) {
-    data.push({ name: user.email.replace(/(.{2}).*(@.*)/, '$1***$2'), pts: user.points });
-    data.sort((a, b) => b.pts - a.pts);
-    data = data.slice(0, 10);
-  }
-  data.forEach((r, i) => {
-    const li = document.createElement('li');
-    li.className = 'rank-item';
-    let badge = '';
-    if (i === 0) badge = '🥇';
-    else if (i === 1) badge = '🥈';
-    else if (i === 2) badge = '🥉';
-    li.innerHTML = `
-      <div class="rank-pos">${i < 3 ? badge : i + 1}</div>
-      <div class="rank-name">${r.name}</div>
-      <div class="rank-pts">${r.pts.toLocaleString()} 积分</div>
-    `;
-    list.appendChild(li);
-  });
-}
-
-
-// ===== 邮件发送：注册成功后自动发送百度网盘链接 =====
-function sendBaiduPanEmail(toEmail, userName) {
-  // 百度网盘分享链接（管理员在此处更新）
-  const BAIDU_PAN_LINK = 'https://pan.baidu.com/s/1xxxxxx';
-  const BAIDU_PAN_CODE = 'abcd';
-  
-  // EmailJS 配置（需要在 emailjs.com 注册后填入）
-  const EMAILJS_SERVICE_ID = 'EMAILJS_SERVICE_ID_HERE';
-  const EMAILJS_TEMPLATE_ID = 'EMAILJS_TEMPLATE_ID_HERE';
-  
-  const templateParams = {
-    to_email: toEmail,
-    to_name: userName || toEmail.split('@')[0],
-    pan_link: BAIDU_PAN_LINK,
-    pan_code: BAIDU_PAN_CODE,
-    register_time: new Date().toLocaleString('zh-CN'),
-    platform_url: 'https://athenayan123-web.github.io/openclaw-app123/'
-  };
-  
-  if (typeof emailjs === 'undefined') {
-    console.warn('EmailJS not loaded, falling back to mailto');
-    // 降级方案：打开默认邮件客户端
-    const subject = encodeURIComponent('OpenClaw AI 部署包下载链接');
-    const body = encodeURIComponent(
-      `亲爱的 ${templateParams.to_name}，\n\n` +
-      `感谢注册 OpenClaw AI 智能平台！\n\n` +
-      `您的部署包下载链接：\n${BAIDU_PAN_LINK}\n提取码：${BAIDU_PAN_CODE}\n\n` +
-      `在线平台：${templateParams.platform_url}\n\n` +
-      `复旦大学 未来信息创新学院 · OpenClaw 团队`
-    );
-    console.log('Email params ready, EmailJS not configured yet');
-    return Promise.resolve({ status: 200, text: 'fallback' });
-  }
-  
-  return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-    .then(function(response) {
-      console.log('Email sent successfully:', response.status, response.text);
-      return response;
-    })
-    .catch(function(error) {
-      console.error('Email send failed:', error);
-      throw error;
-    });
-}
-
-// ===== 测试邮件发送（管理员用） =====
-function testSendEmail() {
-  const testEmail = prompt('输入测试邮箱地址：', 'athenayan123@gmail.com');
-  if (!testEmail) return;
-  
-  const statusEl = document.getElementById('email-test-status');
-  if (statusEl) statusEl.textContent = '⏳ 正在发送...';
-  
-  sendBaiduPanEmail(testEmail, '测试用户')
-    .then(function(res) {
-      const msg = '✅ 邮件发送成功！请检查 ' + testEmail + ' 的收件箱';
-      if (statusEl) statusEl.textContent = msg;
-      alert(msg);
-    })
-    .catch(function(err) {
-      const msg = '❌ 发送失败：' + (err.text || err.message || JSON.stringify(err));
-      if (statusEl) statusEl.textContent = msg;
-      alert(msg + '\n\n请检查 EmailJS 配置是否正确。');
-    });
-}
-
-// ===== 注册 =====
+// ===== 登录/注册 =====
 function checkEmailSuffix() {
-  const email = document.getElementById('reg-email').value.trim();
+  const email = document.getElementById('reg-email').value;
   const hint = document.getElementById('email-hint');
-  const paySection = document.getElementById('pay-section');
-  if (email.endsWith('@m.fudan.edu.cn')) {
-    hint.innerHTML = '<span style="color:var(--green)">✅ 复旦大学邮箱，免费使用全部基础功能！</span>';
-    paySection.style.display = 'none';
+  const identity = getEmailIdentity(email);
+  if (identity.type === 'fudan') {
+    hint.innerHTML = '<span style="color:var(--green)">✅ 复旦大学邮箱，自动获得「复旦认证」标识</span>';
+  } else if (identity.type === 'edu') {
+    hint.innerHTML = `<span style="color:var(--cyan)">🎓 高校邮箱（${identity.label}），自动获得「高校认证」标识</span>`;
+  } else if (identity.type === 'corp') {
+    hint.innerHTML = `<span style="color:var(--accent)">🏢 企业邮箱（${identity.label}），自动获得「企业认证」标识</span>`;
   } else if (email.includes('@')) {
-    hint.innerHTML = '<span style="color:var(--orange)">💰 非复旦邮箱，需支付 9.9 元解锁基础功能</span>';
-    paySection.style.display = 'block';
+    hint.innerHTML = '<span style="color:var(--orange)">📧 个人邮箱，注册后标识为「外部用户」</span>';
   } else {
     hint.innerHTML = '';
-    paySection.style.display = 'none';
   }
 }
 
-let hasPaid = false;
-function confirmPaid() {
-  hasPaid = true;
-  document.querySelector('#pay-section .btn-green').textContent = '✅ 已确认支付';
-  document.querySelector('#pay-section .btn-green').style.opacity = '0.6';
+// 邮箱身份智能识别
+function getEmailIdentity(email) {
+  if (!email || !email.includes('@')) return {type:'unknown',label:''};
+  const domain = email.split('@')[1].toLowerCase();
+  // 复旦
+  if (domain === 'm.fudan.edu.cn' || domain === 'fudan.edu.cn') return {type:'fudan',label:'复旦大学'};
+  // 国内高校
+  const eduMap = {
+    'pku.edu.cn':'北京大学','tsinghua.edu.cn':'清华大学','sjtu.edu.cn':'上海交通大学',
+    'zju.edu.cn':'浙江大学','nju.edu.cn':'南京大学','ustc.edu.cn':'中国科学技术大学',
+    'hit.edu.cn':'哈尔滨工业大学','whu.edu.cn':'武汉大学','hust.edu.cn':'华中科技大学',
+    'xjtu.edu.cn':'西安交通大学','seu.edu.cn':'东南大学','tongji.edu.cn':'同济大学',
+    'ruc.edu.cn':'中国人民大学','buaa.edu.cn':'北京航空航天大学','bit.edu.cn':'北京理工大学',
+    'scut.edu.cn':'华南理工大学','cqu.edu.cn':'重庆大学','dlut.edu.cn':'大连理工大学',
+    'nudt.edu.cn':'国防科技大学','ecnu.edu.cn':'华东师范大学'
+  };
+  for (const [d,name] of Object.entries(eduMap)) { if (domain.endsWith(d)) return {type:'edu',label:name}; }
+  if (domain.endsWith('.edu.cn') || domain.endsWith('.edu') || domain.endsWith('.ac.cn')) return {type:'edu',label:domain};
+  // 企业
+  const corpMap = {
+    'alibaba-inc.com':'阿里巴巴','tencent.com':'腾讯','bytedance.com':'字节跳动',
+    'baidu.com':'百度','huawei.com':'华为','xiaomi.com':'小米','jd.com':'京东',
+    'meituan.com':'美团','microsoft.com':'微软','google.com':'Google','apple.com':'Apple',
+    'amazon.com':'Amazon','meta.com':'Meta','nvidia.com':'NVIDIA','openai.com':'OpenAI',
+    'anthropic.com':'Anthropic','deepseek.com':'DeepSeek','moonshot.cn':'月之暗面',
+    'stepfun.com':'阶跃星辰','zhipuai.cn':'智谱AI'
+  };
+  for (const [d,name] of Object.entries(corpMap)) { if (domain.endsWith(d)) return {type:'corp',label:name}; }
+  if (!domain.endsWith('gmail.com') && !domain.endsWith('qq.com') && !domain.endsWith('163.com') && 
+      !domain.endsWith('126.com') && !domain.endsWith('outlook.com') && !domain.endsWith('hotmail.com') &&
+      !domain.endsWith('yahoo.com') && !domain.endsWith('icloud.com') && !domain.endsWith('foxmail.com') &&
+      domain.split('.').length >= 2 && !domain.startsWith('mail.')) {
+    return {type:'corp',label:domain};
+  }
+  return {type:'personal',label:'个人邮箱'};
+}
+
+function doLogin() {
+  const email = document.getElementById('login-email').value;
+  const pwd = document.getElementById('login-pwd').value;
+  if (!email || !pwd) { alert('请填写邮箱和密码'); return; }
+  // 模拟登录
+  currentUser = { email: email, name: email.split('@')[0] };
+  localStorage.setItem('openclaw_user', JSON.stringify(currentUser));
+  closeModal('modal-login');
+  updateLoginUI();
+  renderAll();
+  alert('登录成功！');
 }
 
 function doRegister() {
-  const email = document.getElementById('reg-email').value.trim();
-  const pwd = document.getElementById('reg-pwd').value.trim();
-  const invite = document.getElementById('reg-invite').value.trim();
-  if (!email || !email.includes('@')) { alert('请输入有效邮箱'); return; }
-  if (!pwd || pwd.length < 8) { alert('密码至少8位'); return; }
-  const isFudan = email.endsWith('@m.fudan.edu.cn');
-  if (!isFudan && !hasPaid) { alert('请先扫码支付 9.9 元'); return; }
-
-  const code = 'OC' + Math.random().toString(36).substr(2, 6).toUpperCase();
-  user = {
-    email, level: isFudan ? 'fudan' : 'basic', points: invite ? 200 : 0,
-    checkinDays: 0, lastCheckin: null, inviteCode: code, invites: 0,
-    createdAt: new Date().toISOString()
+  const email = document.getElementById('reg-email').value;
+  const pwd = document.getElementById('reg-pwd').value;
+  if (!email || !pwd) { alert('请填写邮箱和密码'); return; }
+  if (pwd.length < 8) { alert('密码需8位以上'); return; }
+  if (!email.includes('@')) { alert('请输入有效邮箱地址'); return; }
+  const identity = getEmailIdentity(email);
+  const badgeMap = {fudan:'复旦认证',edu:'高校认证',corp:'企业认证',personal:'外部用户',unknown:'外部用户'};
+  const badgeColor = {fudan:'#00e676',edu:'#00e5ff',corp:'#667eea',personal:'#ffab40',unknown:'#ffab40'};
+  currentUser = { 
+    email: email, 
+    name: email.split('@')[0], 
+    badge: badgeMap[identity.type] || '外部用户',
+    badgeColor: badgeColor[identity.type] || '#ffab40',
+    org: identity.label || ''
   };
-  localStorage.setItem('oc_user', JSON.stringify(user));
+  localStorage.setItem('openclaw_user', JSON.stringify(currentUser));
+  // 更新注册人数
+  let regCount = parseInt(localStorage.getItem('openclaw_reg_count') || '0');
+  regCount++;
+  localStorage.setItem('openclaw_reg_count', String(regCount));
   closeModal('modal-register');
-  loginUI(user);
-  // 自动发送百度网盘下载链接邮件
-  sendBaiduPanEmail(email, email.split('@')[0]).catch(function(e){ console.warn('Email send error:', e); });
-  alert('注册成功！' + (isFudan ? '复旦学生免费使用全部基础功能' : '基础功能已解锁') + (invite ? '\n邀请码奖励 200 积分已到账！' : '' + '\n\n📧 部署文件百度网盘下载链接将在 1-3 分钟内发送至 ' + email);
+  updateLoginUI();
+  renderAll();
+  alert(`注册成功！身份标识：${currentUser.badge}${currentUser.org ? ' ('+currentUser.org+')' : ''}\n欢迎使用 OpenClaw AI 全网比价智能平台`);
 }
 
-// ===== 登录 =====
-function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
-  const pwd = document.getElementById('login-pwd').value.trim();
-  if (!email) { alert('请输入邮箱'); return; }
-  const saved = JSON.parse(localStorage.getItem('oc_user') || 'null');
-  if (!saved || saved.email !== email) {
-    alert('账号不存在，请先注册');
-    closeModal('modal-login'); openModal('modal-register');
-    return;
+function checkLoginState() {
+  const saved = localStorage.getItem('openclaw_user');
+  if (saved) {
+    currentUser = JSON.parse(saved);
+    updateLoginUI();
   }
-  user = saved;
-  closeModal('modal-login');
-  loginUI(user);
 }
 
-function loginUI(u) {
-  document.getElementById('btn-login-top').style.display = 'none';
-  document.getElementById('btn-reg-top').style.display = 'none';
-  const badge = document.getElementById('user-badge');
-  badge.style.display = 'flex';
-  document.getElementById('user-avatar').textContent = u.email[0].toUpperCase();
-  document.getElementById('user-name-top').textContent = u.email.split('@')[0];
-  document.getElementById('user-pts-top').textContent = u.points + ' 积分';
-  document.getElementById('my-points').textContent = u.points;
-  document.getElementById('my-checkin').textContent = u.checkinDays;
-  document.getElementById('my-invites').textContent = u.invites;
-  // Admin: show web/miniapp cards
-  const ADMIN_EMAILS = ['athenayan123@gmail.com', '25263090165@m.fudan.edu.cn'];
-  const isAdmin = ADMIN_EMAILS.includes(u.email) || u.level === 'admin';
-  document.querySelectorAll('.admin-only').forEach(el => {
-    el.style.display = isAdmin ? 'block' : 'none';
-  });
-  updateInviteInfo();
-  renderRankList();
-  renderProfile();
-}
-
-function renderProfile() {
-  if (!user) return;
-  const levelMap = { fudan: '🎓 复旦学生（免费）', basic: '⭐ 基础会员（¥9.9）', pro: '👑 Pro 会员' };
-  document.getElementById('profile-content').innerHTML = `
-    <div style="display:grid;gap:14px;margin-top:12px">
-      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-        <span style="color:var(--text2)">邮箱</span><span>${user.email}</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-        <span style="color:var(--text2)">会员等级</span><span>${levelMap[user.level] || user.level}</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-        <span style="color:var(--text2)">积分</span><span style="color:var(--gold);font-weight:700">${user.points}</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-        <span style="color:var(--text2)">连续签到</span><span>${user.checkinDays} 天</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-        <span style="color:var(--text2)">邀请人数</span><span>${user.invites} 人</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;padding:10px 0">
-        <span style="color:var(--text2)">注册时间</span><span>${new Date(user.createdAt).toLocaleDateString()}</span>
-      </div>
-    </div>
-    <div class="btn-group" style="margin-top:20px">
-      <button class="btn btn-outline" onclick="logoutUser()">退出登录</button>
-    </div>
-  `;
-}
-
-function logoutUser() {
-  user = null;
-  document.getElementById('btn-login-top').style.display = '';
-  document.getElementById('btn-reg-top').style.display = '';
-  document.getElementById('user-badge').style.display = 'none';
-  goPage('home');
-}
-
-// ===== 签到 =====
-function dailyCheckin() {
-  if (!user) { alert('请先登录'); openModal('modal-login'); return; }
-  const today = new Date().toDateString();
-  if (user.lastCheckin === today) { alert('今天已签到，明天再来！'); return; }
-  const yesterday = new Date(Date.now() - 86400000).toDateString();
-  user.checkinDays = (user.lastCheckin === yesterday) ? user.checkinDays + 1 : 1;
-  user.lastCheckin = today;
-  let bonus = 100;
-  let msg = '签到成功！+100 积分';
-  if (user.checkinDays % 7 === 0) { bonus += 300; msg += '\n🎉 连续签到 7 天，额外 +300 积分！'; }
-  user.points += bonus;
-  localStorage.setItem('oc_user', JSON.stringify(user));
-  loginUI(user);
-  alert(msg);
-}
-
-// ===== 邀请 =====
-function updateInviteInfo() {
-  if (!user) return;
-  document.getElementById('my-invite-code').value = user.inviteCode || '';
-  document.getElementById('my-invite-link').value = location.href.split('?')[0] + '?invite=' + (user.inviteCode || '');
-}
-function copyInviteCode() {
-  const inp = document.getElementById('my-invite-code');
-  inp.select(); document.execCommand('copy'); alert('邀请码已复制！');
-}
-function copyInviteLink() {
-  const inp = document.getElementById('my-invite-link');
-  inp.select(); document.execCommand('copy'); alert('邀请链接已复制！');
-}
-
-// ===== 绿色通道 =====
-function submitGreenChannel() {
-  if (!user) { alert('请先登录'); return; }
-  const reason = document.getElementById('green-reason').value.trim();
-  if (!reason) { alert('请填写申请理由'); return; }
-  closeModal('modal-green-channel');
-  alert('申请已提交！审核结果将在 3 个工作日内通知您。');
-}
-
-// ===== 阿里云 =====
-function generateWebApp() {
-  window.open('https://account.aliyun.com/login/login.htm', '_blank');
-  document.getElementById('webapp-status').innerHTML = '<span style="color:var(--green);font-size:13px">✅ 已跳转阿里云授权，请在新窗口完成操作</span>';
-}
-function generateMiniApp() {
-  window.open('https://mp.weixin.qq.com/', '_blank');
-  document.getElementById('miniapp-status').innerHTML = '<span style="color:var(--green);font-size:13px">✅ 已跳转微信公众平台，请在新窗口完成操作</span>';
-}
-
-// ===== 部署 =====
-function runDeploy() {
-  const term = document.getElementById('deploy-terminal');
-  const prog = document.getElementById('deploy-progress');
-  const btn = document.getElementById('btn-deploy');
-  btn.disabled = true; btn.textContent = '⏳ 部署中...';
-  term.innerHTML = '';
-  const steps = [
-    { msg:'$ openclaw --version', pct:5 },
-    { msg:'  2026.3.7', pct:8, ok:true },
-    { msg:'$ openclaw config validate', pct:15 },
-    { msg:'  Config valid ✓', pct:20, ok:true },
-    { msg:'$ openclaw gateway start --port 18789', pct:30 },
-    { msg:'  Gateway listening on ws://127.0.0.1:18789 ✓', pct:45, ok:true },
-    { msg:'$ openclaw agents list', pct:55 },
-    { msg:'  main (default) · researcher · coder · analyst ✓', pct:65, ok:true },
-    { msg:'$ openclaw skills check', pct:75 },
-    { msg:'  weather ✓ · healthcheck ✓ · skill-creator ✓', pct:85, ok:true },
-    { msg:'$ openclaw agent -m "hello" --agent main --timeout 60', pct:92 },
-    { msg:'  DeepSeek V3 响应成功 ✓', pct:96, ok:true },
-    { msg:'🎉 部署完成！所有测试通过！', pct:100, ok:true },
-  ];
-  let i = 0;
-  function next() {
-    if (i >= steps.length) {
-      btn.textContent = '✅ 部署完成';
-      btn.classList.remove('btn-primary'); btn.classList.add('btn-green');
-      if (user) { user.points += 500; localStorage.setItem('oc_user', JSON.stringify(user)); loginUI(user); }
-      return;
-    }
-    const s = steps[i];
-    const line = document.createElement('div');
-    line.style.cssText = 'color:' + (s.ok ? 'var(--green)' : '#a8e6cf');
-    line.textContent = s.msg;
-    term.appendChild(line);
-    term.scrollTop = term.scrollHeight;
-    prog.style.width = s.pct + '%';
-    i++;
-    setTimeout(next, 300 + Math.random() * 500);
+function updateLoginUI() {
+  if (currentUser) {
+    document.getElementById('btn-login').style.display = 'none';
+    document.getElementById('btn-register').style.display = 'none';
+    const badge = document.getElementById('user-badge');
+    badge.style.display = 'flex';
+    document.getElementById('user-avatar').textContent = currentUser.name[0].toUpperCase();
+    const badgeHTML = currentUser.badge ? 
+      `<span style="font-size:10px;padding:1px 6px;border-radius:8px;background:${currentUser.badgeColor||'var(--accent)'}22;color:${currentUser.badgeColor||'var(--accent)'};margin-left:4px">${currentUser.badge}</span>` : '';
+    document.getElementById('user-name').innerHTML = currentUser.name + badgeHTML;
   }
-  next();
 }
 
-// ===== 网关检测 =====
-function checkGateway() {
-  fetch('http://localhost:18789/health', { mode:'no-cors' }).then(() => {
-    document.getElementById('gw-dot').style.background = 'var(--green)';
-    document.getElementById('gw-text').textContent = '网关在线 · localhost:18789';
-  }).catch(() => {
-    document.getElementById('gw-dot').style.background = 'var(--red)';
-    document.getElementById('gw-text').textContent = '网关离线';
-  });
+function updateRestricted() {
+  const banner = document.getElementById('restricted-banner');
+  if (!currentUser) {
+    banner.style.display = 'block';
+  } else {
+    banner.style.display = 'none';
+  }
 }
+
+function showUserMenu() {
+  if (confirm('是否退出登录？')) {
+    currentUser = null;
+    localStorage.removeItem('openclaw_user');
+    document.getElementById('btn-login').style.display = '';
+    document.getElementById('btn-register').style.display = '';
+    document.getElementById('user-badge').style.display = 'none';
+    renderAll();
+  }
+}
+
+// ===== 初始化 =====
+window.addEventListener('DOMContentLoaded', initData);
 </script>
 </body>
 </html>
-
-
