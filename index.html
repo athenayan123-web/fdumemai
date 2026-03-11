@@ -74,6 +74,8 @@ a:hover{text-decoration:underline}
 
 /* ===== GPU卡片（保留原图灵算力风格） ===== */
 .gpu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:16px}
+.gpu-register-btn{display:block;text-align:center;margin-top:10px;padding:6px 0;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;transition:all .2s}
+.gpu-register-btn:hover{opacity:.85;text-decoration:none}
 .gpu-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:20px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
 .gpu-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 32px rgba(102,126,234,.15)}
 .gpu-brand{font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;display:inline-block;margin-bottom:10px}
@@ -218,6 +220,7 @@ a:hover{text-decoration:underline}
             <th>输入价格</th>
             <th>输出价格</th>
             <th>上下文窗口</th>
+            <th>功能特点</th>
             <th>区域</th>
             <th>操作</th>
           </tr>
@@ -315,7 +318,7 @@ a:hover{text-decoration:underline}
 
 <!-- ===== 底栏 ===== -->
 <div class="bottombar">
-  <div class="status"><div class="dot"></div><span>数据实时同步中</span></div>
+  <div class="status"><div class="dot"></div><span>数据每日刷新</span></div>
   <div>© 2025 复旦大学未来信息创新学院工程管理</div>
   <div><a href="index_v2_backup.html" style="color:var(--text2)">返回原版平台 →</a></div>
 </div>
@@ -436,9 +439,11 @@ const CLAW_DATA = [
   {name:'OpenClaw',icon:'🦞',desc:'通用AI自动化平台，一键部署，浏览器自动化+文件生成',url:'https://oneclaw.cn/',doc:'https://oneclaw.cn/docs/',open:true},
   {name:'QClaw',icon:'🐧',desc:'腾讯云深度集成，企业级AI工作流与混元大模型协同',url:'https://cloud.tencent.com/',doc:'#',open:false},
   {name:'KimiClaw',icon:'🌙',desc:'Moonshot Kimi长文本AI助手，128K超长上下文处理',url:'https://kimi.moonshot.cn/',doc:'#',open:false},
-  {name:'JVSClaw',icon:'🔧',desc:'企业级低代码+AI平台，快速构建业务应用',url:'https://www.jvs.cn/',doc:'#',open:false},
+  {name:'JVSClaw',icon:'🔧',desc:'企业级低代码+AI平台，快速构建业务应用',url:'https://www.jvs.cn/register',doc:'https://www.jvs.cn/docs',open:false},
   {name:'WorkBuddy',icon:'🤝',desc:'AI办公助手，文档处理、会议纪要、任务管理一体化',url:'#',doc:'#',open:false},
   {name:'ArkClaw',icon:'🔥',desc:'字节火山引擎AI开发平台，Doubao模型+云原生部署',url:'https://www.volcengine.com/',doc:'#',open:false},
+  {name:'商汤小浣熊',icon:'🦝',desc:'商汤科技AI编程助手，支持多语言代码生成与智能补全',url:'https://raccoon.sensetime.com/',doc:'https://raccoon.sensetime.com/docs',open:false},
+  {name:'ONE CLAW',icon:'🐾',desc:'OneClaw一体化AI开发平台，集成多种大模型能力，一键安装部署',url:'https://oneclaw.cn/',doc:'https://oneclaw.cn/#usage',open:true},
 ];
 
 // ===== 渲染函数 =====
@@ -446,18 +451,26 @@ const CLAW_DATA = [
 function renderAPITable() {
   const tbody = document.getElementById('api-tbody');
   let html = '';
-  API_DATA.forEach(d => {
+  // 按输出价格升序排列
+  const sortedData = [...API_DATA].sort((a, b) => {
+    const priceA = parseFloat(a.output.replace(/[^0-9.]/g, '')) || 0;
+    const priceB = parseFloat(b.output.replace(/[^0-9.]/g, '')) || 0;
+    return priceA - priceB;
+  });
+  sortedData.forEach(d => {
     const isBlur = !user && d.region === '国际';
     const tagHTML = d.tag === 'hot' ? '<span class="tag tag-hot">🔥 热门</span>' :
                     d.tag === 'new' ? '<span class="tag tag-new">✨ 新</span>' :
                     d.tag === 'low' ? '<span class="tag tag-low">💰 低价</span>' : '';
     const regionTag = d.region === '国际' ? '<span class="tag tag-intl">国际</span>' : '<span class="tag tag-cn">国内</span>';
+    const featuresHTML = d.features ? `<span style="font-size:11px;color:var(--text2)">${d.features}</span>` : '';
     html += `<tr>
       <td><div class="provider-cell"><div class="provider-logo">${d.logo}</div>${d.provider}</div></td>
       <td>${d.model} ${tagHTML}</td>
       <td class="price-cell ${isBlur ? 'blur' : ''}" ${isBlur ? 'onclick="openModal(\'modal-restricted\')"' : ''}>${d.input}</td>
       <td class="price-cell ${isBlur ? 'blur' : ''}" ${isBlur ? 'onclick="openModal(\'modal-restricted\')"' : ''}>${d.output}</td>
       <td>${d.context}</td>
+      <td>${featuresHTML}</td>
       <td>${regionTag}</td>
       <td><a class="btn-reg" href="${d.url}" target="_blank">官网注册 →</a></td>
     </tr>`;
@@ -497,7 +510,7 @@ function renderGPUs(filter) {
     if (filter === 'intl') return g.source === 'intl';
     if (filter === 'promo') return g.promo;
     return true;
-  }).forEach(g => {
+  }).sort((a, b) => a.price - b.price).forEach(g => {
     const card = document.createElement('div');
     card.className = 'gpu-card';
     card.onclick = () => window.open(g.url, '_blank');
@@ -522,6 +535,7 @@ function renderGPUs(filter) {
         <div class="gpu-price">${priceHTML}</div>
         <span class="gpu-stock ${stockClass}">${g.stock}</span>
       </div>
+      <a href="https://www.turingcm.com/index?contactsId=000007" target="_blank" class="gpu-register-btn" onclick="event.stopPropagation()">官网注册 →</a>
     `;
     grid.appendChild(card);
   });
@@ -584,9 +598,9 @@ function switchSection(id) {
   // 更新标签高亮
   document.querySelectorAll('#main-tabs .tab').forEach((t,i) => {
     t.classList.remove('active');
-    if ((id === 'home' && i === 0) || (id === 'api' && i === 1) ||
-        (id === 'coding' && i === 2) || (id === 'gpu' && i === 3) ||
-        (id === 'claw' && i === 4)) t.classList.add('active');
+    if ((id === 'home' && i === 0) || (id === 'claw' && i === 0) ||
+        (id === 'coding' && i === 1) || (id === 'api' && i === 2) ||
+        (id === 'gpu' && i === 3)) t.classList.add('active');
   });
   // 滚动到对应区域
   const el = document.getElementById('section-' + id);
