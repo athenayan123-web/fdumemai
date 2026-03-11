@@ -76,6 +76,13 @@ a:hover{text-decoration:underline}
 .gpu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:16px}
 .gpu-register-btn{display:block;text-align:center;margin-top:10px;padding:6px 0;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;transition:all .2s}
 .gpu-register-btn:hover{opacity:.85;text-decoration:none}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.skill-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;cursor:pointer;transition:all .3s;text-align:center}
+.skill-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 8px 24px rgba(102,126,234,.15)}
+.skill-icon{font-size:40px;margin-bottom:12px}
+.skill-card h3{font-size:16px;margin-bottom:8px;color:var(--text)}
+.skill-card p{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px}
+.skill-count{font-size:11px;color:var(--accent);font-weight:600}
 .gpu-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:20px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
 .gpu-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 32px rgba(102,126,234,.15)}
 .gpu-brand{font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;display:inline-block;margin-bottom:10px}
@@ -305,8 +312,51 @@ a:hover{text-decoration:underline}
     </div>
   </div>
 
+  <!-- ===== 百万SKILLS ===== -->
+  <div class="compare-section" id="section-skills">
+    <div class="section-header">
+      <h2>📚 百万SKILLS · OpenClaw功能下载中心</h2>
+      <p style="color:var(--text2);font-size:13px">一键搜索、一键直达 fudankw.cn 技能库</p>
+    </div>
+    <div style="margin-bottom:20px">
+      <input type="text" id="skills-search" placeholder="搜索技能名称、关键词..." 
+        style="width:100%;padding:12px 18px;border-radius:var(--r);border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;outline:none"
+        oninput="filterSkills(this.value)">
+    </div>
+    <div class="skills-grid" id="skills-grid">
+      <div class="skill-card" onclick="window.open('http://www.fudankw.cn:18000/search-skills.html?q=编程开发','_blank')">
+        <div class="skill-icon">💻</div>
+        <h3>编程开发</h3>
+        <p>Python、JavaScript、Java、Go、Rust 等主流语言开发技能包，含框架与最佳实践</p>
+        <div class="skill-count">12,800+ 技能</div>
+        <a class="btn-reg" style="margin-top:8px;display:inline-block">一键直达 →</a>
+      </div>
+      <div class="skill-card" onclick="window.open('http://www.fudankw.cn:18000/search-skills.html?q=效率工具','_blank')">
+        <div class="skill-icon">⚡</div>
+        <h3>效率工具</h3>
+        <p>办公自动化、文档处理、数据分析、项目管理等效率提升技能包</p>
+        <div class="skill-count">8,500+ 技能</div>
+        <a class="btn-reg" style="margin-top:8px;display:inline-block">一键直达 →</a>
+      </div>
+      <div class="skill-card" onclick="window.open('http://www.fudankw.cn:18000/search-skills.html?q=人工智能','_blank')">
+        <div class="skill-icon">🤖</div>
+        <h3>人工智能</h3>
+        <p>机器学习、深度学习、NLP、计算机视觉、大模型微调与部署技能包</p>
+        <div class="skill-count">15,200+ 技能</div>
+        <a class="btn-reg" style="margin-top:8px;display:inline-block">一键直达 →</a>
+      </div>
+      <div class="skill-card" onclick="window.open('http://www.fudankw.cn:18000/search-skills.html?q=基础设施','_blank')">
+        <div class="skill-icon">🏗️</div>
+        <h3>基础设施</h3>
+        <p>Docker、K8s、CI/CD、云原生、监控运维、网络安全技能包</p>
+        <div class="skill-count">6,300+ 技能</div>
+        <a class="btn-reg" style="margin-top:8px;display:inline-block">一键直达 →</a>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== 历史价格趋势（登录可见） ===== -->
-  <div class="compare-section" id="section-trend">
+  <div class="compare-section" id="section-trends">
     <div class="section-header">
       <h2>📈 价格趋势分析</h2>
     </div>
@@ -320,7 +370,7 @@ a:hover{text-decoration:underline}
 <!-- ===== 底栏 ===== -->
 <div class="bottombar">
   <div class="status"><div class="dot"></div><span>数据每日刷新</span></div>
-  <div>© 2025 复旦大学未来信息创新学院工程管理</div>
+  <div>© 2025 复旦大学未来信息创新学院工程管理校友会</div>
   <div><a href="index_v2_backup.html" style="color:var(--text2)">返回原版平台 →</a></div>
 </div>
 
@@ -437,7 +487,7 @@ const GPU_DATA = [
 
 // Claw产品数据
 const CLAW_DATA = [
-  {name:'OpenClaw',icon:'🦞',desc:'开源AI编程助手，支持多种大模型接入，可本地部署',url:'https://github.com/athenayan123-web/openclaw',doc:'https://oneclaw.cn/docs/',open:true},
+  {name:'OpenClaw',icon:'🦞',desc:'开源AI编程助手，支持多种大模型接入，可本地部署',url:'https://openclaw.cc/',doc:'https://oneclaw.cn/docs/',open:true},
   {name:'ONE CLAW',icon:'🐾',desc:'OneClaw一体化AI开发平台，集成多种大模型能力，一键安装部署',url:'https://oneclaw.cn/',doc:'https://oneclaw.cn/#usage',open:true},
   {name:'智谱AutoClaw',icon:'🟣',desc:'智谱AI推出的智能编程助手，基于GLM模型，支持代码生成与补全',url:'https://autoclaw.zhipuai.com',doc:'https://open.bigmodel.cn/dev/api',open:false},
   {name:'腾讯QClaw',icon:'🐧',desc:'腾讯云推出的AI编程助手，基于混元大模型',url:'https://wj.qq.com/s2/25871229/abe7/',doc:'https://cloud.tencent.com/document/product/1729',open:false,beta:true,betaUrl:'https://wj.qq.com/s2/25871229/abe7/'},
@@ -616,6 +666,15 @@ function switchSection(id) {
 
 // ===== 弹窗 =====
 function openModal(id) { document.getElementById(id).classList.add('show'); }
+
+function filterSkills(q) {
+  const cards = document.querySelectorAll('.skill-card');
+  const keyword = q.toLowerCase();
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.style.display = text.includes(keyword) ? '' : 'none';
+  });
+}
 function closeModal(id) { document.getElementById(id).classList.remove('show'); }
 
 // ===== 受限内容点击 =====
