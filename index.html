@@ -197,11 +197,12 @@ a:hover{text-decoration:underline}
       <div class="hero-stat"><div class="num" id="stat-updates">实时</div><div class="label">数据同步</div></div>
     </div>
     <div class="tab-bar" id="main-tabs">
-      <div class="tab active" onclick="switchSection('home')">🏠 全部总览</div>
-      <div class="tab" onclick="switchSection('api')">🧠 模型API</div>
+      <div class="tab active" onclick="switchSection('claw')">🦞 Claw集合</div>
       <div class="tab" onclick="switchSection('coding')">💻 Coding Plan</div>
+      <div class="tab" onclick="switchSection('api')">🧠 模型API</div>
       <div class="tab" onclick="switchSection('gpu')">🖥️ GPU算力</div>
-      <div class="tab" onclick="switchSection('claw')">🦞 Claw集合</div>
+      <div class="tab" onclick="switchSection('skills')">📚 百万SKILLS</div>
+      <div class="tab" onclick="switchSection('trends')">📈 价格趋势</div>
     </div>
   </div>
 
@@ -436,14 +437,15 @@ const GPU_DATA = [
 
 // Claw产品数据
 const CLAW_DATA = [
-  {name:'OpenClaw',icon:'🦞',desc:'通用AI自动化平台，一键部署，浏览器自动化+文件生成',url:'https://oneclaw.cn/',doc:'https://oneclaw.cn/docs/',open:true},
-  {name:'QClaw',icon:'🐧',desc:'腾讯云深度集成，企业级AI工作流与混元大模型协同',url:'https://cloud.tencent.com/',doc:'#',open:false},
-  {name:'KimiClaw',icon:'🌙',desc:'Moonshot Kimi长文本AI助手，128K超长上下文处理',url:'https://kimi.moonshot.cn/',doc:'#',open:false},
-  {name:'JVSClaw',icon:'🔧',desc:'企业级低代码+AI平台，快速构建业务应用',url:'https://www.jvs.cn/register',doc:'https://www.jvs.cn/docs',open:false},
-  {name:'WorkBuddy',icon:'🤝',desc:'AI办公助手，文档处理、会议纪要、任务管理一体化',url:'#',doc:'#',open:false},
-  {name:'ArkClaw',icon:'🔥',desc:'字节火山引擎AI开发平台，Doubao模型+云原生部署',url:'https://www.volcengine.com/',doc:'#',open:false},
-  {name:'商汤小浣熊',icon:'🦝',desc:'商汤科技AI编程助手，支持多语言代码生成与智能补全',url:'https://raccoon.sensetime.com/',doc:'https://raccoon.sensetime.com/docs',open:false},
+  {name:'OpenClaw',icon:'🦞',desc:'开源AI编程助手，支持多种大模型接入，可本地部署',url:'https://github.com/athenayan123-web/openclaw',doc:'https://oneclaw.cn/docs/',open:true},
   {name:'ONE CLAW',icon:'🐾',desc:'OneClaw一体化AI开发平台，集成多种大模型能力，一键安装部署',url:'https://oneclaw.cn/',doc:'https://oneclaw.cn/#usage',open:true},
+  {name:'智谱AutoClaw',icon:'🟣',desc:'智谱AI推出的智能编程助手，基于GLM模型，支持代码生成与补全',url:'https://autoclaw.zhipuai.com',doc:'https://open.bigmodel.cn/dev/api',open:false},
+  {name:'腾讯QClaw',icon:'🐧',desc:'腾讯云推出的AI编程助手，基于混元大模型',url:'https://wj.qq.com/s2/25871229/abe7/',doc:'https://cloud.tencent.com/document/product/1729',open:false,beta:true,betaUrl:'https://wj.qq.com/s2/25871229/abe7/'},
+  {name:'字节ArkClaw',icon:'🔥',desc:'字节跳动AI代码生成工具，集成豆包大模型',url:'https://www.volcengine.com/',doc:'https://www.volcengine.com/docs/82379',open:false},
+  {name:'华为小艺Claw',icon:'🌐',desc:'华为云CodeArts集成的AI编程助手，支持多语言开发',url:'https://www.huaweicloud.com/product/codearts',doc:'https://support.huaweicloud.com/codearts/',open:false},
+  {name:'商汤小浣熊',icon:'🦝',desc:'商汤科技AI编程助手，支持多语言代码生成与智能补全',url:'https://raccoon.sensetime.com/',doc:'https://mp.weixin.qq.com/s/NPLbbWuxYBU_R5MdurKr2w?scene=1',open:false,wechat:'https://mp.weixin.qq.com/s/NPLbbWuxYBU_R5MdurKr2w?scene=1'},
+  {name:'腾讯WorkBuddy',icon:'🤝',desc:'腾讯会议AI助手，支持代码审查和协作开发',url:'https://workbuddy.tencent.com',doc:'#',open:false},
+  {name:'猎豹EasyClaw',icon:'🐆',desc:'猎豹移动推出的轻量级AI代码助手',url:'https://easyclaw.cmcm.com',doc:'#',open:false},
 ];
 
 // ===== 渲染函数 =====
@@ -570,14 +572,16 @@ function renderClaws() {
   const tbody = document.getElementById('claw-tbody');
   let html = '';
   CLAW_DATA.forEach(c => {
+    const betaHTML = c.beta ? `<div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;background:var(--accent);color:#fff;font-size:10px;border-radius:4px;margin-right:4px">内测申请</span><a href="${c.betaUrl}" target="_blank" style="font-size:11px;color:var(--cyan)">点击申请内测资格 →</a></div>` : '';
+    const wechatHTML = c.wechat ? `<a class="btn-reg" href="${c.wechat}" target="_blank" style="background:rgba(0,229,255,.1);color:var(--cyan);font-size:11px;margin-left:4px">相关文章 📄</a>` : '';
     html += `<tr>
-      <td><div class="provider-cell"><div class="provider-logo">${c.icon}</div>${c.name}</div></td>
+      <td><div class="provider-cell"><div class="provider-logo">${c.icon}</div>${c.name}</div>${betaHTML}</td>
       <td style="font-size:12px;color:var(--text2)">${c.desc.split('，')[0]}</td>
       <td style="font-size:12px;color:var(--text2)">${c.desc}</td>
       <td>${c.open ? '本地/云端' : '云端SaaS'}</td>
       <td>${c.open ? '<span class="tag tag-low">开源</span>' : '<span class="tag tag-hot">闭源</span>'}</td>
       <td><a class="btn-reg" href="${c.url}" target="_blank">注册 →</a></td>
-      <td><a class="btn-reg" href="${c.doc}" target="_blank" style="background:var(--card2);color:var(--text)">手册 📖</a></td>
+      <td><a class="btn-reg" href="${c.doc}" target="_blank" style="background:var(--card2);color:var(--text)">手册 📖</a>${wechatHTML}</td>
     </tr>`;
   });
   tbody.innerHTML = html;
@@ -592,7 +596,9 @@ function switchSection(id) {
         (id === 'api' && a.textContent === '模型API') ||
         (id === 'coding' && a.textContent === 'Coding Plan') ||
         (id === 'gpu' && a.textContent === 'GPU算力') ||
-        (id === 'claw' && a.textContent === 'Claw集合'))
+        (id === 'claw' && a.textContent === 'Claw集合') ||
+        (id === 'skills' && a.textContent === '百万SKILLS') ||
+        (id === 'trends' && a.textContent === '价格趋势'))
       a.classList.add('active');
   });
   // 更新标签高亮
@@ -600,7 +606,8 @@ function switchSection(id) {
     t.classList.remove('active');
     if ((id === 'home' && i === 0) || (id === 'claw' && i === 0) ||
         (id === 'coding' && i === 1) || (id === 'api' && i === 2) ||
-        (id === 'gpu' && i === 3)) t.classList.add('active');
+        (id === 'gpu' && i === 3) || (id === 'skills' && i === 4) ||
+        (id === 'trends' && i === 5)) t.classList.add('active');
   });
   // 滚动到对应区域
   const el = document.getElementById('section-' + id);
