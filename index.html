@@ -174,11 +174,12 @@ a:hover{text-decoration:underline}
     <span class="sub">AI 全网比价智能平台</span>
   </div>
   <div class="top-nav">
-    <a class="active" onclick="switchSection('home')">首页</a>
-    <a onclick="switchSection('api')">模型API</a>
+    <a class="active" onclick="switchSection('claw')">Claw集合</a>
     <a onclick="switchSection('coding')">Coding Plan</a>
+    <a onclick="switchSection('api')">模型API</a>
     <a onclick="switchSection('gpu')">GPU算力</a>
-    <a onclick="switchSection('claw')">Claw集合</a>
+    <a onclick="switchSection('skills')">百万SKILLS</a>
+    <a onclick="switchSection('trends')">价格趋势</a>
   </div>
   <div class="top-right">
     <button class="top-btn login" id="btn-login-top" onclick="openModal('modal-login')">登录</button>
@@ -315,7 +316,7 @@ a:hover{text-decoration:underline}
   <!-- ===== 百万SKILLS ===== -->
   <div class="compare-section" id="section-skills">
     <div class="section-header">
-      <h2>📚 百万SKILLS · OpenClaw功能下载中心</h2>
+      <h2>📚 复旦大学百万SKILLS</h2>
       <p style="color:var(--text2);font-size:13px">一键搜索、一键直达 fudankw.cn 技能库</p>
     </div>
     <div style="margin-bottom:20px">
@@ -490,7 +491,7 @@ const CLAW_DATA = [
   {name:'OpenClaw',icon:'🦞',desc:'开源AI编程助手，支持多种大模型接入，可本地部署',url:'https://openclaw.cc/',doc:'https://oneclaw.cn/docs/',open:true},
   {name:'ONE CLAW',icon:'🐾',desc:'OneClaw一体化AI开发平台，集成多种大模型能力，一键安装部署',url:'https://oneclaw.cn/',doc:'https://oneclaw.cn/#usage',open:true},
   {name:'智谱AutoClaw',icon:'🟣',desc:'智谱AI推出的智能编程助手，基于GLM模型，支持代码生成与补全',url:'https://autoclaw.zhipuai.com',doc:'https://open.bigmodel.cn/dev/api',open:false},
-  {name:'腾讯QClaw',icon:'🐧',desc:'腾讯云推出的AI编程助手，基于混元大模型',url:'https://wj.qq.com/s2/25871229/abe7/',doc:'https://cloud.tencent.com/document/product/1729',open:false,beta:true,betaUrl:'https://wj.qq.com/s2/25871229/abe7/'},
+  {name:'腾讯QClaw',icon:'🐧',desc:'腾讯推出的OpenClaw一键启动包，本地部署，可接入微信QQ',url:'https://claw.guanjia.qq.com/',doc:'https://cloud.tencent.com/developer/article/2636112',open:false,beta:true,betaUrl:'https://claw.guanjia.qq.com/'},
   {name:'字节ArkClaw',icon:'🔥',desc:'字节跳动AI代码生成工具，集成豆包大模型',url:'https://www.volcengine.com/',doc:'https://www.volcengine.com/docs/82379',open:false},
   {name:'华为小艺Claw',icon:'🌐',desc:'华为云CodeArts集成的AI编程助手，支持多语言开发',url:'https://www.huaweicloud.com/product/codearts',doc:'https://support.huaweicloud.com/codearts/',open:false},
   {name:'商汤小浣熊',icon:'🦝',desc:'商汤科技AI编程助手，支持多语言代码生成与智能补全',url:'https://raccoon.sensetime.com/',doc:'https://mp.weixin.qq.com/s/NPLbbWuxYBU_R5MdurKr2w?scene=1',open:false,wechat:'https://mp.weixin.qq.com/s/NPLbbWuxYBU_R5MdurKr2w?scene=1'},
@@ -587,7 +588,7 @@ function renderGPUs(filter) {
         <div class="gpu-price">${priceHTML}</div>
         <span class="gpu-stock ${stockClass}">${g.stock}</span>
       </div>
-      <a href="https://www.turingcm.com/index?contactsId=000007" target="_blank" class="gpu-register-btn" onclick="event.stopPropagation()">官网注册 →</a>
+      <a href="${g.url}" target="_blank" class="gpu-register-btn" onclick="event.stopPropagation()">官网注册 →</a>
     `;
     grid.appendChild(card);
   });
