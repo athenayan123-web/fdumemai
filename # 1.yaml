@@ -1,0 +1,17 @@
+# 1. 检查项目结构
+ls -la
+
+# 2. 检查是否有构建配置
+cat vite.config.js 2>nul || echo "未找到vite.config.js"
+cat vue.config.js 2>nul || echo "未找到vue.config.js"
+cat package.json
+
+# 3. 检查路由配置
+cat src/router/index.js
+
+# 4. 检查public/index.html
+cat public/index.html
+
+# 5. 查看GitHub Pages设置（需要您手动检查）
+# 访问：https://github.com/athenayan123-web/fdumemai/settings/pages
+# 查看构建状态和错误日志
