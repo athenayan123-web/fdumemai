@@ -1,0 +1,249 @@
+{
+  "coding_plan": {
+    "updated": "2026-03-13",
+    "categories": [
+      {
+        "type": "AI编程助手",
+        "description": "集成代码补全、生成与智能对话的AI开发工具",
+        "products": [
+          {
+            "name": "Claude系列",
+            "emoji": "🟠",
+            "target_users": "个人/企业用户",
+            "pricing_model": "免费/订阅制",
+            "monthly": "Free: $0 | Pro: $17 (年付$200) | Max: $100起",
+            "yearly_monthly": "Free: $0 | Pro: $17 | Max: $100起",
+            "core_features": "Free: 日常对话与轻量任务 | Pro: 优先访问、更高额度 | Max: 最高使用额度、团队协作",
+            "scenarios": "学习、日常开发、团队生产",
+            "price_page": "https://www.anthropic.com/pricing",
+            "buy_link": "https://claude.ai/",
+            "region": "国际",
+            "official_name": "Claude"
+          },
+          {
+            "name": "通义灵码",
+            "emoji": "🌐",
+            "target_users": "国内开发者",
+            "pricing_model": "免费",
+            "monthly": "免费",
+            "yearly_monthly": "免费",
+            "core_features": "Qwen驱动，代码补全、单元测试生成",
+            "scenarios": "国内开发者入门",
+            "price_page": "https://tongyi.aliyun.com/lingma",
+            "buy_link": "https://tongyi.aliyun.com/lingma",
+            "region": "国内",
+            "official_name": "通义灵码"
+          },
+          {
+            "name": "Trae",
+            "emoji": "🔥",
+            "target_users": "国内开发者",
+            "pricing_model": "免费",
+            "monthly": "免费",
+            "yearly_monthly": "免费",
+            "core_features": "字节出品、AI原生IDE，免费GPT-4o接入",
+            "scenarios": "国内开发者入门、学习使用",
+            "price_page": "https://www.trae.ai/",
+            "buy_link": "https://www.trae.ai/",
+            "region": "国内",
+            "official_name": "Trae"
+          },
+          {
+            "name": "MarsCode",
+            "emoji": "🚀",
+            "target_users": "国内开发者",
+            "pricing_model": "免费",
+            "monthly": "免费",
+            "yearly_monthly": "免费",
+            "core_features": "豆包驱动，AI补全、Chat交互",
+            "scenarios": "国内开发者入门",
+            "price_page": "https://www.marscode.com/",
+            "buy_link": "https://www.marscode.com/",
+            "region": "国内",
+            "official_name": "MarsCode"
+          },
+          {
+            "name": "Baidu Comate",
+            "emoji": "🐻",
+            "target_users": "国内开发者",
+            "pricing_model": "免费",
+            "monthly": "免费",
+            "yearly_monthly": "免费",
+            "core_features": "文心驱动，代码生成、智能补全",
+            "scenarios": "国内开发者入门",
+            "price_page": "https://comate.baidu.com/",
+            "buy_link": "https://comate.baidu.com/",
+            "region": "国内",
+            "official_name": "Baidu Comate"
+          },
+          {
+            "name": "Tencent Cloud AI Code",
+            "emoji": "🐧",
+            "target_users": "国内开发者",
+            "pricing_model": "免费",
+            "monthly": "免费",
+            "yearly_monthly": "免费",
+            "core_features": "混元驱动，代码补全、代码解释",
+            "scenarios": "国内开发者入门",
+            "price_page": "https://cloud.tencent.com/product/acc",
+            "buy_link": "https://console.cloud.tencent.com/acc",
+            "region": "国内",
+            "official_name": "腾讯云AI代码助手"
+          }
+        ]
+      },
+      {
+        "type": "AI插件工具",
+        "description": "IDE插件式AI编程辅助工具",
+        "products": [
+          {
+            "name": "GitHub Copilot",
+            "emoji": "🐙",
+            "target_users": "个人/企业开发者",
+            "pricing_model": "订阅制",
+            "monthly": "Individual: $10 | Business: $19",
+            "yearly_monthly": "Individual: $8.33 | Business: $19",
+            "core_features": "Individual: IDE插件式AI助手，多模型切换 | Business: 团队管理、IP保护",
+            "scenarios": "日常编码、企业研发",
+            "price_page": "https://github.com/features/copilot#pricing",
+            "buy_link": "https://github.com/features/copilot",
+            "region": "国际",
+            "official_name": "GitHub Copilot"
+          },
+          {
+            "name": "Windsurf",
+            "emoji": "🏄",
+            "target_users": "独立/技术创业者",
+            "pricing_model": "订阅制",
+            "monthly": "Pro: $15",
+            "yearly_monthly": "$12.50",
+            "core_features": "AI Flow开发体验，多模型切换、代码重构",
+            "scenarios": "轻量级开发、日常编码",
+            "price_page": "https://codeium.com/pricing",
+            "buy_link": "https://codeium.com/download",
+            "region": "国际",
+            "official_name": "Windsurf"
+          },
+          {
+            "name": "Cursor",
+            "emoji": "⚡",
+            "target_users": "专业开发者/团队",
+            "pricing_model": "订阅制",
+            "monthly": "Pro: $20 | Business: $40",
+            "yearly_monthly": "Pro: $16.67 | Business: $33.33",
+            "core_features": "Pro: 无限代码补全、500次快速请求 | Business: 团队协作、集中计费",
+            "scenarios": "重度编码、团队协作",
+            "price_page": "https://www.cursor.com/pricing",
+            "buy_link": "https://www.cursor.com/",
+            "region": "国际",
+            "official_name": "Cursor"
+          },
+          {
+            "name": "Augment Code",
+            "emoji": "🧩",
+            "target_users": "团队开发者",
+            "pricing_model": "订阅制",
+            "monthly": "Pro: $30",
+            "yearly_monthly": "$25",
+            "core_features": "全仓库上下文理解、多文件编辑、智能重构",
+            "scenarios": "大型项目维护",
+            "price_page": "https://www.augmentcode.com/pricing",
+            "buy_link": "https://www.augmentcode.com/",
+            "region": "国际",
+            "official_name": "Augment Code"
+          },
+          {
+            "name": "智谱AI GLM Coding系列",
+            "emoji": "🟣",
+            "target_users": "个人开发者/团队",
+            "pricing_model": "季度订阅制(连续包季9折，拼好模立减10%)",
+            "monthly": "Lite: ￥119/季(≈￥39.7/月) | Pro: ￥362/季(≈￥120.7/月) | Max: ￥1139/季(≈￥379.7/月)",
+            "yearly_monthly": "季度制",
+            "core_features": "Lite: Claude Pro的3倍用量，轻量级工作负载 | Pro: Lite的5倍用量，复杂工作负载，生成速度更快 | Max: Pro的4倍用量，海量工作负载，新模型首发升级",
+            "scenarios": "轻量开发、复杂任务、海量调用",
+            "price_page": "https://open.bigmodel.cn/pricing",
+            "buy_link": "https://open.bigmodel.cn/",
+            "region": "国内",
+            "official_name": "智谱AI"
+          },
+          {
+            "name": "Baidu Comate企业版",
+            "emoji": "🐻",
+            "target_users": "国内企业",
+            "pricing_model": "订阅制",
+            "monthly": "企业版: ¥99",
+            "yearly_monthly": "¥79",
+            "core_features": "ERNIE 4.0驱动，团队管理、私有部署",
+            "scenarios": "企业内部研发、数据安全",
+            "price_page": "https://comate.baidu.com/",
+            "buy_link": "https://comate.baidu.com/",
+            "region": "国内",
+            "official_name": "Baidu Comate企业版"
+          }
+        ]
+      },
+      {
+        "type": "云端API服务",
+        "description": "通过API调用大模型能力的云服务",
+        "products": [
+          {
+            "name": "阿里云Qwen Coding Plan",
+            "emoji": "☁️",
+            "target_users": "个人/专业团队",
+            "pricing_model": "订阅制(预付费包月)",
+            "monthly": "Lite: 首月¥7.9，次月¥20，续订¥40 | Pro: 首月¥39.9，次月¥100，续订¥200",
+            "yearly_monthly": "Lite: ¥20起 | Pro: ¥100起",
+            "core_features": "Lite: 四大模型打包，每月1.8万次请求 | Pro: 月9万次请求，更高额度",
+            "scenarios": "OpenClaw AI机器人、多模型切换、原型验证、生产级应用",
+            "price_page": "https://www.aliyun.com/solution/tech-solution/copaw",
+            "buy_link": "https://dashscope.aliyun.com/",
+            "region": "国内",
+            "official_name": "阿里云百炼"
+          },
+          {
+            "name": "火山引擎系列",
+            "emoji": "🔥",
+            "target_users": "API开发者/团队",
+            "pricing_model": "订阅制",
+            "monthly": "Lite Plan: ¥49 | Pro Plan: ¥199",
+            "yearly_monthly": "Lite: ¥39 | Pro: ¥169",
+            "core_features": "Lite: 豆包/GLM/MiniMax/Kimi基础调用 | Pro: 高级调用+团队管理，更高额度",
+            "scenarios": "轻量API调用、团队开发",
+            "price_page": "https://www.volcengine.com/product/doubao",
+            "buy_link": "https://console.volcengine.com/",
+            "region": "国内",
+            "official_name": "火山引擎"
+          },
+          {
+            "name": "月之暗面Kimi开发者",
+            "emoji": "🌙",
+            "target_users": "API开发者",
+            "pricing_model": "订阅制",
+            "monthly": "Kimi开发者: ¥59",
+            "yearly_monthly": "¥49",
+            "core_features": "Kimi-128K驱动，超长上下文、文档理解",
+            "scenarios": "长文本处理、文档分析",
+            "price_page": "https://platform.moonshot.cn/pricing",
+            "buy_link": "https://platform.moonshot.cn/",
+            "region": "国内",
+            "official_name": "Kimi API"
+          },
+          {
+            "name": "科大讯飞Spark资源包",
+            "emoji": "🎤",
+            "target_users": "个人/企业开发者",
+            "pricing_model": "预付费资源包(有效期1年)",
+            "monthly": "免费包: 个人20万/企业100万tokens | 简享包: ¥300/1亿 | 套餐一: ¥5,400/20亿 | 套餐二: ¥12,000/50亿 | 套餐三: ¥66,000/300亿 | 套餐四: ¥250,000/1250亿",
+            "yearly_monthly": "资源包制",
+            "core_features": "适用于Spark X2/Ultra/Pro/Lite全系列，资源包内用量抵扣，超量按需计费",
+            "scenarios": "中小规模应用、生产级部署、企业核心业务",
+            "price_page": "https://xinghuo.xfyun.cn/buy",
+            "buy_link": "https://console.xfyun.cn/",
+            "region": "国内",
+            "official_name": "讯飞星火API"
+          }
+        ]
+      }
+    ]
+  }
+}
