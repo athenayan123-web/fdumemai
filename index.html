@@ -360,7 +360,7 @@ a:hover{text-decoration:underline}
 
     <a onclick="switchSection('skills')">百万SKILLS</a>
 
-    <a onclick="switchSection('trends')">价格趋势</a>
+    <a onclick="switchSection('trends')">AI实战案例</a>
 
   </div>
 
@@ -422,7 +422,7 @@ a:hover{text-decoration:underline}
 
       <div class="tab" onclick="switchSection('skills')">📚 百万SKILLS</div>
 
-      <div class="tab" onclick="switchSection('trends')">📈 价格趋势</div>
+      <div class="tab" onclick="switchSection('trends')">📈 AI实战案例</div>
 
     </div>
 
@@ -647,7 +647,7 @@ a:hover{text-decoration:underline}
 
       <div style="font-size:64px;margin-bottom:20px">🔒</div>
 
-      <h3 style="margin-bottom:12px;font-size:20px;color:var(--text)">注册后解锁复旦大学百万SKILLS</h3>
+      <h3 style="margin-bottom:12px;font-size:20px;color:var(--text)">注册后解锁复旦大学百万SKILLS和实战案例集</h3>
 
       <p style="color:var(--text2);margin-bottom:24px;font-size:14px;max-width:400px;margin-left:auto;margin-right:auto">注册即可免费访问全部技能库，包括编程开发、效率工具、人工智能、基础设施等 42,800+ 技能包</p>
 
@@ -739,22 +739,31 @@ a:hover{text-decoration:underline}
 
 
 
-  <!-- ===== 历史价格趋势（登录可见） ===== -->
+  <!-- ===== 历史价格趋势 ===== -->
 
   <div class="compare-section" id="section-trends">
 
     <div class="section-header">
 
-      <h2>📈 价格趋势分析</h2>
+      <h2>📈 AI实战案例</h2>
+      <p style="color:var(--accent);font-size:14px;margin-top:6px">🎉 全新上线 · 上线时间：2026年3月17日周一</p>
+      <p style="color:var(--text2);font-size:13px;margin-top:4px">Claw AI 团队真实项目落地经验分享</p>
 
     </div>
-
-    <div id="trend-content" class="restricted-overlay" style="min-height:200px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:40px;text-align:center">
-
-      <p style="color:var(--text2);font-size:14px">登录后可查看各厂商历史价格走势、降价预测与性价比排名</p>
-
+    <!-- 未登录锁定遮罩 -->
+    <div id="trends-locked" style="text-align:center;padding:60px 20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r)">
+      <div style="font-size:64px;margin-bottom:20px">🔒</div>
+      <h3 style="margin-bottom:12px;font-size:20px;color:var(--text)">注册后解锁全部内容</h3>
+      <p style="color:var(--text2);margin-bottom:24px;font-size:14px;max-width:400px;margin-left:auto;margin-right:auto">注册即可免费访问AI实战案例集和全部技能库</p>
+      <div style="display:flex;gap:12px;justify-content:center">
+        <button onclick="openModal('modal-register')" style="padding:10px 32px;font-size:15px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;cursor:pointer;font-weight:700">免费注册</button>
+        <button onclick="openModal('modal-login')" style="padding:10px 32px;font-size:15px;border-radius:10px;background:transparent;color:var(--accent);border:1px solid rgba(102,126,234,.4);cursor:pointer;font-weight:700">已有账号登录</button>
+      </div>
     </div>
-
+    <!-- 已登录内容（默认隐藏） -->
+    <div id="trends-content" style="display:none;min-height:200px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:40px;text-align:center">
+      <p style="color:var(--text2);font-size:14px">AI实战案例集即将上线，敬请期待！上线时间：2026年3月17日周一</p>
+    </div>
   </div>
 
 
@@ -1337,7 +1346,7 @@ function switchSection(id) {
 
         (id === 'skills' && a.textContent === '百万SKILLS') ||
 
-        (id === 'trends' && a.textContent === '价格趋势'))
+        (id === 'trends' && (a.textContent === 'AI实战案例' || a.textContent === '价格趋势')))
 
       a.classList.add('active');
 
@@ -1392,17 +1401,18 @@ function filterSkills(q) {
 }
 
 function updateSkillsVisibility() {
-
   var locked = document.getElementById('skills-locked');
-
   var content = document.getElementById('skills-content');
-
-  if (!locked || !content) return;
-
-  if (user) { locked.style.display='none'; content.style.display='block'; }
-
-  else { locked.style.display='block'; content.style.display='none'; }
-
+  if (locked && content) {
+    if (user) { locked.style.display='none'; content.style.display='block'; }
+    else { locked.style.display='block'; content.style.display='none'; }
+  }
+  var trendsLocked = document.getElementById('trends-locked');
+  var trendsContent = document.getElementById('trends-content');
+  if (trendsLocked && trendsContent) {
+    if (user) { trendsLocked.style.display='none'; trendsContent.style.display='block'; }
+    else { trendsLocked.style.display='block'; trendsContent.style.display='none'; }
+  }
 }
 
 function closeModal(id) { document.getElementById(id).classList.remove('show'); }
